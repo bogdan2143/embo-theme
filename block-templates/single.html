@@ -1,0 +1,34 @@
+<!-- wp:template-part {"slug":"header"} /-->
+
+<!-- wp:group {"className":"container"} -->
+<div class="container">
+    <div class="columns">
+        <!-- Левая колонка (основной контент) -->
+        <div class="column is-8">
+            <article class="box">
+                <!-- wp:post-title /-->
+                <!-- wp:post-content /-->
+            </article>
+
+            <!-- wp:comments -->
+            <section class="box">
+                <h2 class="title is-4">Комментарии</h2>
+                <!-- wp:comments-title /-->
+                <!-- wp:comment-template /-->
+                <!-- wp:comments-pagination /-->
+            </section>
+            <!-- /wp:comments -->
+        </div>
+
+        <!-- Правая колонка (сайдбар) -->
+        <div class="column is-4">
+            <aside class="box">
+                <h2 class="title is-5">Последние посты</h2>
+                <!-- wp:latest-posts {"postsToShow":5} /-->
+            </aside>
+        </div>
+    </div>
+</div>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer"} /-->

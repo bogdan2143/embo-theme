@@ -1,0 +1,31 @@
+/*
+Theme Name: Bogdan's theme
+Theme URI:  https://example.com
+Author:      Ваше Имя
+Author URI:  https://example.com
+Description: Минимальная FSE-тема для демонстрации конструктора в Site Editor.
+Version:     0.1
+License:     GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: my-fse-theme
+*/
+
+/* Добавляем кастомный стиль для контентных блоков */
+.box {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Дополнительные стили для заголовков */
+h2.title {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Подвал */
+.footer {
+    background: #f5f5f5;
+    padding: 2rem;
+}

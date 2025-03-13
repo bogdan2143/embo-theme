@@ -1,0 +1,28 @@
+<!-- wp:template-part {"slug":"header"} /-->
+
+<!-- wp:group {"className":"container"} -->
+<div class="container">
+    <div class="columns">
+        <!-- Левая колонка (основной контент) -->
+        <div class="column is-8">
+            <p>Это шаблон index, обычно показывается для архивов записей или в общем случае.</p>
+            <!-- wp:post-template -->
+            <article class="box">
+                <!-- wp:post-title {"isLink":true} /-->
+                <!-- wp:post-excerpt /-->
+            </article>
+            <!-- /wp:post-template -->
+        </div>
+
+        <!-- Правая колонка (сайдбар) -->
+        <div class="column is-4">
+            <aside class="box">
+                <h2>Последние посты</h2>
+                <!-- wp:latest-posts {"postsToShow":5} /-->
+            </aside>
+        </div>
+    </div>
+</div>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer"} /-->
