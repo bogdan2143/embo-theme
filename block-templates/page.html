@@ -1,25 +1,17 @@
 <!-- wp:template-part {"slug":"header"} /-->
-
+<!-- wp:embo/breadcrumbs /-->
 <!-- wp:group {"className":"container"} -->
 <div class="container">
     <div class="columns">
-        <!-- Левая колонка (основной контент) -->
-        <div class="column is-8">
+        <div class="column">
+            <!-- wp:post-template -->
             <article class="box">
-                <!-- wp:post-title /-->
+                <!-- wp:post-title {"level":1,"isLink":false} /-->
                 <!-- wp:post-content /-->
             </article>
-        </div>
-
-        <!-- Правая колонка (сайдбар) -->
-        <div class="column is-4">
-            <aside class="box">
-                <h2 class="title is-5">Дополнительная информация</h2>
-                <!-- wp:latest-posts {"postsToShow":5} /-->
-            </aside>
+            <!-- /wp:post-template -->
         </div>
     </div>
 </div>
 <!-- /wp:group -->
-
 <!-- wp:template-part {"slug":"footer"} /-->

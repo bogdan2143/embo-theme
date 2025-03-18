@@ -9,22 +9,28 @@ License:     GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-/* Добавляем кастомный стиль для контентных блоков */
+/* Стилі для контентних блоків */
 .box {
     background: #ffffff;
     padding: 1.5rem;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Дополнительные стили для заголовков */
+/* Стилі для заголовків */
 h2.title {
     color: #333;
     font-weight: bold;
 }
 
-/* Подвал */
+/* Стилі для підвалу */
 .footer {
     background: #f5f5f5;
     padding: 2rem;
+}
+
+/* Стилі для "хлібних крихт" */
+.breadcrumb {
+    margin: 1rem 0;
+    font-size: 0.9rem;
 }

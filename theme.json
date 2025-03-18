@@ -3,45 +3,17 @@
   "settings": {
     "color": {
       "palette": [
-        {
-          "name": "Black",
-          "slug": "black",
-          "color": "#000000"
-        },
-        {
-          "name": "White",
-          "slug": "white",
-          "color": "#ffffff"
-        },
-        {
-          "name": "Primary",
-          "slug": "primary",
-          "color": "#3273dc"
-        },
-        {
-          "name": "Secondary",
-          "slug": "secondary",
-          "color": "#23d160"
-        }
+        { "name": "Чорний", "slug": "black", "color": "#000000" },
+        { "name": "Білий", "slug": "white", "color": "#ffffff" },
+        { "name": "Основний", "slug": "primary", "color": "#3273dc" },
+        { "name": "Другорядний", "slug": "secondary", "color": "#23d160" }
       ]
     },
     "typography": {
       "fontSizes": [
-        {
-          "name": "Small",
-          "slug": "small",
-          "size": "12px"
-        },
-        {
-          "name": "Normal",
-          "slug": "normal",
-          "size": "16px"
-        },
-        {
-          "name": "Large",
-          "slug": "large",
-          "size": "24px"
-        }
+        { "name": "Малий", "slug": "small", "size": "12px" },
+        { "name": "Стандартний", "slug": "normal", "size": "16px" },
+        { "name": "Великий", "slug": "large", "size": "24px" }
       ]
     },
     "layout": {
@@ -51,20 +23,9 @@
   },
   "styles": {
     "elements": {
-      "h1": {
-        "typography": {
-          "fontSize": "32px"
-        }
-      },
-      "h2": {
-        "typography": {
-          "fontSize": "24px"
-        }
-      }
+      "h1": { "typography": { "fontSize": "32px" } },
+      "h2": { "typography": { "fontSize": "24px" } }
     },
-    "color": {
-      "background": "#ffffff",
-      "text": "#333333"
-    }
+    "color": { "background": "#ffffff", "text": "#333333" }
   }
 }
