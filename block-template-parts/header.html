@@ -1,36 +1,45 @@
-<!-- wp:group {"tagName":"nav","className":"navbar is-primary","layout":{"type":"constrained"}} -->
-<nav class="navbar is-primary" role="navigation" aria-label="головна навігація">
+<!-- wp:group {"className":"navbar is-primary","layout":{"type":"constrained"}} -->
+<div class="wp-block-group navbar is-primary" role="navigation" aria-label="Головна навігація">
   <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-  <div class="container">
+  <div class="wp-block-group container">
+    
     <!-- wp:group {"className":"navbar-brand","layout":{"type":"constrained"}} -->
-    <div class="navbar-brand">
-      <!-- Блок site-title выводит название сайта; его можно заменить на wp:site-logo, если настроен логотип -->
+    <div class="wp-block-group navbar-brand">
+      
+      <!-- Логотип или название сайта -->
       <!-- wp:site-title {"tagName":"p","className":"navbar-item"} /-->
+      
+      <!-- Стандартный блок поиска -->
       <!-- wp:search {"label":"Search","placeholder":"Пошук...","className":"navbar-item"} /-->
-      <!-- Бургер-меню – если потребуется, можно доработать JS для его управления -->
-      <!-- wp:group {"tagName":"a","className":"navbar-burger","layout":{"type":"constrained"}} -->
-      <a class="navbar-burger" role="button" aria-label="меню" aria-expanded="false" data-target="navbarMain">
+
+      <!-- Бургер-меню (иконки) как HTML внутри группы -->
+      <!-- wp:group {"className":"navbar-burger","layout":{"type":"constrained"}} -->
+      <div class="wp-block-group navbar-burger">
         <!-- wp:html -->
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+        <a role="button" aria-label="меню" aria-expanded="false" data-target="navbarMain">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
         <!-- /wp:html -->
-      </a>
+      </div>
       <!-- /wp:group -->
+
     </div>
     <!-- /wp:group -->
 
     <!-- wp:group {"className":"navbar-menu","layout":{"type":"constrained"}} -->
-    <div class="navbar-menu" id="navbarMain">
+    <div class="wp-block-group navbar-menu" id="navbarMain">
       <!-- wp:group {"className":"navbar-end","layout":{"type":"constrained"}} -->
-      <div class="navbar-end">
-        <!-- Блок navigation выводит динамическое меню WordPress -->
+      <div class="wp-block-group navbar-end">
+        <!-- Стандартный блок Navigation для меню -->
         <!-- wp:navigation {"layout":{"type":"flex","justifyContent":"right"},"className":"my-menu"} /-->
       </div>
       <!-- /wp:group -->
     </div>
     <!-- /wp:group -->
+    
   </div>
   <!-- /wp:group -->
-</nav>
+</div>
 <!-- /wp:group -->

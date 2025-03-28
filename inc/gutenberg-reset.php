@@ -1,9 +1,12 @@
 <?php
 /**
- * Функции для сброса настроек Гутенберга.
+ * Функции для сброса настроек Гутенберга и очистки шаблонных данных.
  *
  * При активации темы выводится уведомление с предложением сбросить настройки.
- * При нажатии на ссылку выполняется сброс (например, удаление опции block editor).
+ * При нажатии на ссылку выполняется сброс:
+ *   - удаляется опция настроек редактора блоков,
+ *   - удаляются все записи шаблонов и шаблонных частей (wp_template, wp_template_part),
+ *   - сбрасываются theme_mods.
  */
 
 /**
@@ -46,16 +49,37 @@ function myblocktheme_maybe_show_gutenberg_reset_notice() {
 add_action( 'admin_notices', 'myblocktheme_maybe_show_gutenberg_reset_notice' );
 
 /**
- * Обработка запроса на сброс настроек Гутенберга.
+ * Обработка запроса на сброс настроек Гутенберга и очистку шаблонных данных.
  */
 function myblocktheme_handle_gutenberg_reset() {
     if ( isset( $_GET['gutenberg_reset'] ) && '1' === $_GET['gutenberg_reset'] && check_admin_referer( 'gutenberg_reset_nonce' ) ) {
-        // Пример сброса: удаляем опцию, отвечающую за настройки редактора блоков.
+
+        // Удаляем опцию настроек редактора блоков.
         delete_option( 'wp_block_editor_settings' );
-        add_action( 'admin_notices', function() {
+
+        global $wpdb;
+        // Удаляем записи шаблонов.
+        $deleted_templates = $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type = 'wp_template'" );
+        // Удаляем записи шаблонных частей.
+        $deleted_template_parts = $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type = 'wp_template_part'" );
+        
+        // Удаляем связанные метаданные.
+        $wpdb->query( "DELETE pm FROM {$wpdb->postmeta} pm
+            JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+            WHERE p.post_type IN ('wp_template', 'wp_template_part')" );
+        
+        // Сбрасываем theme_mods для текущей темы.
+        $theme = get_stylesheet();
+        delete_option( "theme_mods_{$theme}" );
+
+        add_action( 'admin_notices', function() use ( $deleted_templates, $deleted_template_parts ) {
             ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php _e( 'Настройки Гутенберга успешно сброшены.', 'myblocktheme' ); ?></p>
+                <p>
+                    <?php
+                    printf( __( 'Настройки Гутенберга и шаблонные данные успешно сброшены. Удалено шаблонов: %d, шаблонных частей: %d.', 'myblocktheme' ), $deleted_templates, $deleted_template_parts );
+                    ?>
+                </p>
             </div>
             <?php
         } );

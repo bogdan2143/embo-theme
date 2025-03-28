@@ -3,6 +3,8 @@
  * Функциональная часть темы My Block Theme – ООП версия.
  */
 
+//require_once get_template_directory() . '/inc/default-templates.php';
+
 // Подключаем файл с функциями сброса настроек Гутенберга.
 require_once get_template_directory() . '/inc/gutenberg-reset.php';
 
