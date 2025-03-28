@@ -3,8 +3,6 @@
  * Функциональная часть темы My Block Theme – ООП версия.
  */
 
-//require_once get_template_directory() . '/inc/default-templates.php';
-
 // Подключаем файл с функциями сброса настроек Гутенберга.
 require_once get_template_directory() . '/inc/gutenberg-reset.php';
 
@@ -26,6 +24,9 @@ class MyBlockTheme {
         add_action( 'wp_ajax_nopriv_myblocktheme_load_more', array( $this, 'load_more_posts' ) );
         // Регистрация шорткода информера
         add_shortcode( 'informer', array( $this, 'informer_shortcode' ) );
+
+        // Добавляем хук, который срабатывает при активации темы и создаёт/назначает home.
+        add_action( 'after_switch_theme', array( $this, 'create_and_assign_home_page' ) );
     }
 
     /**
@@ -56,6 +57,7 @@ class MyBlockTheme {
         ) );
 
         // Стартовый контент для автоматического наполнения при активации темы
+        // (Вы можете оставить это, если нужно автодобавление страниц/меню)
         $starter_content = array(
             'posts' => array(
                 'home' => array(
@@ -80,6 +82,38 @@ class MyBlockTheme {
             ),
         );
         add_theme_support( 'starter-content', $starter_content );
+    }
+
+    /**
+     * Создаёт страницу со слагом 'home' и назначает её как главную (show_on_front=page).
+     * Срабатывает один раз при активации темы.
+     */
+    public function create_and_assign_home_page() {
+        // Проверим, не назначена ли уже главная страница
+        $existing_front_page_id = get_option( 'page_on_front' );
+        if ( $existing_front_page_id ) {
+            // Если уже есть назначенная страница, ничего не делаем
+            return;
+        }
+
+        // Ищем страницу со слагом 'home'
+        $home_page = get_page_by_path( 'home' );
+        if ( ! $home_page ) {
+            // Если нет, создаём
+            $page_id = wp_insert_post( array(
+                'post_type'    => 'page',
+                'post_name'    => 'home',
+                'post_title'   => __( 'Home', 'myblocktheme' ),
+                'post_content' => __( 'Добро пожаловать на наш сайт!', 'myblocktheme' ),
+                'post_status'  => 'publish',
+            ) );
+        } else {
+            $page_id = $home_page->ID;
+        }
+
+        // Устанавливаем "Статическая главная" и назначаем page_on_front
+        update_option( 'show_on_front', 'page' );
+        update_option( 'page_on_front', $page_id );
     }
 
     /**
@@ -355,7 +389,7 @@ class MyBlockTheme {
      * Подключение скрипта для AJAX-подгрузки постов.
      */
     public function enqueue_load_more_script() {
-        wp_enqueue_script( 'myblocktheme-load-more', get_template_directory_uri() . '/js/load-more.js', array( 'jquery' ), '1.0', true );
+        wp_enqueue_script( 'myblocktheme-load-more', get_template_directory_uri() . '/src/js/load-more.js', array( 'jquery' ), '1.0', true );
         // Определяем текущую категорию, если мы на архивной странице
         $current_category = 'news';
         if ( is_category() ) {
