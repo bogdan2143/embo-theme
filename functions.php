@@ -9,6 +9,9 @@ require_once get_template_directory() . '/inc/gutenberg-reset.php';
 class MyBlockTheme {
 
     public function __construct() {
+        // Переключаем редактор на классический с сохранением настроек темы.
+        add_action( 'after_setup_theme', array( $this, 'switch_to_standard_editor' ), 1 );
+        
         // Инициализация темы
         add_action( 'after_setup_theme', array( $this, 'setup' ) );
         // Подключение стилей
@@ -24,9 +27,22 @@ class MyBlockTheme {
         add_action( 'wp_ajax_nopriv_myblocktheme_load_more', array( $this, 'load_more_posts' ) );
         // Регистрация шорткода информера
         add_shortcode( 'informer', array( $this, 'informer_shortcode' ) );
-
-        // Добавляем хук, который срабатывает при активации темы и создаёт/назначает home.
+        // Хук для создания и назначения домашней страницы при активации темы
         add_action( 'after_switch_theme', array( $this, 'create_and_assign_home_page' ) );
+    }
+
+    /**
+     * Переключает на классический редактор с сохранением настроек темы.
+     */
+    public function switch_to_standard_editor() {
+        // Отключаем поддержку блочных шаблонов
+        remove_theme_support( 'block-templates' );
+        // Отключаем блоковый редактор для отдельных постов
+        add_filter( 'use_block_editor_for_post', '__return_false', 1 );
+        // Отключаем блоковый редактор для типов записей (например, для страниц)
+        add_filter( 'use_block_editor_for_post_type', '__return_false', 1 );
+        // Подключаем стили для классического редактора (файл editor-style.css должен находиться в корневой директории темы)
+        add_editor_style( 'editor-style.css' );
     }
 
     /**
@@ -57,7 +73,6 @@ class MyBlockTheme {
         ) );
 
         // Стартовый контент для автоматического наполнения при активации темы
-        // (Вы можете оставить это, если нужно автодобавление страниц/меню)
         $starter_content = array(
             'posts' => array(
                 'home' => array(
@@ -92,7 +107,6 @@ class MyBlockTheme {
         // Проверим, не назначена ли уже главная страница
         $existing_front_page_id = get_option( 'page_on_front' );
         if ( $existing_front_page_id ) {
-            // Если уже есть назначенная страница, ничего не делаем
             return;
         }
 
@@ -239,7 +253,7 @@ class MyBlockTheme {
         $atts = shortcode_atts( array(
             'category'    => 'news',
             'per_page'    => 4,
-            'button_text' => __( 'Читати далі', 'myblocktheme' ), // Если содержит %s, заменим на название категории.
+            'button_text' => __( 'Читати далі', 'myblocktheme' ),
         ), $atts, 'informer' );
 
         // Первый запрос: выводим один пост (featured)
@@ -362,7 +376,6 @@ class MyBlockTheme {
     public function render_breadcrumbs_block( $attributes ) {
         $output = '<nav class="breadcrumb" aria-label="хлібні крошки">';
         $output .= '<ul>';
-
         // Первый элемент: ссылка на главную
         $output .= '<li><a href="' . esc_url( home_url( '/' ) ) . '">Головна</a></li>';
 
