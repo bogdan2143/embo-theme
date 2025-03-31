@@ -1,0 +1,194 @@
+/*
+Theme Name: EmboTheme
+Theme URI: https://embo.com.ua/
+Author: Morginal (morguenal)
+Author URI: https://github.com/bogdan2143/embo-theme
+Description: Адаптована блокова тема з підтримкою FSE, Bulma і кастомною версткою.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: myblocktheme
+Tags: block-theme, full-site-editing, fse, responsive, bulma
+*/
+
+/* Оригинальные стили из прикреплённого шаблона */
+
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+.main-container {
+  flex: 1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.timeline-list {
+  list-style: none;
+  padding-left: 0;
+}
+.timeline-item {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+.menu-label {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.breadcrumb {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+aside.menu {
+  margin: 10px 0;
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+.tags-area {
+  margin-top: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.informer-block {
+  margin-bottom: 30px;
+  padding: 20px;
+}
+.informer-block .columns {
+  align-items: flex-start;
+}
+.informer-block .small-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+.featured-item figure {
+  margin-bottom: 10px;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.truncate-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+@media screen and (max-width: 768px) {
+  .timeline-list {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .news-feed {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .informer-block .columns {
+    flex-direction: column;
+  }
+  .informer-block .columns > .column {
+    flex: none !important;
+    width: 100% !important;
+  }
+  .informer-block .featured-item {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+.news-feed {
+  margin-top: 20px;
+}
+.news-feed article.news-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.news-feed article.news-item .news-image {
+  flex: 0 0 200px;
+  margin-right: 20px;
+}
+.news-feed article.news-item .news-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.news-feed article.news-item .news-content {
+  flex: 1;
+}
+.news-feed article.news-item .news-content h2 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-feed article.news-item .news-content p {
+  margin-bottom: 10px;
+}
+@media screen and (max-width: 768px) {
+  .news-feed article.news-item {
+    flex-direction: column;
+  }
+  .news-feed article.news-item .news-image {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
+.load-more {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Стили для страницы поста */
+.article-content {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+}
+.article-content .breadcrumb {
+  margin-bottom: 20px;
+}
+.article-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.article-meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 20px;
+}
+.article-image {
+  margin-bottom: 20px;
+}
+.article-image img {
+  width: 100%;
+  border-radius: 4px;
+}
+.article-body p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+@media screen and (max-width: 768px) {
+  .article-content {
+    padding: 15px;
+  }
+}
