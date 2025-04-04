@@ -12,6 +12,7 @@ require_once get_template_directory() . '/inc/class-informer-shortcode.php';
 require_once get_template_directory() . '/inc/class-dynamic-breadcrumbs.php';
 require_once get_template_directory() . '/inc/class-ajax-load-more.php';
 require_once get_template_directory() . '/inc/class-gutenberg-reset.php';
+require_once get_template_directory() . '/inc/class-cleanup.php';
 
 // Ініціалізуємо модулі
 $theme_setup          = new MyBlockTheme_Setup();
@@ -20,12 +21,16 @@ $informer_shortcode   = new MyBlockTheme_InformerShortcode();
 $dynamic_breadcrumbs  = new MyBlockTheme_DynamicBreadcrumbs();
 $ajax_load_more       = new MyBlockTheme_AjaxLoadMore();
 $gutenberg_reset      = new MyBlockTheme_GutenbergReset();
+$cleanup              = new MyBlockTheme_Cleanup();
 
 // Централізована реєстрація хуків для модуля налаштування теми
 add_action( 'after_setup_theme', array( $theme_setup, 'switch_to_standard_editor' ), 1 );
 add_action( 'after_setup_theme', array( $theme_setup, 'setup' ) );
 add_action( 'after_switch_theme', array( $theme_setup, 'create_and_assign_home_page' ) );
 add_action( 'wp_enqueue_scripts', array( $theme_setup, 'enqueue_styles' ) );
+
+// Додавання правильного підключення jQuery та jquery-migrate через метод класу
+add_action( 'wp_enqueue_scripts', array( $theme_setup, 'enqueue_scripts' ) );
 
 // Реєстрація блокових патернів
 add_action( 'init', array( $block_patterns, 'register_block_patterns' ) );

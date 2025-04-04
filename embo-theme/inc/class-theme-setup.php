@@ -105,4 +105,21 @@ class MyBlockTheme_Setup {
         wp_enqueue_style( 'bulma', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css', array(), '0.9.4' );
         wp_enqueue_style( 'myblocktheme-style', get_stylesheet_uri(), array( 'bulma' ), '1.0' );
     }
+
+    /**
+     * Підключає скрипти теми з правильним розташуванням jQuery та jquery-migrate у футері.
+     */
+    public function enqueue_scripts() {
+        if ( ! is_admin() ) {
+            // Перепідключаємо jQuery з параметром завантаження у футері.
+            wp_deregister_script( 'jquery' );
+            wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), array(), null, true );
+            wp_enqueue_script( 'jquery' );
+
+            // Перепідключаємо jquery-migrate з параметром завантаження у футері.
+            wp_deregister_script( 'jquery-migrate' );
+            wp_register_script( 'jquery-migrate', includes_url( '/js/jquery/jquery-migrate.js' ), array( 'jquery' ), null, true );
+            wp_enqueue_script( 'jquery-migrate' );
+        }
+    }
 }
