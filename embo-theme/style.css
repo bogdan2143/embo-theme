@@ -4,14 +4,40 @@ Theme URI: https://embo.com.ua/
 Author: Morginal (morguenal)
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Адаптована блокова тема з підтримкою FSE, Bulma і кастомною версткою.
-Version: 1.0
+Version: 1.3
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
 Tags: block-theme, full-site-editing, fse, responsive, bulma
 */
 
-/* Оригинальные стили из прикреплённого шаблона */
+/* Оригінальні стилі з прикріпленого шаблону */
+/* Фон для шапки */
+header.wp-block-template-part {
+  background-color: var(--wp--preset--color--header-bg, #485fc7);
+}
+
+/* Фон для футера */
+footer.wp-block-template-part,
+footer.footer {
+  background-color: var(--wp--preset--color--footer-bg, #333333);
+}
+
+/* Фон для сайдбара (aside) */
+aside {
+  background-color: var(--wp--preset--color--aside-bg, #f1f1f1);
+}
+
+/* Применение цвета ссылок (если не применяется автоматически) */
+a {
+  color: var(--wp--preset--color--links, #1e73be);
+}
+
+/* Применение цвета кнопок (если не применяется автоматически) */
+.wp-block-button__link, button {
+  background-color: var(--wp--preset--color--button, #32373c);
+  color: #fff;
+}
 
 html, body {
   height: 100%;
@@ -43,7 +69,18 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
-.menu {
+.breadcrumb-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+.breadcrumb-item:last-child {
+    margin-right: 0;
+}
+.is-active {
+    font-weight: bold;
+  }
+/* Контейнер меню, який використовує позицію sticky для фіксації при прокрутці */
+.global-aside {
   margin: 10px 0;
   position: sticky;
   top: 20px;
@@ -65,7 +102,6 @@ body {
 .informer-block .small-item {
   margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #eee;
   border-radius: 4px;
 }
 .featured-item figure {
@@ -157,7 +193,7 @@ body {
   text-align: center;
 }
 
-/* Стили для страницы поста */
+/* Стилі для сторінки поста */
 .article-content {
   margin: 0 auto;
   max-width: 800px;

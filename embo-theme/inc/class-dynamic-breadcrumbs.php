@@ -2,13 +2,12 @@
 /**
  * Клас MyBlockTheme_DynamicBreadcrumbs
  *
- * Реєструє динамічний блок "Breadcrumbs" для виводу хлібних крихт.
+ * Реєструє динамічний блок "Хлібні крихти" для виводу хлібних крихт із SEO-розміткою.
  */
-
 class MyBlockTheme_DynamicBreadcrumbs {
 
     /**
-     * Реєструє блок "Breadcrumbs".
+     * Реєструє блок "Хлібні крихти".
      */
     public function register_dynamic_breadcrumbs() {
         register_block_type( 'myblocktheme/breadcrumbs', array(
@@ -25,29 +24,72 @@ class MyBlockTheme_DynamicBreadcrumbs {
     }
 
     /**
-     * Функція-колбек для виводу хлібних крихт.
+     * Функція-колбек для виводу хлібних крихт із SEO-розміткою.
      */
     public function render_breadcrumbs_block( $attributes ) {
-        $output = '<nav class="breadcrumb" aria-label="хлібні крихти">';
-        $output .= '<ul>';
-        // Перший елемент: посилання на головну
-        $output .= '<li><a href="' . esc_url( home_url( '/' ) ) . '">Головна</a></li>';
+        // Якщо це головна сторінка, виводимо лише один елемент "Головна"
+        if ( is_front_page() ) {
+            return '<nav class="breadcrumb" aria-label="хлібні крихти" itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <ol>
+                            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
+                                <span itemprop="name" class="is-active">Головна</span>
+                                <meta itemprop="position" content="1" />
+                            </li>
+                        </ol>
+                    </nav>';
+        }
 
+        $breadcrumbs = array();
+        // Перший елемент: посилання на головну
+        $breadcrumbs[] = array(
+            'title' => 'Головна',
+            'url'   => home_url( '/' )
+        );
+
+        // Додаємо пункти в залежності від типу сторінки
         if ( is_category() ) {
-            $output .= '<li class="is-active">' . single_cat_title( '', false ) . '</li>';
+            $breadcrumbs[] = array(
+                'title' => single_cat_title( '', false )
+            );
         } elseif ( is_single() ) {
             $categories = get_the_category();
             if ( ! empty( $categories ) ) {
-                $output .= '<li><a href="' . esc_url( get_category_link( $categories[0]->term_id ) ) . '">' . esc_html( $categories[0]->name ) . '</a></li>';
+                $breadcrumbs[] = array(
+                    'title' => esc_html( $categories[0]->name ),
+                    'url'   => get_category_link( $categories[0]->term_id )
+                );
             }
-            $output .= '<li class="is-active">' . get_the_title() . '</li>';
+            $breadcrumbs[] = array(
+                'title' => get_the_title()
+            );
         } elseif ( is_page() ) {
-            $output .= '<li class="is-active">' . get_the_title() . '</li>';
+            $breadcrumbs[] = array(
+                'title' => get_the_title()
+            );
         } elseif ( is_search() ) {
-            $output .= '<li class="is-active">' . __( 'Результати пошуку', 'myblocktheme' ) . '</li>';
+            $breadcrumbs[] = array(
+                'title' => __( 'Результати пошуку', 'myblocktheme' )
+            );
         }
-        $output .= '</ul>';
-        $output .= '</nav>';
+
+        // Формуємо HTML з SEO-розміткою Schema.org BreadcrumbList
+        $output = '<nav class="breadcrumb" aria-label="хлібні крихти" itemscope itemtype="https://schema.org/BreadcrumbList"><ol>';
+        $position = 1;
+        foreach ( $breadcrumbs as $crumb ) {
+            $output .= '<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+            if ( isset( $crumb['url'] ) ) {
+                // Якщо в масиві є 'url', робимо посилання
+                $output .= '<a href="' . esc_url( $crumb['url'] ) . '" itemprop="item"><span itemprop="name">' . esc_html( $crumb['title'] ) . '</span></a>';
+            } else {
+                // Якщо 'url' немає, виводимо активний пункт
+                $output .= '<span itemprop="name" class="is-active">' . esc_html( $crumb['title'] ) . '</span>';
+            }
+            // Meta-позиція для SEO
+            $output .= '<meta itemprop="position" content="' . $position . '" />';
+            $output .= '</li>';
+            $position++;
+        }
+        $output .= '</ol></nav>';
 
         return $output;
     }
