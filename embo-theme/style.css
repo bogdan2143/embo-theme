@@ -11,34 +11,6 @@ Text Domain: myblocktheme
 Tags: block-theme, full-site-editing, fse, responsive, bulma
 */
 
-/* Оригінальні стилі з прикріпленого шаблону */
-/* Фон для шапки */
-header.wp-block-template-part {
-  background-color: var(--wp--preset--color--header-bg, #485fc7);
-}
-
-/* Фон для футера */
-footer.wp-block-template-part,
-footer.footer {
-  background-color: var(--wp--preset--color--footer-bg, #333333);
-}
-
-/* Фон для сайдбара (aside) */
-aside {
-  background-color: var(--wp--preset--color--aside-bg, #f1f1f1);
-}
-
-/* Применение цвета ссылок (если не применяется автоматически) */
-a {
-  color: var(--wp--preset--color--links, #1e73be);
-}
-
-/* Применение цвета кнопок (если не применяется автоматически) */
-.wp-block-button__link, button {
-  background-color: var(--wp--preset--color--button, #32373c);
-  color: #fff;
-}
-
 html, body {
   height: 100%;
 }
@@ -78,7 +50,7 @@ body {
 }
 .is-active {
     font-weight: bold;
-  }
+}
 /* Контейнер меню, який використовує позицію sticky для фіксації при прокрутці */
 .global-aside {
   margin: 10px 0;
@@ -227,4 +199,13 @@ body {
   .article-content {
     padding: 15px;
   }
+}
+
+/* --- Нейтральні правила для блоків, щоб inline-стилі мали пріоритет --- */
+/* Ці правила встановлюють прозорий фон та наслідування кольору, тому inline-стилі, які додаються плагіном, перекриють їх */
+.navbar.is-primary,
+footer.footer,
+.global-aside {
+  background-color: transparent;
+  color: inherit;
 }

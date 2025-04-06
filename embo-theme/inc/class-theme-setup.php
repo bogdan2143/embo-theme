@@ -6,7 +6,7 @@
  * - перемикання редактора на класичний,
  * - налаштування підтримки теми (custom logo, мініатюри, меню, стартовий контент),
  * - створення та призначення домашньої сторінки,
- * - підключення стилів.
+ * - підключення стилів та скриптів.
  */
 
 class MyBlockTheme_Setup {
@@ -18,9 +18,9 @@ class MyBlockTheme_Setup {
         // Вимикаємо підтримку блокових шаблонів
         remove_theme_support( 'block-templates' );
         // Вимикаємо блоковий редактор для окремих постів
-        add_filter( 'use_block_editor_for_post', '__return_false', 1 );
+        add_filter( 'use_block_editor_for_post', '__return_false' );
         // Вимикаємо блоковий редактор для типів записів (наприклад, для сторінок)
-        add_filter( 'use_block_editor_for_post_type', '__return_false', 1 );
+        add_filter( 'use_block_editor_for_post_type', '__return_false' );
         // Підключаємо стилі для класичного редактора (файл editor-style.css має бути у кореневій папці теми)
         add_editor_style( 'editor-style.css' );
     }
@@ -29,6 +29,7 @@ class MyBlockTheme_Setup {
      * Налаштовує тему: підтримка блокових шаблонів, кастомного логотипу, мініатюр, меню, стартового контенту.
      */
     public function setup() {
+        // Підтримка блокових шаблонів потрібна для старих налаштувань і шаблонів.
         add_theme_support( 'block-templates' );
         add_theme_support( 'wp-block-styles' );
         add_theme_support( 'align-wide' );
@@ -40,7 +41,7 @@ class MyBlockTheme_Setup {
             'width'       => 400,
             'flex-height' => true,
             'flex-width'  => true,
-        ));
+        ) );
         add_theme_support( 'post-thumbnails' );
         register_nav_menus( array(
             'primary' => __( 'Primary Menu', 'myblocktheme' ),
@@ -99,7 +100,14 @@ class MyBlockTheme_Setup {
     }
 
     /**
-     * Підключає стилі теми: Bulma (CDN) та основний файл стилів.
+     * Підключає стилі теми.
+     *
+     * Порядок підключення:
+     * 1. Bulma (через CDN)
+     * 2. Основний файл стилів теми (style.css)
+     * 
+     * Inline-стилі, що додаються плагіном через wp_add_inline_style('myblocktheme-style', ...),
+     * автоматично додаються після style.css.
      */
     public function enqueue_styles() {
         wp_enqueue_style( 'bulma', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css', array(), '0.9.4' );
