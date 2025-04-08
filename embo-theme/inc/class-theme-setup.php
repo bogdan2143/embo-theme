@@ -19,7 +19,7 @@ class MyBlockTheme_Setup {
         remove_theme_support( 'block-templates' );
         // Вимикаємо блоковий редактор для окремих постів
         add_filter( 'use_block_editor_for_post', '__return_false' );
-        // Вимикаємо блоковий редактор для типів записів (наприклад, для сторінок)
+        // Вимикаємо блоковий редактор для типів записів
         add_filter( 'use_block_editor_for_post_type', '__return_false' );
         // Підключаємо стилі для класичного редактора (файл editor-style.css має бути у кореневій папці теми)
         add_editor_style( 'editor-style.css' );
@@ -29,7 +29,6 @@ class MyBlockTheme_Setup {
      * Налаштовує тему: підтримка блокових шаблонів, кастомного логотипу, мініатюр, меню, стартового контенту.
      */
     public function setup() {
-        // Підтримка блокових шаблонів потрібна для старих налаштувань і шаблонів.
         add_theme_support( 'block-templates' );
         add_theme_support( 'wp-block-styles' );
         add_theme_support( 'align-wide' );
@@ -43,8 +42,11 @@ class MyBlockTheme_Setup {
             'flex-width'  => true,
         ) );
         add_theme_support( 'post-thumbnails' );
+
+        // Реєструємо меню: primary та footer
         register_nav_menus( array(
             'primary' => __( 'Primary Menu', 'myblocktheme' ),
+            'footer'  => __( 'Footer Menu', 'myblocktheme' ),
         ) );
 
         $starter_content = array(
@@ -116,6 +118,7 @@ class MyBlockTheme_Setup {
 
     /**
      * Підключає скрипти теми з правильним розташуванням jQuery та jquery-migrate у футері.
+     * Додає JS-код для роботи бургер-меню (перемикання класів is-active).
      */
     public function enqueue_scripts() {
         if ( ! is_admin() ) {
@@ -129,5 +132,31 @@ class MyBlockTheme_Setup {
             wp_register_script( 'jquery-migrate', includes_url( '/js/jquery/jquery-migrate.js' ), array( 'jquery' ), null, true );
             wp_enqueue_script( 'jquery-migrate' );
         }
+        
+        // Додаємо inline-скрипт для роботи бургер-меню
+        add_action( 'wp_footer', function() {
+            ?>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Знаходимо елемент бургер-меню
+                var burger = document.querySelector('.navbar-burger');
+                if (burger) {
+                    burger.addEventListener('click', function() {
+                        // Отримуємо значення data-target (наприклад, "navbarMain")
+                        var targetId = burger.getAttribute('data-target');
+                        var menu = document.getElementById(targetId);
+                        // Тогл класу is-active для бургер-меню та цільового меню
+                        burger.classList.toggle('is-active');
+                        if (menu) {
+                            menu.classList.toggle('is-active');
+                        }
+                    });
+                }
+            });
+            </script>
+            <?php
+        });
     }
 }
+
+new MyBlockTheme_Setup();

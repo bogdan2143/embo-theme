@@ -13,6 +13,8 @@ require_once get_template_directory() . '/inc/class-dynamic-breadcrumbs.php';
 require_once get_template_directory() . '/inc/class-ajax-load-more.php';
 require_once get_template_directory() . '/inc/class-gutenberg-reset.php';
 require_once get_template_directory() . '/inc/class-cleanup.php';
+require_once get_template_directory() . '/inc/class-dynamic-menus.php';
+require_once get_template_directory() . '/inc/class-custom-logo-block.php';
 
 // Ініціалізуємо модулі
 $theme_setup          = new MyBlockTheme_Setup();

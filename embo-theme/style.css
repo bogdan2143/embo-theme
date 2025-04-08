@@ -11,6 +11,7 @@ Text Domain: myblocktheme
 Tags: block-theme, full-site-editing, fse, responsive, bulma
 */
 
+/* ============ Common styles ============ */
 html, body {
   height: 100%;
 }
@@ -42,16 +43,16 @@ body {
   padding-right: 15px;
 }
 .breadcrumb-item {
-    display: inline-block;
-    margin-right: 10px;
+  display: inline-block;
+  margin-right: 10px;
 }
 .breadcrumb-item:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 .is-active {
-    font-weight: bold;
+  font-weight: bold;
 }
-/* Контейнер меню, який використовує позицію sticky для фіксації при прокрутці */
+/* Sticky aside menu container */
 .global-aside {
   margin: 10px 0;
   position: sticky;
@@ -165,7 +166,7 @@ body {
   text-align: center;
 }
 
-/* Стилі для сторінки поста */
+/* Post page styles */
 .article-content {
   margin: 0 auto;
   max-width: 800px;
@@ -201,11 +202,110 @@ body {
   }
 }
 
-/* --- Нейтральні правила для блоків, щоб inline-стилі мали пріоритет --- */
-/* Ці правила встановлюють прозорий фон та наслідування кольору, тому inline-стилі, які додаються плагіном, перекриють їх */
+/* --- Neutral block rules (inline styles have priority) --- */
 .navbar.is-primary,
 footer.footer,
 .global-aside {
   background-color: transparent;
   color: inherit;
+}
+
+/* ===== Updated styles: Search form ===== */
+/* Make the search form look cleaner, remove extra margins */
+.wp-block-search.wp-block-search__button-outside.wp-block-search__text-button {
+  /* Use inline-flex to keep input & button in one line */
+  display: inline-flex;
+  align-items: stretch;
+  margin: 0; /* removed previous extra margin */
+}
+.wp-block-search__inside-wrapper {
+  display: flex;
+  align-items: stretch;
+  width: auto; /* auto width to avoid stretching too far */
+}
+.wp-block-search__input {
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  flex: 1;
+  outline: none;
+  background-color: #fff;
+  color: #000;
+}
+.wp-block-search__button {
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  padding: 0 1rem;
+  font-size: 1rem;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Updated styles: Burger menu (fullscreen on mobile) ===== */
+.navbar-burger {
+  cursor: pointer;
+}
+.navbar-menu {
+  display: none; /* Hidden by default on mobile */
+}
+.navbar-menu.is-active {
+  display: block; /* Will be overridden for mobile in the media query below */
+}
+@media screen and (min-width: 1024px) {
+  .navbar-menu {
+    display: block !important; /* On desktop, menu is always visible */
+  }
+  .navbar-burger {
+    display: none !important; /* Hide burger on large screens */
+  }
+}
+@media screen and (max-width: 1024px) {
+  /* Make the active menu fullscreen on mobile */
+  .navbar-menu.is-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #222; /* or any preferred color */
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem; /* spacing between menu items */
+  }
+  /* Ensure the menu items in .navbar-end are centered and visible */
+  .navbar-menu.is-active .navbar-end {
+    flex-direction: column;
+    align-items: center;
+  }
+  /* Example: change color of menu links in the overlay */
+  .navbar-end .navbar-item {
+    color: #fff;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+/* ===== Updated styles: Footer menu ===== */
+/* Allow wrapping so that items don't stay on a single line if there's no space */
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap; /* revert to wrap so it can break into multiple lines */
+}
+.footer-menu a.navbar-item {
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem 1rem;
 }

@@ -5,7 +5,7 @@
  */
 
 /**
- * Створює або оновлює шаблонну частину (wp_template_part) з вказаним slug, title і вмістом.
+ * Функція створює або оновлює шаблонну частину (wp_template_part) з вказаним slug, title і вмістом.
  *
  * @param string $slug    Слаг (наприклад, 'header', 'aside' або 'footer').
  * @param string $title   Заголовок (наприклад, 'Header', 'Aside', 'Footer').
@@ -14,7 +14,7 @@
 function myblocktheme_create_or_update_template_part( $slug, $title, $content ) {
     $post_name = $slug;
     
-    // Шукаємо існуючий шаблонний блок для поточної теми (використовуємо тип wp_template_part).
+    // Шукаємо існуючий шаблонний блок для поточної теми (тип wp_template_part).
     $existing = get_posts( array(
         'post_type'      => 'wp_template_part',
         'name'           => $post_name,
@@ -53,54 +53,83 @@ function myblocktheme_create_or_update_template_part( $slug, $title, $content ) 
 }
 
 /**
- * Функція, що створює/оновлює дефолтні header, aside і footer.
+ * Функція, що створює/оновлює дефолтні шаблонні частини Header, Aside і Footer.
  */
 function myblocktheme_recreate_default_header_footer() {
-    // Приклад вмісту для HEADER (спрощений).
+    // Актуалізований вміст для HEADER:
+    // Використовуємо оновлений шаблон з формою пошуку без напису "Search", з кнопкою "Q" та коректним бургер-меню
     $header_content = <<<HTML
-<!-- wp:group {"tagName":"nav","className":"navbar is-primary","layout":{"type":"constrained"}} -->
-<nav class="navbar is-primary" role="navigation" aria-label="головна навігація">
-  <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-  <div class="container">
-    <!-- wp:site-title {"tagName":"p","className":"navbar-item"} /-->
-    <!-- wp:search {"label":"Search","placeholder":"Пошук...","className":"navbar-item"} /-->
-    <!-- wp:group {"tagName":"a","className":"navbar-burger","layout":{"type":"constrained"}} -->
-    <a class="navbar-burger" role="button" aria-label="меню" aria-expanded="false" data-target="navbarMain">
-      <!-- wp:html -->
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <!-- /wp:html -->
-    </a>
+<!-- wp:group {"className":"navbar is-primary","layout":{"type":"constrained"}} -->
+<div class="wp-block-group navbar is-primary">
+  <!-- wp:html -->
+  <nav role="navigation" aria-label="головна навігація">
+  <!-- /wp:html -->
+
+  <!-- wp:group {"className":"container is-flex is-align-items-center is-justify-content-space-between","layout":{"type":"constrained"}} -->
+  <div class="wp-block-group container is-flex is-align-items-center is-justify-content-space-between">
+
+    <!-- wp:group {"className":"navbar-brand is-flex is-align-items-center","layout":{"type":"constrained"}} -->
+    <div class="wp-block-group navbar-brand is-flex is-align-items-center">
+      
+      <!-- wp:myblocktheme/custom-logo {"className":"navbar-item"} /-->
+      
+      <!-- wp:search {"className":"navbar-item wp-block-search","label":"","placeholder":"Пошук...","buttonText":"Q"} /-->
+      
+      <!-- wp:group {"layout":{"type":"constrained"}} -->
+      <div class="wp-block-group">
+        <!-- wp:html -->
+        <a class="navbar-burger" role="button" aria-label="меню" aria-expanded="false" data-target="navbarMain">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <!-- /wp:html -->
+      </div>
+      <!-- /wp:group -->
+      
+    </div>
     <!-- /wp:group -->
+
+    <!-- wp:group {"className":"navbar-menu","layout":{"type":"constrained"},"id":"navbarMain"} -->
+    <div id="navbarMain" class="wp-block-group navbar-menu">
+      <!-- wp:group {"className":"navbar-end","layout":{"type":"constrained"}} -->
+      <div class="wp-block-group navbar-end">
+        <!-- wp:myblocktheme/header-menu /-->
+        <!-- Динамічний блок, який виводить меню з theme_location="primary" -->
+      </div>
+      <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+
   </div>
   <!-- /wp:group -->
-</nav>
+
+  <!-- wp:html -->
+  </nav>
+  <!-- /wp:html -->
+</div>
 <!-- /wp:group -->
 HTML;
 
-    // Приклад вмісту для ASIDE (новий глобальний шаблон).
+    // Вміст для ASIDE залишається без змін.
     $aside_content = <<<HTML
 <!-- wp:group {"className":"menu","layout":{"type":"constrained"}} -->
 <div class="wp-block-group">
   <!-- wp:html -->
   <aside>
   <!-- /wp:html -->
-  
-  <!-- wp:paragraph {"className":"menu-label"} -->
-  <p class="menu-label">Хронологія</p>
-  <!-- /wp:paragraph -->
-  
-  <!-- wp:query {"query":{"perPage":5,"postType":"post","order":"desc","orderBy":"date"},"displayLayout":{"type":"list"}} -->
-  <div class="wp-block-query">
-    <!-- wp:post-template -->
-      <!-- wp:post-title {"isLink":true} /-->
-      <!-- wp:post-date /-->
-    <!-- /wp:post-template -->
-    <!-- wp:query-pagination /-->
-  </div>
-  <!-- /wp:query -->
-  
+    <!-- wp:paragraph {"className":"menu-label"} -->
+    <p class="menu-label">Хронологія</p>
+    <!-- /wp:paragraph -->
+    <!-- wp:query {"query":{"perPage":5,"postType":"post","order":"desc","orderBy":"date"},"displayLayout":{"type":"list"}} -->
+    <div class="wp-block-query">
+      <!-- wp:post-template -->
+        <!-- wp:post-title {"isLink":true} /-->
+        <!-- wp:post-date /-->
+      <!-- /wp:post-template -->
+      <!-- wp:query-pagination /-->
+    </div>
+    <!-- /wp:query -->
   <!-- wp:html -->
   </aside>
   <!-- /wp:html -->
@@ -108,25 +137,29 @@ HTML;
 <!-- /wp:group -->
 HTML;
 
-    // Приклад вмісту для FOOTER (спрощений).
+    // Актуалізований вміст для FOOTER:
+    // Використовуємо один тег <footer> із динамічним блоком меню футера
     $footer_content = <<<HTML
 <!-- wp:group {"tagName":"footer","className":"footer","layout":{"type":"constrained"}} -->
 <footer class="footer">
-  <!-- wp:paragraph {"className":"has-text-centered"} -->
-  <p class="has-text-centered">© 2025 My Block Theme</p>
-  <!-- /wp:paragraph -->
+  <!-- wp:myblocktheme/footer-menu /-->
+  <div class="wp-block-group content has-text-centered">
+    <!-- wp:paragraph -->
+    <p>&copy; 2025 My Block Theme</p>
+    <!-- /wp:paragraph -->
+  </div>
 </footer>
 <!-- /wp:group -->
 HTML;
 
-    // Створюємо або оновлюємо шаблонні частини header, aside і footer.
+    // Створюємо або оновлюємо шаблонні частини Header, Aside і Footer.
     myblocktheme_create_or_update_template_part( 'header', 'Header', $header_content );
     myblocktheme_create_or_update_template_part( 'aside', 'Aside', $aside_content );
     myblocktheme_create_or_update_template_part( 'footer', 'Footer', $footer_content );
 }
 
 /**
- * При активації теми видаляємо існуючі записи header, aside та footer для поточної теми
+ * При активації теми видаляємо існуючі записи Header, Aside та Footer для поточної теми
  * і пересоздаємо дефолтні шаблонні частини.
  */
 function myblocktheme_on_theme_activation() {
@@ -138,18 +171,20 @@ function myblocktheme_on_theme_activation() {
         "DELETE FROM {$wpdb->posts} WHERE post_type = 'wp_template_part'
          AND post_name IN ('header', 'aside', 'footer')
          AND ID IN (
-            SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_template_part_theme' AND meta_value = %s
+            SELECT post_id FROM {$wpdb->postmeta} 
+            WHERE meta_key = '_wp_template_part_theme' 
+              AND meta_value = %s
          )",
         $theme
     ) );
 
-    // Створюємо дефолтні header, aside і footer.
+    // Створюємо дефолтні шаблонні частини Header, Aside і Footer.
     myblocktheme_recreate_default_header_footer();
 }
 add_action( 'after_switch_theme', 'myblocktheme_on_theme_activation' );
 
 /**
- * Вивід повідомлення в адмінці з кнопкою для ручного скидання header, aside та footer.
+ * Вивід повідомлення в адмінці з кнопкою для ручного скидання Header, Aside та Footer.
  */
 function myblocktheme_admin_notice_recreate_header_footer() {
     if ( ! current_user_can( 'manage_options' ) ) {
@@ -176,7 +211,7 @@ function myblocktheme_admin_notice_recreate_header_footer() {
 add_action( 'admin_notices', 'myblocktheme_admin_notice_recreate_header_footer' );
 
 /**
- * Обробник запиту на ручне скидання header, aside та footer.
+ * Обробник запиту на ручне скидання Header, Aside та Footer.
  */
 function myblocktheme_handle_reset_header_footer() {
     if ( isset( $_GET['myblocktheme_reset_header_footer'] ) && '1' === $_GET['myblocktheme_reset_header_footer'] ) {
