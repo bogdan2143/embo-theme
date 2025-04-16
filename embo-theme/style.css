@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Morginal (morguenal)
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Адаптована блокова тема з підтримкою FSE, Bulma і кастомною версткою.
-Version: 1.3
+Version: 1.4
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -20,10 +20,14 @@ body {
   flex-direction: column;
   margin: 0;
 }
+img {border-radius: 7px;}
 .main-container {
   flex: 1;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.container {
+  padding-left: 2rem; padding-right: 2rem;
 }
 .timeline-list {
   list-style: none;
@@ -33,10 +37,6 @@ body {
   margin-bottom: 15px;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
-}
-.menu-label {
-  padding-left: 15px;
-  padding-right: 15px;
 }
 .breadcrumb {
   padding-left: 15px;
@@ -54,6 +54,8 @@ body {
 }
 /* Sticky aside menu container */
 .global-aside {
+  border-radius: 7px;
+  padding: 20px;
   margin: 10px 0;
   position: sticky;
   top: 20px;
@@ -239,6 +241,7 @@ footer.footer,
   border-left: none;
   border-radius: 0 4px 4px 0;
   padding: 0 1rem;
+  margin: 0;
   font-size: 1rem;
   background-color: #000;
   color: #fff;
@@ -250,6 +253,7 @@ footer.footer,
 
 /* ===== Updated styles: Burger menu (fullscreen on mobile) ===== */
 .navbar-burger {
+  z-index: 99999;
   cursor: pointer;
 }
 .navbar-menu {
@@ -293,6 +297,11 @@ footer.footer,
     font-size: 1.2rem;
     text-align: center;
   }
+}
+
+.navbar .navbar-item:hover, 
+.navbar .navbar-item:focus {
+  background-color: transparent !important;
 }
 
 /* ===== Updated styles: Footer menu ===== */

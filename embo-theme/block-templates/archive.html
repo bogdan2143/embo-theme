@@ -2,22 +2,21 @@
 
 <!-- wp:group {"className":"container main-container","layout":{"type":"constrained"}} -->
 <div class="container main-container">
-  
+
   <!-- wp:myblocktheme/breadcrumbs /-->
-  
+
   <!-- wp:columns -->
   <div class="wp-block-columns">
-    
-    <!-- Левая колонка: новостная лента -->
+
     <!-- wp:column {"width":"66.66%"} -->
     <div class="wp-block-column" style="flex-basis:66.66%">
-      
+
       <!-- wp:group {"className":"news-feed","layout":{"type":"constrained"}} -->
       <div class="news-feed">
-        
+
         <!-- wp:query {"query":{"perPage":4,"postType":"post","order":"desc","orderBy":"date"},"displayLayout":{"type":"list"}} -->
         <div class="wp-block-query">
-          
+
           <!-- wp:post-template -->
           <article class="news-item">
             <!-- wp:post-featured-image {"isLink":true, "className":"news-image"} /-->
@@ -33,21 +32,19 @@
             </div>
           </article>
           <!-- /wp:post-template -->
-          
+
           <!-- wp:query-pagination {"paginationType":"numeric"} /-->
         </div>
         <!-- /wp:query -->
       </div>
       <!-- /wp:group -->
-      
-      <!-- Кнопка подгрузки старых постов (AJAX) -->
+
       <!-- wp:group {"className":"load-more","layout":{"type":"constrained"}} -->
       <div class="load-more">
         <button id="loadMoreButton" class="button is-primary">Завантажити старі пости</button>
       </div>
       <!-- /wp:group -->
-      
-      <!-- Фолбэк-пагинация для случая отключённого JS -->
+
       <!-- wp:group {"className":"fallback-pagination","layout":{"type":"constrained"}} -->
       <div class="fallback-pagination">
         <!-- Здесь можно разместить стандартную пагинацию, если JS отключён -->
@@ -55,8 +52,7 @@
       <!-- /wp:group -->
     </div>
     <!-- /wp:column -->
-    
-    <!-- Правая колонка: таймлайн (aside) -->
+
     <!-- wp:column {"width":"33.33%"} -->
     <div class="wp-block-column" style="flex-basis:33.33%">
       <!-- wp:template-part {"slug":"aside", "className": "global-aside"} /-->
@@ -64,7 +60,7 @@
     <!-- /wp:column -->
   </div>
   <!-- /wp:columns -->
-  
+
   <!-- wp:tag-cloud {"className":"tags-area"} /-->
 </div>
 <!-- /wp:group -->
