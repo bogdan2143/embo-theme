@@ -57,7 +57,7 @@ class MyBlockTheme_DynamicMenus {
     }
 
     /**
-     * Вивід меню футера (theme_location = 'footer') з використанням кастомного Walker.
+     * Вивід меню футера (theme_location = 'footer') як простого flex‑рядка.
      *
      * @param array  $attributes Атрибути блоку.
      * @param string $content    Зміст блоку.
@@ -67,16 +67,17 @@ class MyBlockTheme_DynamicMenus {
         if ( ! has_nav_menu( 'footer' ) ) {
             return '';
         }
-        $menu_html = wp_nav_menu( array(
+
+        $items = wp_nav_menu( array(
             'theme_location' => 'footer',
             'container'      => false,
-            'menu_class'     => 'footer-menu',
             'items_wrap'     => '%3$s',
-            'depth'          => 2,
+            'depth'          => 1,
             'echo'           => false,
             'walker'         => self::get_bulma_walker(),
         ) );
-        return $menu_html;
+
+        return '<div class="footer-menu">' . $items . '</div>';
     }
 
     /**

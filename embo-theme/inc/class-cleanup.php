@@ -51,9 +51,7 @@ class MyBlockTheme_Cleanup {
      * @return array Модифікований масив класів.
      */
     public function remove_hentry_class( $classes, $class, $post_id ) {
-        if ( ! is_user_logged_in() ) {
             $classes = array_diff( $classes, array( 'hentry' ) );
-        }
         return $classes;
     }
 
@@ -61,10 +59,8 @@ class MyBlockTheme_Cleanup {
      * Запускає буферизацію виводу для незалогінених користувачів.
      */
     public function start_buffer() {
-        if ( ! is_user_logged_in() ) {
-            // Використовуємо callback, що спочатку об’єднує inline стилі, а потім видаляє HTML-коментарі
+        // Використовуємо callback, що спочатку об’єднує inline стилі, а потім видаляє HTML-коментарі
             ob_start( array( $this, 'combine_and_strip' ) );
-        }
     }
 
     /**
@@ -76,17 +72,14 @@ class MyBlockTheme_Cleanup {
      * @return string Модифікований вивід.
      */
     public function combine_and_strip( $buffer ) {
-        // Об’єднуємо inline стилі з id, що закінчуються на "-inline-css"
         $buffer = $this->combine_inline_styles( $buffer );
-        // Видаляємо HTML-коментарі, за винятком умовних (для IE)
         $buffer = preg_replace( '/<!--(?!\s*\[if).*?-->/', '', $buffer );
+        $buffer = preg_replace( '/(\r?\n){2,}/', "\n", $buffer );
         return $buffer;
     }
 
     /**
-     * Об’єднує всі inline <style> блоки з id, що закінчуються на "-inline-css",
-     * додає над кожним фрагментом CSS коментар із зазначенням id та видаляє їх з основного виводу.
-     * Отриманий єдиний блок вставляється перед </head>.
+     * Об’єднує всі inline <style> блоки і вставляє єдиний <style> без зайвих переносів.
      *
      * @param string $buffer Повний HTML вивід.
      * @return string Модифікований HTML вивід.
@@ -99,18 +92,23 @@ class MyBlockTheme_Cleanup {
         // Знаходимо всі відповідні <style> блоки
         if ( preg_match_all( $pattern, $buffer, $matches, PREG_SET_ORDER ) ) {
             foreach ( $matches as $match ) {
-                // Додаємо коментар з id та відповідний CSS код
-                $combined_css .= "\n/* " . $match['id'] . " */\n" . trim( $match['css'] ) . "\n";
+                // Витягуємо CSS, обрізаючи пробіли та переносы
+                $css_piece = trim( $match['css'] );
+                // Додаємо коментар із ідентифікатором (без переносів)
+                $combined_css .= "/* {$match['id']} */ {$css_piece} ";
             }
-            // Видаляємо знайдені <style> блоки з HTML виводу
+            // Видаляємо всі знайдені <style> блоки
             $buffer = preg_replace( $pattern, '', $buffer );
         }
 
-        // Якщо є об’єднаний CSS, створюємо єдиний блок стилів
-        if ( ! empty( $combined_css ) ) {
-            $combined_block = "<style>\n" . trim( $combined_css ) . "\n</style>";
-            // Вставляємо блок перед закриваючим тегом </head>
-            $buffer = preg_replace( '/<\/head>/i', $combined_block . "\n</head>", $buffer, 1 );
+        // Якщо щось зібралося — вставляємо єдиний <style> прямо перед </head>
+        if ( $combined_css !== '' ) {
+            // Убираємо зайві пробіли
+            $clean_css = preg_replace( '/\s+/', ' ', trim( $combined_css ) );
+            // Формуємо блок без \n та зайвих пробілів
+            $combined_block = "<style>{$clean_css}</style>";
+            // Вставляємо прямо перед </head>, без нового рядка
+            $buffer = preg_replace( '/<\/head>/i', $combined_block . '</head>', $buffer, 1 );
         }
 
         return $buffer;

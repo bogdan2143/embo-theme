@@ -15,7 +15,7 @@ class MyBlockTheme_CustomLogoBlock {
         // Реєструємо блок при ініціалізації
         add_action('init', array($this, 'register_custom_logo_block'));
     }
-    
+
     /**
      * Функція реєстрації динамічного блоку.
      */
@@ -40,13 +40,21 @@ class MyBlockTheme_CustomLogoBlock {
      * @return string HTML розмітка для логотипу.
      */
     public function render_custom_logo( $attributes, $content ) {
+        // Отримуємо URL головної сторінки
+        $home_url = esc_url( home_url( '/' ) );
+
         // Спершу перевіряємо налаштування плагіна
         $branding_options = get_option( 'embo_branding_options', array( 'logo' => '' ) );
         $plugin_logo      = ! empty( $branding_options['logo'] ) ? esc_url( $branding_options['logo'] ) : '';
 
         if ( $plugin_logo ) {
-            // Якщо є свій логотип у плагіні, виводимо його
-            return '<div class="custom-logo navbar-item"><img src="' . $plugin_logo . '" alt="' . esc_attr( get_bloginfo('name') ) . '"></div>';
+            // Якщо є свій логотип у плагіні, виводимо його в посиланні на головну сторінку
+            return sprintf(
+                '<a class="custom-logo navbar-item" href="%s"><img src="%s" alt="%s"></a>',
+                $home_url,
+                $plugin_logo,
+                esc_attr( get_bloginfo( 'name' ) )
+            );
         }
 
         // Якщо у плагіні логотип порожній, fallback на theme.json
@@ -63,10 +71,20 @@ class MyBlockTheme_CustomLogoBlock {
         }
         
         if ( $logo_url ) {
-            return '<div class="custom-logo navbar-item"><img src="' . $logo_url . '" alt="' . esc_attr( get_bloginfo('name') ) . '"></div>';
+            // Виводимо логотип із theme.json в посиланні на головну сторінку
+            return sprintf(
+                '<a class="custom-logo navbar-item" href="%s"><img src="%s" alt="%s"></a>',
+                $home_url,
+                $logo_url,
+                esc_attr( get_bloginfo( 'name' ) )
+            );
         } else {
-            // Якщо нічого немає, виводимо назву сайту
-            return '<p class="site-title navbar-item">' . esc_html( get_bloginfo('name') ) . '</p>';
+            // Якщо нічого немає, виводимо назву сайту в посиланні на головну
+            return sprintf(
+                '<a class="site-title navbar-item" href="%s">%s</a>',
+                $home_url,
+                esc_html( get_bloginfo( 'name' ) )
+            );
         }
     }
 }

@@ -3,318 +3,201 @@ Theme Name: EmboTheme
 Theme URI: https://embo-studio.ua/
 Author: Morginal (morguenal)
 Author URI: https://github.com/bogdan2143/embo-theme
-Description: Адаптована блокова тема з підтримкою FSE, Bulma і кастомною версткою.
-Version: 1.4
+Description: Optimised block theme CSS (cleaned 2025‑04‑19)
+Version: 1.7
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
 Tags: block-theme, full-site-editing, fse, responsive, bulma
 */
 
-/* ============ Common styles ============ */
-html, body {
-  height: 100%;
+/* ------------------------------------------------------------
+   1. Base & Reset
+------------------------------------------------------------- */
+html,body{height:100%}
+html{overflow: hidden}
+body{display:flex;flex-direction:column;margin:0;overflow-y:auto;overflow-x:hidden}
+img{border-radius:7px}
+
+/* ------------------------------------------------------------
+   2. Layout Containers
+------------------------------------------------------------- */
+.main-container{flex:1;margin:20px 0}
+.container{padding:0 2rem}
+
+/* Ensure central alignment for core layout wrappers */
+.container,
+.main-container,
+footer .container {
+  margin-left: auto;
+  margin-right: auto;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-}
-img {border-radius: 7px;}
-.main-container {
-  flex: 1;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-.container {
-  padding-left: 2rem; padding-right: 2rem;
-}
-.timeline-list {
-  list-style: none;
-  padding-left: 0;
-}
-.timeline-item {
-  margin-bottom: 15px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-}
-.breadcrumb {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.breadcrumb-item {
-  display: inline-block;
-  margin-right: 10px;
-}
-.breadcrumb-item:last-child {
-  margin-right: 0;
-}
-.is-active {
-  font-weight: bold;
-}
-/* Sticky aside menu container */
+/* Keep aside centred while retaining vertical spacing */
 .global-aside {
-  border-radius: 7px;
-  padding: 20px;
-  margin: 10px 0;
-  position: sticky;
-  top: 20px;
-  max-height: calc(100vh - 40px);
-  overflow-y: auto;
-}
-.tags-area {
-  margin-top: 30px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.informer-block {
-  margin-bottom: 30px;
-  padding: 20px;
-}
-.informer-block .columns {
-  align-items: flex-start;
-}
-.informer-block .small-item {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 4px;
-}
-.featured-item figure {
-  margin-bottom: 10px;
-}
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-.truncate-2 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-@media screen and (max-width: 768px) {
-  .timeline-list {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .news-feed {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media screen and (max-width: 1024px) {
-  .informer-block .columns {
-    flex-direction: column;
-  }
-  .informer-block .columns > .column {
-    flex: none !important;
-    width: 100% !important;
-  }
-  .informer-block .featured-item {
-    border: 1px solid #eee;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-}
-.news-feed {
-  margin-top: 20px;
-}
-.news-feed article.news-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
-}
-.news-feed article.news-item .news-image {
-  flex: 0 0 200px;
-  margin-right: 20px;
-}
-.news-feed article.news-item .news-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-.news-feed article.news-item .news-content {
-  flex: 1;
-}
-.news-feed article.news-item .news-content h2 {
-  margin-bottom: 10px;
-  font-size: 1.25rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.news-feed article.news-item .news-content p {
-  margin-bottom: 10px;
-}
-@media screen and (max-width: 768px) {
-  .news-feed article.news-item {
-    flex-direction: column;
-  }
-  .news-feed article.news-item .news-image {
-    margin-right: 0;
-    margin-bottom: 15px;
-  }
-}
-.load-more {
-  margin-top: 20px;
-  text-align: center;
+  margin: 10px auto;
 }
 
-/* Post page styles */
-.article-content {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 20px;
+/* ------------------------------------------------------------
+   3. Navigation (Navbar & Burger)
+------------------------------------------------------------- */
+.navbar .navbar-item:hover,.navbar .navbar-item:focus{background-color:transparent!important}
+
+.navbar-burger{z-index:99999;cursor:pointer}
+.navbar-menu{display:none}
+.navbar-menu.is-active{display:block}
+
+@media screen and (min-width:1024px){
+  .navbar-menu{display:block!important}
+  .navbar-burger{display:none!important}
 }
-.article-content .breadcrumb {
-  margin-bottom: 20px;
-}
-.article-title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-.article-meta {
-  font-size: 0.9rem;
-  color: #777;
-  margin-bottom: 20px;
-}
-.article-image {
-  margin-bottom: 20px;
-}
-.article-image img {
-  width: 100%;
-  border-radius: 4px;
-}
-.article-body p {
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-@media screen and (max-width: 768px) {
-  .article-content {
-    padding: 15px;
-  }
+@media screen and (max-width:1024px){
+  .navbar-menu.is-active{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#222;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+  .navbar-menu.is-active .navbar-end{flex-direction:column;align-items:center}
+  .navbar-end .navbar-item{color:#fff;font-size:1.2rem;text-align:center}
+  /* Navbar brand order on mobile */
+  .navbar-brand{display:flex;align-items:center;width:100%}
+  .navbar-brand>.custom-logo,.navbar-brand>form{margin-right:1rem}
+  .navbar-brand>.wp-block-group:last-child{margin-left:auto}
 }
 
-/* --- Neutral block rules (inline styles have priority) --- */
-.navbar.is-primary,
-footer.footer,
-.global-aside {
-  background-color: transparent;
-  color: inherit;
+/* ------------------------------------------------------------
+   4. Search Form
+------------------------------------------------------------- */
+.wp-block-search.wp-block-search__button-outside.wp-block-search__text-button{display:inline-flex;align-items:stretch;margin:0}
+.wp-block-search__inside-wrapper{display:flex;align-items:stretch}
+.wp-block-search__input{flex:1;border:1px solid #ccc;border-right:none;border-radius:4px 0 0 4px;padding:0.5rem 1rem;font-size:1rem;outline:none;background:#fff;color:#000}
+.wp-block-search__button{border:1px solid #ccc;border-left:none;border-radius:0 4px 4px 0;padding:0 1rem;font-size:1rem;background:#000;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* ------------------------------------------------------------
+   5. Breadcrumbs & Timeline
+------------------------------------------------------------- */
+.breadcrumb-item{display:inline-block;margin-right:10px}
+.breadcrumb-item:last-child{margin-right:0}
+.breadcrumb-item:not(:first-child):last-child span{padding:0 .75em}
+.is-active,.menu-label{font-weight:700}
+
+.timeline-list{list-style:none;padding-left:0}
+.timeline-item{margin-bottom:15px;border-bottom:1px solid #ddd;padding-bottom:10px}
+
+/* ------------------------------------------------------------
+   6. News Feed
+------------------------------------------------------------- */
+.news-feed{margin-top:20px}
+.news-feed article.news-item{display:flex;align-items:flex-start;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #eee}
+.news-feed .news-image{flex:0 0 200px;margin-right:20px}
+.news-feed .news-image img{width:100%;height:auto;border-radius:4px}
+.news-feed .news-content{flex:1}
+.news-feed .news-content h2{margin-bottom:10px;font-size:1.25rem;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.news-feed .news-content p{margin-bottom:10px}
+.load-more{margin-top:20px;text-align:center}
+
+/* ------------------------------------------------------------
+   7. Articles / Single Post
+------------------------------------------------------------- */
+.article-content{margin:0 auto;max-width:800px;padding:20px}
+.article-content .breadcrumb{margin-bottom:20px}
+.article-title{font-size:2rem;font-weight:700;margin-bottom:20px}
+.article-meta{font-size:.9rem;color:#777;margin-bottom:20px}
+.article-image{margin-bottom:20px}
+.article-image img{width:100%;border-radius:4px}
+.article-body p{margin-bottom:1.5rem;line-height:1.6}
+
+/* ------------------------------------------------------------
+   8. Informer Block
+------------------------------------------------------------- */
+.informer-block{padding:1rem;margin-bottom:2rem}
+.informer-block .columns{display:flex;gap:1rem;align-items:flex-start}
+.informer-block .featured-item{flex:2}
+.informer-block .featured-item figure{margin-bottom:10px}
+.informer-block .column.is-one-third{flex:1;display:flex;flex-direction:column;gap:1rem}
+
+/* small items */
+.informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;padding:.5rem;border-radius:4px}
+.informer-block .small-item figure{grid-row:1/span 2;margin:0;width:100%}
+.informer-block .small-item h4{grid-column:2;grid-row:1;margin:0;font-size:1rem}
+.informer-block .small-item p.truncate{grid-column:2;grid-row:2;margin:0;line-height:1.4}
+.informer-block .button.is-link{padding:.5rem 1rem;font-size:.9rem}
+
+/* ------------------------------------------------------------
+   9. Sidebar / Global Aside
+------------------------------------------------------------- */
+.global-aside{border-radius:7px;padding:20px;margin:10px 0;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow-y:auto}
+
+/* ------------------------------------------------------------
+   10. Footer
+------------------------------------------------------------- */
+.footer-menu{display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap}
+.footer-menu a.navbar-item{text-decoration:none;color:inherit;padding:.5rem 1rem}
+
+/* ------------------------------------------------------------
+   11. Comments
+------------------------------------------------------------- */
+.comments-area{max-width:800px;margin:0 auto;padding:1.5rem 0}
+.comments-area h3#comments{font-size:1.5rem;margin-bottom:1rem;border-bottom:2px solid #dbdbdb;padding-bottom:.5rem}
+.commentlist{list-style:none;margin:0;padding:0}
+.commentlist .comment{background:#fff;border:1px solid #dbdbdb;border-radius:6px;padding:1rem 1.5rem;margin-bottom:1.5rem}
+.comment-body{display:flex;flex-direction:column}
+.comment-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;font-size:.9rem;color:#555}
+.comment-author.vcard{display:flex;align-items:center}
+.comment-author.vcard .avatar{border-radius:50%;margin-right:.75rem}
+.comment-author.vcard .fn{font-weight:600}
+.comment-metadata{display:flex;align-items:center;gap:.5rem}
+.comment-metadata a{font-size:.85rem;color:#3273dc}
+.comment-metadata a:hover{text-decoration:underline}
+.comment-content{font-size:1rem;line-height:1.6;margin-bottom:1rem}
+.reply .comment-reply-link{font-size:.85rem;color:#3273dc}
+.reply .comment-reply-link:hover{text-decoration:underline}
+.comments-area .navigation{display:flex;justify-content:space-between;margin-bottom:1.5rem}
+.comments-area .navigation .alignleft,.comments-area .navigation .alignright{font-size:.9rem}
+#respond.comment-respond{background:#fff;border:1px solid #dbdbdb;border-radius:6px;padding:1.5rem;margin-top:2rem}
+#respond .comment-reply-title{font-size:1.25rem;margin-bottom:1rem}
+.comment-form-comment textarea,.comment-form-author input,.comment-form-email input,.comment-form-url input{width:100%;padding:.75rem 1rem;margin-bottom:1rem;border:1px solid #dbdbdb;border-radius:4px;font-size:1rem;background:#f5f5f5;resize:vertical}
+.comment-form #submit{display:inline-flex;align-items:center;padding:.75rem 1.5rem;background:#3273dc;color:#fff;font-size:1rem;border:none;border-radius:4px;cursor:pointer}
+.comment-form #submit:hover{background:#276cda}
+
+/* ------------------------------------------------------------
+   12. Helpers & Utilities
+------------------------------------------------------------- */
+.truncate{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.truncate-2{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+/* ------------------------------------------------------------
+   13. Colour Overrides (Neutral Blocks)
+------------------------------------------------------------- */
+.navbar.is-primary,footer.footer,.global-aside{background:transparent;color:inherit}
+
+/* ------------------------------------------------------------
+   14. Custom
+   * Ideolgically it is correct to add a new style block 
+   * with inline code to override what was added by the engine, 
+   * if it is not possible to change what was added by the engine, 
+   * but it is redundant, so we use the order
+------------------------------------------------------------- */
+.wp-block-search__button {margin: 0!important}
+.tabs.is-toggle a {border-color: transparent}
+
+/* ------------------------------------------------------------
+   15. Responsive Breakpoints
+------------------------------------------------------------- */
+/* ≤768px */
+@media screen and (max-width:768px){
+  .timeline-list,.news-feed{padding:0 15px}
+  .news-feed article.news-item{flex-direction:column}
+  .news-feed .news-image{margin-right:0;margin-bottom:15px}
+  .article-content{padding:15px}
 }
 
-/* ===== Updated styles: Search form ===== */
-/* Make the search form look cleaner, remove extra margins */
-.wp-block-search.wp-block-search__button-outside.wp-block-search__text-button {
-  /* Use inline-flex to keep input & button in one line */
-  display: inline-flex;
-  align-items: stretch;
-  margin: 0; /* removed previous extra margin */
-}
-.wp-block-search__inside-wrapper {
-  display: flex;
-  align-items: stretch;
-  width: auto; /* auto width to avoid stretching too far */
-}
-.wp-block-search__input {
-  border: 1px solid #ccc;
-  border-right: none;
-  border-radius: 4px 0 0 4px;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  flex: 1;
-  outline: none;
-  background-color: #fff;
-  color: #000;
-}
-.wp-block-search__button {
-  border: 1px solid #ccc;
-  border-left: none;
-  border-radius: 0 4px 4px 0;
-  padding: 0 1rem;
-  margin: 0;
-  font-size: 1rem;
-  background-color: #000;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ≤1024px */
+@media screen and (max-width:1024px){
+  .informer-block .columns{flex-direction:column}
+  .informer-block .columns>.column{flex:none!important;width:100%!important}
+  .container.main-container>.wp-block-columns{flex-direction:column}
+  .container.main-container .wp-block-column{width:100%!important}
+  .informer-block{padding:1rem 0}
 }
 
-/* ===== Updated styles: Burger menu (fullscreen on mobile) ===== */
-.navbar-burger {
-  z-index: 99999;
-  cursor: pointer;
-}
-.navbar-menu {
-  display: none; /* Hidden by default on mobile */
-}
-.navbar-menu.is-active {
-  display: block; /* Will be overridden for mobile in the media query below */
-}
-@media screen and (min-width: 1024px) {
-  .navbar-menu {
-    display: block !important; /* On desktop, menu is always visible */
-  }
-  .navbar-burger {
-    display: none !important; /* Hide burger on large screens */
-  }
-}
-@media screen and (max-width: 1024px) {
-  /* Make the active menu fullscreen on mobile */
-  .navbar-menu.is-active {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #222; /* or any preferred color */
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem; /* spacing between menu items */
-  }
-  /* Ensure the menu items in .navbar-end are centered and visible */
-  .navbar-menu.is-active .navbar-end {
-    flex-direction: column;
-    align-items: center;
-  }
-  /* Example: change color of menu links in the overlay */
-  .navbar-end .navbar-item {
-    color: #fff;
-    font-size: 1.2rem;
-    text-align: center;
-  }
-}
-
-.navbar .navbar-item:hover, 
-.navbar .navbar-item:focus {
-  background-color: transparent !important;
-}
-
-/* ===== Updated styles: Footer menu ===== */
-/* Allow wrapping so that items don't stay on a single line if there's no space */
-.footer-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap; /* revert to wrap so it can break into multiple lines */
-}
-.footer-menu a.navbar-item {
-  text-decoration: none;
-  color: inherit;
-  padding: 0.5rem 1rem;
+/* ≤1006px */
+@media screen and (max-width:1006px){
+  .container.main-container>.wp-block-columns{display:flex!important;flex-wrap:wrap!important;gap:1rem}
+  .container.main-container>.wp-block-columns>.wp-block-column:last-child{order:2!important;flex:0 0 100%!important;max-width:100%!important}
 }

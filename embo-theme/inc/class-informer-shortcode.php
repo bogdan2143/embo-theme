@@ -57,6 +57,7 @@ class MyBlockTheme_InformerShortcode {
             <div class="column is-two-thirds featured-item">
               <?php if ( $query_featured->have_posts() ) : $query_featured->the_post(); ?>
                 <figure class="image is-4by3">
+                  <a href="<?php the_permalink(); ?>">
                   <?php
                   if ( has_post_thumbnail() ) {
                       the_post_thumbnail( 'large' );
@@ -64,6 +65,7 @@ class MyBlockTheme_InformerShortcode {
                       echo '<img src="https://via.placeholder.com/600x400" alt="' . esc_attr__( 'Основна новина', 'myblocktheme' ) . '">';
                   }
                   ?>
+                  </a>
                 </figure>
                 <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                 <div class="excerpt"><?php the_excerpt(); ?></div>
@@ -76,6 +78,7 @@ class MyBlockTheme_InformerShortcode {
                 <?php while ( $query_small->have_posts() ) : $query_small->the_post(); ?>
                   <div class="small-item">
                     <figure class="image is-4by3">
+                      <a href="<?php the_permalink(); ?>">
                       <?php
                       if ( has_post_thumbnail() ) {
                           the_post_thumbnail( 'medium' );
@@ -83,9 +86,10 @@ class MyBlockTheme_InformerShortcode {
                           echo '<img src="https://via.placeholder.com/300x200" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
                       }
                       ?>
+                      </a>
                     </figure>
                     <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-                    <p class="truncate" title="<?php echo esc_attr( get_the_excerpt() ); ?>"><?php the_excerpt(); ?></p>
+                    <?php the_excerpt(); ?>
                   </div>
                 <?php endwhile; wp_reset_postdata(); ?>
               <?php endif; ?>
