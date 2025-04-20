@@ -12,7 +12,7 @@ Tags: block-theme, full-site-editing, fse, responsive, bulma
 */
 
 /* ------------------------------------------------------------
-   1. Base
+   1. Base & Reset
 ------------------------------------------------------------- */
 html,body{height:100%}
 html{overflow: hidden}
