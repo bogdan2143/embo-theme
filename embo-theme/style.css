@@ -214,7 +214,6 @@ footer .container {
   .container.main-container>.wp-block-columns{display:flex!important;flex-wrap:wrap!important;gap:1rem}
   .container.main-container>.wp-block-columns>.wp-block-column:last-child{order:2!important;flex:0 0 100%!important;max-width:100%!important}
 }
-<<<<<<< HEAD
 
 /* ----- ховаємо опис на десктопі ----- */
 @media screen and (min-width:1024px){
@@ -225,5 +224,3 @@ footer .container {
 @media screen and (max-width:1023px){
   .informer-block .small-item p.truncate{display:block}
 }
-=======
->>>>>>> 9dcf27967ac24c9191406609e952b6f653a603a2
