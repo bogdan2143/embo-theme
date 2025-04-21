@@ -131,8 +131,17 @@ class MyBlockTheme_Setup {
             wp_deregister_script( 'jquery-migrate' );
             wp_register_script( 'jquery-migrate', includes_url( '/js/jquery/jquery-migrate.js' ), array( 'jquery' ), null, true );
             wp_enqueue_script( 'jquery-migrate' );
+
+            // подключаем menu-overflow.js
+            wp_enqueue_script(
+              'myblocktheme-menu-overflow',
+              get_template_directory_uri() . '/src/js/menu-overflow.js',
+              [ 'jquery' ],
+              '1.0',
+              true
+            );
         }
-        
+
         // Додаємо inline-скрипт для роботи бургер-меню
         add_action( 'wp_footer', function() {
             ?>
