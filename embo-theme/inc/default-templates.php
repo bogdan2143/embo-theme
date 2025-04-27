@@ -93,7 +93,7 @@ function myblocktheme_recreate_default_header_footer() {
     <!-- wp:group {"className":"navbar-menu","layout":{"type":"constrained"},"id":"navbarMain"} -->
     <div id="navbarMain" class="wp-block-group navbar-menu">
       <!-- wp:group {"className":"navbar-end","layout":{"type":"constrained"}} -->
-      <div class="wp-block-group navbar-end">
+      <div class="wp-block-group navbar-end alignright">
         <!-- wp:myblocktheme/header-menu /-->
         <!-- Динамічний блок, який виводить меню з theme_location="primary" -->
       </div>

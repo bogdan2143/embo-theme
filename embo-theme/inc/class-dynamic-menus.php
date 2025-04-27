@@ -14,6 +14,7 @@ class MyBlockTheme_DynamicMenus {
      */
     public function __construct() {
         add_action( 'init', array( $this, 'register_dynamic_menus' ) );
+        add_filter( 'render_block_core/search', array( $this, 'replace_search_button_with_svg' ), 10, 2 );
     }
 
     /**
@@ -172,6 +173,25 @@ class MyBlockTheme_DynamicMenus {
                 }
             }
         };
+    }
+
+    /**
+     * Замінює текст кнопки пошуку на SVG-іконку.
+     *
+     * @param string $block_content Згенерований HTML вміст блоку.
+     * @param array  $block         Дані блоку.
+     * @return string Модифікований HTML.
+     */
+    public function replace_search_button_with_svg( $block_content, $block ) {
+        // SVG-іконка лупи
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 2a8 8 0 105.293 14.707l4.853 4.854 1.414-1.414-4.854-4.853A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+                </svg>';
+
+        // Заміна тексту всередині кнопки на SVG
+        $block_content = preg_replace('/(<button[^>]*>).*?(<\/button>)/', '$1' . $svg . '$2', $block_content);
+
+        return $block_content;
     }
 }
 

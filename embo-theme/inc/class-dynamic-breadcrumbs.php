@@ -29,14 +29,15 @@ class MyBlockTheme_DynamicBreadcrumbs {
     public function render_breadcrumbs_block( $attributes ) {
         // Якщо це головна сторінка, виводимо лише один елемент "Головна"
         if ( is_front_page() ) {
-            return '<nav class="breadcrumb" aria-label="хлібні крихти" itemscope itemtype="https://schema.org/BreadcrumbList">
+            return '';
+            /*return '<nav class="breadcrumb" aria-label="хлібні крихти" itemscope itemtype="https://schema.org/BreadcrumbList">
                         <ol>
                             <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
                                 <span itemprop="name" class="is-active">Головна</span>
                                 <meta itemprop="position" content="1" />
                             </li>
                         </ol>
-                    </nav>';
+                    </nav>';*/
         }
 
         $breadcrumbs = array();

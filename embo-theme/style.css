@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS (cleaned 2025‑04‑19)
-Version: 1.9
+Version: 2.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -22,8 +22,14 @@ img{border-radius:7px}
 /* ------------------------------------------------------------
    2. Layout Containers
 ------------------------------------------------------------- */
-.main-container{flex:1;margin:20px 0}
 .container{padding:0 2rem}
+.main-container{flex:1;margin:20px 0}
+
+/* custom width (Bulma) */
+.container:not(.is-max-desktop):not(.is-max-widescreen){
+  max-width: 1500px;
+  width: 100%;
+}
 
 /* Ensure central alignment for core layout wrappers */
 .container,
@@ -40,6 +46,8 @@ footer .container {
 /* ------------------------------------------------------------
    3. Navigation (Navbar & Burger)
 ------------------------------------------------------------- */
+.navbar nav {width: 100%}
+
 .navbar .navbar-item:hover,.navbar .navbar-item:focus{background-color:transparent!important}
 
 .navbar-burger{z-index:99999;cursor:pointer}
@@ -72,12 +80,14 @@ footer .container {
 ------------------------------------------------------------- */
 .wp-block-search.wp-block-search__button-outside.wp-block-search__text-button{display:inline-flex;align-items:stretch;margin:0}
 .wp-block-search__inside-wrapper{display:flex;align-items:stretch}
-.wp-block-search__input{flex:1;border:1px solid #ccc;border-right:none;border-radius:4px 0 0 4px;padding:0.5rem 1rem;font-size:1rem;outline:none;background:#fff;color:#000}
-.wp-block-search__button{border:1px solid #ccc;border-left:none;border-radius:0 4px 4px 0;padding:0 1rem;font-size:1rem;background:#000;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* !important to avoid conflict in inline */
+.wp-block-search__input{flex:1;border:none!important;border-radius:7px 0 0 7px;padding:0.5rem 1rem;font-size:1rem;outline:none;background:rgba(255,255,255,.5);color:#000;font-weight:bold}
+.wp-block-search__button{border:none!important;border-radius:0 7px 7px 0;padding:0 1rem;font-size:1rem;background-color:rgba(255,255,255,.5)!important;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
 /* ------------------------------------------------------------
    5. Breadcrumbs & Timeline
 ------------------------------------------------------------- */
+.breadcrumb{padding:20px}
 .breadcrumb-item{display:inline-block;margin-right:10px}
 .breadcrumb-item:last-child{margin-right:0}
 .breadcrumb-item:not(:first-child):last-child span{padding:0 .75em}
@@ -90,7 +100,7 @@ footer .container {
    6. News Feed
 ------------------------------------------------------------- */
 .news-feed{margin-top:20px}
-.news-feed article.news-item{display:flex;align-items:flex-start;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #eee}
+.news-feed article.news-item{display:flex;align-items:flex-start;margin-bottom:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;border-bottom:1px solid #eee}
 .news-feed .news-image{flex:0 0 200px;margin-right:20px}
 .news-feed .news-image img{width:100%;height:auto;border-radius:4px}
 .news-feed .news-content{flex:1}
@@ -101,7 +111,7 @@ footer .container {
 /* ------------------------------------------------------------
    7. Articles / Single Post
 ------------------------------------------------------------- */
-.article-content{margin:0 auto;max-width:800px;padding:20px}
+.article-content{max-width:800px;padding:20px}
 .article-content .breadcrumb{margin-bottom:20px}
 .article-title{font-size:2rem;font-weight:700;margin-bottom:20px}
 .article-meta{font-size:.9rem;color:#777;margin-bottom:20px}
@@ -145,7 +155,7 @@ footer .container {
 /* ------------------------------------------------------------
    11. Comments
 ------------------------------------------------------------- */
-.comments-area{max-width:800px;margin:0 auto;padding:1.5rem 0}
+.comments-area{max-width:800px;padding:1.5rem 0;padding-right:20px;padding-left:20px}
 .comments-area h3#comments{font-size:1.5rem;font-weight:bold;margin-bottom:1rem;padding-bottom:.5rem}
 .commentlist{list-style:none;margin:0;padding:0}
 .commentlist .comment{background:#fff;border:1px solid #dbdbdb;border-radius:6px;padding:1rem 1.5rem;margin-bottom:1.5rem}
@@ -197,22 +207,27 @@ footer .container {
   .timeline-list,.news-feed{padding:0 15px}
   .news-feed article.news-item{flex-direction:column}
   .news-feed .news-image{margin-right:0;margin-bottom:15px}
-  .article-content{padding:15px}
+  .news-feed article.news-item{padding-right:0;padding-left:0}
+  .article-content,.breadcrumb{padding:15px}
 }
 
 /* ≤1024px */
 @media screen and (max-width:1024px){
-  .informer-block .columns{flex-direction:column}
-  .informer-block .columns>.column{flex:none!important;width:100%!important}
-  .container.main-container>.wp-block-columns{flex-direction:column}
-  .container.main-container .wp-block-column{width:100%!important}
-  .informer-block{padding:1rem 0}
+   /* general concept of side containers */
+   .breadcrumb,.news-feed article.news-item,.container.main-container>.wp-block-columns>.wp-block-column:last-child{max-width:800px}
+   .news-feed article.news-item,.article-content,.comments-area{margin:0 auto}
+   /*----*/
+   .informer-block .columns{flex-direction:column}
+   .informer-block .columns>.column{flex:none!important;width:100%!important}
+   .container.main-container>.wp-block-columns{flex-direction:column}
+   .container.main-container .wp-block-column{width:100%!important}
+   .informer-block{padding:1rem 20px}
 }
 
 /* ≤1006px */
 @media screen and (max-width:1006px){
   .container.main-container>.wp-block-columns{display:flex!important;flex-wrap:wrap!important;gap:1rem}
-  .container.main-container>.wp-block-columns>.wp-block-column:last-child{order:2!important;flex:0 0 100%!important;max-width:100%!important}
+  .container.main-container>.wp-block-columns>.wp-block-column:last-child{order:2!important;flex:0 0 100%!important;max-width:calc(100% - 40px)!important;margin-right:auto;margin-left:auto}
 }
 
 /* ----- ховаємо опис на десктопі ----- */
