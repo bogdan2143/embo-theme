@@ -10,6 +10,7 @@ require_once get_template_directory() . '/inc/class-theme-setup.php';
 require_once get_template_directory() . '/inc/class-block-patterns.php';
 require_once get_template_directory() . '/inc/class-informer-shortcode.php';
 require_once get_template_directory() . '/inc/class-dynamic-breadcrumbs.php';
+require_once get_template_directory() . '/inc/class-load-toggle.php';
 require_once get_template_directory() . '/inc/class-ajax-load-more.php';
 require_once get_template_directory() . '/inc/class-gutenberg-reset.php';
 require_once get_template_directory() . '/inc/class-cleanup.php';
@@ -22,9 +23,13 @@ $theme_setup          = new MyBlockTheme_Setup();
 $block_patterns       = new MyBlockTheme_BlockPatterns();
 $informer_shortcode   = new MyBlockTheme_InformerShortcode();
 $dynamic_breadcrumbs  = new MyBlockTheme_DynamicBreadcrumbs();
+$load_toggle          = new MyBlockTheme_LoadToggle();
 $ajax_load_more       = new MyBlockTheme_AjaxLoadMore();
 $gutenberg_reset      = new MyBlockTheme_GutenbergReset();
 $cleanup              = new MyBlockTheme_Cleanup();
+$dynamic_menus        = new MyBlockTheme_DynamicMenus();
+$custom_logo_block    = new MyBlockTheme_CustomLogoBlock();
+$dynamic_comments     = new MyBlockTheme_DynamicComments();
 
 // Централізована реєстрація хуків для налаштування теми
 add_action( 'after_setup_theme', array( $theme_setup, 'switch_to_standard_editor' ), 1 );
