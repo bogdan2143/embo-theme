@@ -11,6 +11,10 @@ class MyBlockTheme_AjaxLoadMore {
      * Підключає скрипт для AJAX-завантаження постів.
      */
     public function enqueue_load_more_script() {
+        $opts = get_option( 'embo_custom_css_options', [] );
+        if ( ($opts['load_type'] ?? 'ajax') !== 'ajax' ) {
+            return;
+        }
         wp_enqueue_script( 'myblocktheme-load-more', get_template_directory_uri() . '/src/js/load-more.js', array( 'jquery' ), '1.0', true );
         // Визначаємо поточну категорію, якщо ми на архівній сторінці
         $current_category = 'news';
