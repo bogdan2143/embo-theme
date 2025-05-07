@@ -72,7 +72,6 @@ class MyBlockTheme_AjaxLoadMore {
                     <div class="news-content">
                         <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                         <p class="subtitle is-6"><?php echo get_the_date(); ?></p>
-                        <div><?php the_excerpt(); ?></div>
                         <a href="<?php the_permalink(); ?>" class="button is-link is-small"><?php _e( 'Читати далі', 'myblocktheme' ); ?></a>
                     </div>
                 </article>

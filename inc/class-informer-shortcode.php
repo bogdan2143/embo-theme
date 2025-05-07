@@ -85,7 +85,6 @@ class MyBlockTheme_InformerShortcode {
                         </figure>
 
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                        <div class="excerpt"><?php the_excerpt(); ?></div>
                     <?php endif; wp_reset_postdata(); ?>
                 </div>
 
@@ -107,11 +106,6 @@ class MyBlockTheme_InformerShortcode {
                                 </figure>
 
                                 <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-                                <?php
-                                // Обрізаємо до 25 слів, додаємо клас для мобільного перегляду
-                                $ex = wp_trim_words( get_the_excerpt(), 25, '…' );
-                                echo '<p class="truncate">' . esc_html( $ex ) . '</p>';
-                                ?>
                             </div>
                         <?php endwhile; wp_reset_postdata(); ?>
                     <?php endif; ?>
