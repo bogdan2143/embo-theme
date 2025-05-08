@@ -4,6 +4,7 @@
  *
  * Шорткод [informer] виводить один «великий» та кілька «малих» постів,
  * а також заголовок із назвою переданої категорії.
+ * Под заголовками выводится дата в формате «07 Травня 2025, 15:34».
  *
  * @package myblocktheme
  */
@@ -14,7 +15,7 @@ class MyBlockTheme_InformerShortcode {
      * Обробка шорткода.
      *
      * @param array $atts Атрибути шорткода.
-     * @return string HTML‑розмітка інформера.
+     * @return string HTML-розмітка інформера.
      */
     public function informer_shortcode( $atts ) {
 
@@ -27,7 +28,6 @@ class MyBlockTheme_InformerShortcode {
 
         // Отримуємо об’єкт терміну категорії за slug
         $term = get_term_by( 'slug', $atts['category'], 'category' );
-        // Якщо категорію знайдено — використовуємо її ім’я, інакше — дефолт «Новини»
         $category_name = $term && ! is_wp_error( $term )
             ? $term->name
             : __( 'Новини', 'myblocktheme' );
@@ -65,7 +65,7 @@ class MyBlockTheme_InformerShortcode {
 
         ob_start(); ?>
         <div class="informer-block">
-            <!-- Виводимо динамічний заголовок із назвою категорії -->
+            <!-- Динамічний заголовок із назвою категорії -->
             <h2 class="title is-4"><?php echo esc_html( $category_name ); ?></h2>
 
             <div class="columns">
@@ -85,6 +85,23 @@ class MyBlockTheme_InformerShortcode {
                         </figure>
 
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+
+                        <?php
+                        // Форматуємо дату: 07 Травня 2025, 15:34
+                        $day   = get_the_date( 'd' );
+                        $month = get_the_date( 'F' );
+                        // Делаем первую букву заглавной
+                        if ( function_exists( 'mb_convert_case' ) ) {
+                            $month = mb_convert_case( $month, MB_CASE_TITLE, 'UTF-8' );
+                        } else {
+                            $month = ucfirst( $month );
+                        }
+                        $year  = get_the_date( 'Y' );
+                        $time  = get_the_time( 'H:i' );
+                        $date_string = sprintf( '%s %s %s, %s', $day, $month, $year, $time );
+                        ?>
+                        <div class="informer-date"><?php echo esc_html( $date_string ); ?></div>
+
                     <?php endif; wp_reset_postdata(); ?>
                 </div>
 
@@ -106,6 +123,22 @@ class MyBlockTheme_InformerShortcode {
                                 </figure>
 
                                 <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+
+                                <?php
+                                // Дата для маленьких постів
+                                $day   = get_the_date( 'd' );
+                                $month = get_the_date( 'F' );
+                                if ( function_exists( 'mb_convert_case' ) ) {
+                                    $month = mb_convert_case( $month, MB_CASE_TITLE, 'UTF-8' );
+                                } else {
+                                    $month = ucfirst( $month );
+                                }
+                                $year  = get_the_date( 'Y' );
+                                $time  = get_the_time( 'H:i' );
+                                $date_string = sprintf( '%s %s %s, %s', $day, $month, $year, $time );
+                                ?>
+                                <div class="informer-date small-date"><?php echo esc_html( $date_string ); ?></div>
+
                             </div>
                         <?php endwhile; wp_reset_postdata(); ?>
                     <?php endif; ?>
@@ -113,10 +146,9 @@ class MyBlockTheme_InformerShortcode {
             </div>
 
             <?php
-            // ---------- кнопка «Читати далі» з динамічною назвою категорії ----------
+            // ---------- кнопка «Читати далі» ----------
             if ( $term && ! is_wp_error( $term ) ) {
                 $cat_link = get_category_link( $term->term_id );
-                // Якщо в тексті кнопки є %s — підставляємо назву категорії
                 $text = strpos( $atts['button_text'], '%s' ) !== false
                       ? sprintf( $atts['button_text'], $category_name )
                       : $atts['button_text'];

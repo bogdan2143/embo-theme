@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS (cleaned 2025‑05‑07)
-Version: 2.4
+Version: 2.9
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -79,10 +79,10 @@ footer .container {
    4. Search Form
 ------------------------------------------------------------- */
 .wp-block-search.wp-block-search__button-outside.wp-block-search__text-button{display:inline-flex;align-items:stretch;margin:0}
-.wp-block-search__inside-wrapper{display:flex;align-items:stretch}
+.wp-block-search__inside-wrapper{display:flex;height:40px;margin:10px 0;align-items:stretch}
 /* !important to avoid conflict in inline */
-.wp-block-search__input{flex:1;border:none!important;border-radius:7px 0 0 7px;padding:0.5rem 1rem;font-size:1rem;outline:none;background:rgba(255,255,255,.5);color:#000;font-weight:bold}
-.wp-block-search__button{border:none!important;border-radius:0 7px 7px 0;padding:0 1rem;font-size:1rem;background-color:rgba(255,255,255,.5)!important;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.wp-block-search__input{flex:1;border:none!important;border-radius:7px 0 0 7px;padding:0.5rem 1rem;font-size:1rem;outline:none;background:rgba(30,45,63,.5);color:#fff}
+.wp-block-search__button{border:none!important;border-radius:0 7px 7px 0;padding:0 1rem;font-size:1rem;background-color:rgba(30,45,63,.5)!important;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
 /* ------------------------------------------------------------
    5. Breadcrumbs & Timeline
@@ -114,7 +114,9 @@ footer .container {
 .article-content{max-width:800px;padding:20px}
 .article-content .breadcrumb{margin-bottom:20px}
 .article-title{font-size:2rem;font-weight:700;margin-bottom:20px}
-.article-meta{font-size:.9rem;color:#777;margin-bottom:20px}
+.article-meta {display:inline-flex;align-items:center;gap:.25em;margin-bottom:20px;font-size:.95em;color:#666}
+.article-meta .wp-block-post-author__content,.article-meta .wp-block-post-date {margin:0;line-height:1}
+.meta-sep {margin:0 .3em;user-select:none}
 .article-image{margin-bottom:20px}
 .article-image img{width:100%;border-radius:4px}
 .article-body p{margin-bottom:1.5rem;line-height:1.6}
@@ -125,7 +127,7 @@ footer .container {
 .informer-block{padding:1rem;margin-bottom:2rem}
 .informer-block .columns{display:flex;gap:1rem;align-items:flex-start}
 
-.informer-block .featured-item{flex:1}
+.informer-block .featured-item{flex:1;padding: .15rem}
 .informer-block .column.is-one-third{flex:1;display:flex;flex-direction:column;gap:1rem}
 
 /* ----- універсальна обгортка для картинок ----- */
@@ -134,12 +136,22 @@ footer .container {
 .informer-block .small-item .informer-img{aspect-ratio:4/3}
 
 /* ----- small‑item ----- */
-.informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;padding:.5rem;border-radius:4px;}
-.informer-block .small-item h4{display:block;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;line-clamp:3;box-orient:vertical;max-height:calc(1.2em * 3);line-height:1.2em;}
-.informer-block .small-item p.truncate{grid-column:2;grid-row:2;margin:0;line-height:1.4;}
+.informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;border-radius:4px}
+.informer-block .small-item h4{display:block;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;line-clamp:3;box-orient:vertical;max-height:calc(1.2em * 3);line-height:1.2em}
+.informer-block .small-item p.truncate{grid-column:2;grid-row:2;margin:0;line-height:1.4}
 
-/* кнопка під інформером */
+/* ----- date ----- */
+.informer-block .informer-date {display:block;margin:.25rem 0 0;font-size:0.85rem;color:#666}
+.informer-block .featured-item h3 + .informer-date {margin-bottom:1rem}
+.informer-block .small-item {grid-template-rows: auto auto auto}
+.informer-block .small-item .informer-date.small-date {grid-column:2;grid-row:2;margin:0}
+.informer-block .small-item p.truncate {grid-column: 2;grid-row: 3}
+
+/* ----- кнопка під інформером ----- */
 .informer-block .button.is-link{padding:.5rem 1rem;font-size:.9rem}
+
+/* link інформер */
+.informer-block a {text-decoration: none}
 
 /* ------------------------------------------------------------
    9. Sidebar / Global Aside

@@ -13,9 +13,13 @@
       <!-- wp:group {"className":"article-content","layout":{"type":"constrained"}} -->
       <article class="article-content">
         <!-- wp:post-title {"level":1,"className":"article-title"} /-->
-        <!-- wp:group {"className":"article-meta","layout":{"type":"constrained"}} -->
-        <div class="article-meta">
-          <!-- wp:post-date /--> | <!-- wp:post-author /-->
+        <!-- wp:group {"className":"article-meta is-layout-constrained"} -->
+        <div class="article-meta is-layout-constrained">
+          <!-- wp:post-author {"showAvatar":false} /-->
+          <!-- wp:html -->
+          <span class="meta-sep">–</span>
+          <!-- /wp:html -->
+          <!-- wp:post-date {"format":"j F Y, H:i"} /-->
         </div>
         <!-- /wp:group -->
         <!-- wp:post-featured-image {"className":"article-image"} /-->
