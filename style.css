@@ -3,8 +3,8 @@ Theme Name: EmboTheme
 Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
-Description: Optimised block theme CSS (cleaned 2025‑05‑07)
-Version: 2.9
+Description: Optimised block theme CSS
+Version: 3.1
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -22,14 +22,11 @@ img{border-radius:7px}
 /* ------------------------------------------------------------
    2. Layout Containers
 ------------------------------------------------------------- */
-.container{padding:0 2rem}
-.main-container{flex:1;margin:20px 0}
+.container {padding:0 2rem}
+.main-container {flex:1;margin:20px 0}
 
 /* custom width (Bulma) */
-.container:not(.is-max-desktop):not(.is-max-widescreen){
-  max-width: 1000px;
-  width: 100%;
-}
+.container:not(.is-max-desktop):not(.is-max-widescreen) {max-width:1000px;width:100%}
 
 /* Ensure central alignment for core layout wrappers */
 .container,
@@ -136,9 +133,11 @@ footer .container {
 .informer-block .small-item .informer-img{aspect-ratio:4/3}
 
 /* ----- small‑item ----- */
-.informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;border-radius:4px}
-.informer-block .small-item h4{display:block;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;line-clamp:3;box-orient:vertical;max-height:calc(1.2em * 3);line-height:1.2em}
-.informer-block .small-item p.truncate{grid-column:2;grid-row:2;margin:0;line-height:1.4}
+.informer-block .column.is-one-third {padding:0px 0.75rem}
+.informer-block .small-item {display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;align-items:start}
+.informer-block .small-item .informer-img {grid-column:1;grid-row:1 / span 2}
+.informer-block .small-item h4 {grid-column: 2;grid-row:1;margin:0}
+.informer-block .small-item .informer-date.small-date {grid-column:2;grid-row:2;margin:0;font-size:.85rem;color:#666}
 
 /* ----- date ----- */
 .informer-block .informer-date {display:block;margin:.25rem 0 0;font-size:0.85rem;color:#666}
@@ -150,22 +149,30 @@ footer .container {
 /* ----- кнопка під інформером ----- */
 .informer-block .button.is-link{padding:.5rem 1rem;font-size:.9rem}
 
-/* link інформер */
+/* ----- link інформер ----- */
 .informer-block a {text-decoration: none}
 
+/* -------------------------
+   9. Single Post
+------------------------- */
+.article-content .wp-block-post-content p {margin:0 0 1.75rem;line-height:1.8}
+.article-content .wp-block-post-content h2,.article-content .wp-block-post-content h3,.article-content .wp-block-post-content h4 {margin:2.5rem 0 1rem;line-height:1.3}
+.article-content .wp-block-post-content ul,.article-content .wp-block-post-content ol {margin:0 0 1.75rem 1.5rem;line-height:1.8}
+.article-content .wp-block-post-content blockquote {margin:0 0 1.75rem;padding-left:1rem;border-left:4px solid #ccc;line-height:1.8}
+
 /* ------------------------------------------------------------
-   9. Sidebar / Global Aside
+   10. Sidebar / Global Aside
 ------------------------------------------------------------- */
 .global-aside{border-radius:7px;padding:20px;margin:10px 0;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow-y:auto}
 
 /* ------------------------------------------------------------
-   10. Footer
+   11. Footer
 ------------------------------------------------------------- */
 .footer-menu{display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap}
 .footer-menu a.navbar-item{text-decoration:none;color:inherit;padding:.5rem 1rem}
 
 /* ------------------------------------------------------------
-   11. Comments
+   12. Comments
 ------------------------------------------------------------- */
 .comments-area{max-width:800px;padding:1.5rem 0;padding-right:20px;padding-left:20px}
 .comments-area h3#comments{font-size:1.5rem;font-weight:bold;margin-bottom:1rem;padding-bottom:.5rem}
@@ -191,18 +198,18 @@ footer .container {
 .comment-form #submit:hover{background:#276cda}
 
 /* ------------------------------------------------------------
-   12. Helpers & Utilities
+   13. Helpers & Utilities
 ------------------------------------------------------------- */
 .truncate{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
 .truncate-2{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 
 /* ------------------------------------------------------------
-   13. Colour Overrides (Neutral Blocks)
+   14. Colour Overrides (Neutral Blocks)
 ------------------------------------------------------------- */
 .navbar.is-primary,footer.footer,.global-aside{background:transparent;color:inherit}
 
 /* ------------------------------------------------------------
-   14. Custom
+   15. Custom
    * Ideolgically it is correct to add a new style block 
    * with inline code to override what was added by the engine, 
    * if it is not possible to change what was added by the engine, 
@@ -212,7 +219,7 @@ footer .container {
 .tabs.is-toggle a {border-color: transparent}
 
 /* ------------------------------------------------------------
-   15. Pagination fallback styling
+   16. Pagination fallback styling
 ------------------------------------------------------------- */
 .fallback-pagination ul.page-numbers {
   display: flex;
@@ -269,7 +276,7 @@ footer .container {
 }
 
 /* ------------------------------------------------------------
-   16. Responsive Breakpoints
+   17. Responsive Breakpoints
 ------------------------------------------------------------- */
 /* ≤768px */
 @media screen and (max-width:768px){
