@@ -148,15 +148,18 @@ class MyBlockTheme_InformerShortcode {
             <?php
             // ---------- кнопка «Читати далі» ----------
             if ( $term && ! is_wp_error( $term ) ) {
-                $cat_link = get_category_link( $term->term_id );
-                $text = strpos( $atts['button_text'], '%s' ) !== false
-                      ? sprintf( $atts['button_text'], $category_name )
-                      : $atts['button_text'];
+                    $cat_link = get_category_link( $term->term_id );
+                    // формируем переводимую строку с плейсхолдером
+                    $read_all = sprintf(
+                        /* translators: %s — название категории */
+                        esc_html__( 'Всі статті %s →', 'myblocktheme' ),
+                        esc_html( $category_name )
+                    );
 
                 printf(
-                    '<a href="%s" class="button is-link is-small">%s</a>',
+                    '<p class="informer-read-all"><a href="%s" class="has-text-link">%s</a></p>',
                     esc_url( $cat_link ),
-                    esc_html( $text )
+                    $read_all
                 );
             }
             ?>

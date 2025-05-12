@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 3.1
+Version: 3.4
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -22,28 +22,21 @@ img{border-radius:7px}
 /* ------------------------------------------------------------
    2. Layout Containers
 ------------------------------------------------------------- */
-.container {padding:0 2rem}
-.main-container {flex:1;margin:20px 0}
+.container{padding:0 2rem}
+.main-container{flex:1;margin:20px 0}
 
 /* custom width (Bulma) */
-.container:not(.is-max-desktop):not(.is-max-widescreen) {max-width:1000px;width:100%}
+.container:not(.is-max-desktop):not(.is-max-widescreen){max-width:1000px;width:100%}
 
 /* Ensure central alignment for core layout wrappers */
-.container,
-.main-container,
-footer .container {
-  margin-left: auto;
-  margin-right: auto;
-}
+.container,.main-container,footer .container{margin-left:auto;margin-right:auto}
 /* Keep aside centred while retaining vertical spacing */
-.global-aside {
-  margin: 10px auto;
-}
+.global-aside{margin:10px auto}
 
 /* ------------------------------------------------------------
    3. Navigation (Navbar & Burger)
 ------------------------------------------------------------- */
-.navbar nav {width: 100%}
+.navbar nav{width:100%}
 
 .navbar .navbar-item:hover,.navbar .navbar-item:focus{background-color:transparent!important}
 
@@ -64,6 +57,8 @@ footer .container {
   .navbar-brand>.custom-logo,.navbar-brand>form{margin-right:1rem}
   .navbar-brand>.wp-block-group:last-child{margin-left:auto}
 }
+
+.navbar-menu a {text-decoration:none}
 
 .wp-block-group.navbar-end{position:relative;overflow:visible;}
 
@@ -133,32 +128,34 @@ footer .container {
 .informer-block .small-item .informer-img{aspect-ratio:4/3}
 
 /* ----- small‑item ----- */
-.informer-block .column.is-one-third {padding:0px 0.75rem}
-.informer-block .small-item {display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;align-items:start}
-.informer-block .small-item .informer-img {grid-column:1;grid-row:1 / span 2}
-.informer-block .small-item h4 {grid-column: 2;grid-row:1;margin:0}
-.informer-block .small-item .informer-date.small-date {grid-column:2;grid-row:2;margin:0;font-size:.85rem;color:#666}
+.informer-block .column.is-one-third{padding:0px 0.75rem}
+.informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;align-items:start}
+.informer-block .small-item .informer-img{grid-column:1;grid-row:1 / span 2}
+.informer-block .small-item h4{grid-column: 2;grid-row:1;margin:0}
+.informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0;font-size:.85rem;color:#666}
 
 /* ----- date ----- */
-.informer-block .informer-date {display:block;margin:.25rem 0 0;font-size:0.85rem;color:#666}
-.informer-block .featured-item h3 + .informer-date {margin-bottom:1rem}
-.informer-block .small-item {grid-template-rows: auto auto auto}
-.informer-block .small-item .informer-date.small-date {grid-column:2;grid-row:2;margin:0}
-.informer-block .small-item p.truncate {grid-column: 2;grid-row: 3}
+.informer-block .informer-date{display:block;margin:.25rem 0 0;font-size:0.85rem;color:#666}
+.informer-block .featured-item h3 + .informer-date{margin-bottom:1rem}
+.informer-block .small-item{grid-template-rows: auto auto auto}
+.informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0}
+.informer-block .small-item p.truncate{grid-column: 2;grid-row: 3}
 
-/* ----- кнопка під інформером ----- */
-.informer-block .button.is-link{padding:.5rem 1rem;font-size:.9rem}
+/* ----- link під інформером ----- */
+.informer-read-all{margin:1rem 0}
+.informer-read-all a{font-size:1rem;font-weight:500;text-decoration:none}
+.informer-read-all a:hover{text-decoration:underline}
 
 /* ----- link інформер ----- */
-.informer-block a {text-decoration: none}
+.informer-block a{text-decoration: none}
 
 /* -------------------------
    9. Single Post
 ------------------------- */
-.article-content .wp-block-post-content p {margin:0 0 1.75rem;line-height:1.8}
-.article-content .wp-block-post-content h2,.article-content .wp-block-post-content h3,.article-content .wp-block-post-content h4 {margin:2.5rem 0 1rem;line-height:1.3}
-.article-content .wp-block-post-content ul,.article-content .wp-block-post-content ol {margin:0 0 1.75rem 1.5rem;line-height:1.8}
-.article-content .wp-block-post-content blockquote {margin:0 0 1.75rem;padding-left:1rem;border-left:4px solid #ccc;line-height:1.8}
+.article-content .wp-block-post-content p{margin:0 0 1.75rem;line-height:1.8}
+.article-content .wp-block-post-content h2,.article-content .wp-block-post-content h3,.article-content .wp-block-post-content h4{margin:2.5rem 0 1rem;line-height:1.3}
+.article-content .wp-block-post-content ul,.article-content .wp-block-post-content ol{margin:0 0 1.75rem 1.5rem;line-height:1.8}
+.article-content .wp-block-post-content blockquote{margin:0 0 1.75rem;padding-left:1rem;border-left:4px solid #ccc;line-height:1.8}
 
 /* ------------------------------------------------------------
    10. Sidebar / Global Aside
@@ -215,8 +212,8 @@ footer .container {
    * if it is not possible to change what was added by the engine, 
    * but it is redundant, so we use the order
 ------------------------------------------------------------- */
-.wp-block-search__button {margin: 0!important}
-.tabs.is-toggle a {border-color: transparent}
+.wp-block-search__button{margin:0!important}
+.tabs.is-toggle a{border-color:transparent}
 
 /* ------------------------------------------------------------
    16. Pagination fallback styling
