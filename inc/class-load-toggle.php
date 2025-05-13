@@ -59,7 +59,16 @@ class MyBlockTheme_LoadToggle {
 
         // Режим пагінації
         if ( $type === 'pagination' ) {
-            $paged = max( 1, absint( get_query_var( 'paged' ) ) );
+            // Determine current pagination page (supports both 'paged' and 'page' query vars)
+            $paged_query = absint( get_query_var( 'paged' ) );
+            $page_query  = absint( get_query_var( 'page' ) );
+            $paged       = max( 1, $paged_query > 1 ? $paged_query : $page_query );
+            error_log( sprintf(
+                'MyBlockTheme_LoadToggle::render_toggle – paged_query=%d, page_query=%d, using paged=%d',
+                $paged_query,
+                $page_query,
+                $paged
+            ) );
 
             $category_slug = '';
             if ( is_category() ) {
@@ -110,15 +119,21 @@ class MyBlockTheme_LoadToggle {
                 wp_reset_postdata();
             }
 
+            // Build pagination links using query var ?page=
+            $current_url = get_pagenum_link(); // base URL for current context
+            $base_url    = remove_query_arg( 'page', $current_url );
+            $base_url    = add_query_arg( 'page', '%#%', $base_url );
+
             $links = paginate_links( [
-                'base'      => trailingslashit( get_pagenum_link( 1 ) ) . '%_%',
-                'format'    => user_trailingslashit( 'page/%#%/' ),
+                'base'      => esc_url( $base_url ),
+                'format'    => '',           // format empty because page param is already in base
                 'current'   => $paged,
                 'total'     => $q->max_num_pages,
                 'type'      => 'list',
                 'prev_text' => '&laquo;',
                 'next_text' => '&raquo;',
             ] );
+
             echo '<div class="fallback-pagination">' . $links . '</div>';
 
             return ob_get_clean();
