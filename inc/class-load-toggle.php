@@ -1,6 +1,9 @@
 <?php
 /**
- * Динамічний блок для перемикання між AJAX-Load More і посторінковою пагінацією
+ * Динамічний блок для переключення між AJAX "Завантажити більше" та посторінковою пагінацією.
+ *
+ * У режимі пагінації цей блок приховує стандартний блок Query Loop (inherit:true)
+ * та рендерить власний WP_Query із контрольованою навігацією сторінок.
  *
  * @package MyBlockTheme
  */
@@ -14,8 +17,8 @@ class MyBlockTheme_LoadToggle {
     public function __construct() {
         // Реєструємо сам блок
         add_action( 'init', [ $this, 'register_block' ] );
-        // Реєструємо фільтр, що ховає core/query з inherit:true в режимі pagination
-        add_filter( 'render_block_core/query', [ $this, 'filter_core_query' ], 10, 2 );
+        add_filter( 'render_block', [ $this, 'filter_core_query' ], 10, 2 );
+
     }
 
     public function register_block() {
@@ -26,14 +29,14 @@ class MyBlockTheme_LoadToggle {
     }
 
     /**
-     * Сховаємо лише core/query з inherit:true у режимі pagination
+     * Приховати успадкований core/query Loop у режимі pagination.
      *
-     * Через баг у Gutenberg (до версії 6.7.2) блок Query Loop із inherit:true
-     * не наслідує параметр paged із pretty URL (/page/X/),
-     * тому в режимі посторінкової навігації замість першої сторінки
-     * нам потрібно приховати цей блок і рендерити власний WP_Query.
+     * Через проблему серверного рендерингу в Query Loop (Gutenberg до PR #69698)
+     * блок не враховує параметр paged із pretty URL (/page/X/).
+     * У режимі посторінкової навігації ми приховуємо цей блок
+     * і рендеримо власний WP_Query.
      *
-     * Докладніше: https://github.com/WordPress/gutenberg/issues/67252 :contentReference[oaicite:0]{index=0}
+     * @see https://github.com/WordPress/gutenberg/pull/69698
      */
     public function filter_core_query( $output, $block ) {
         // Не чіпаємо адмінку
@@ -124,9 +127,11 @@ class MyBlockTheme_LoadToggle {
             $base_url    = remove_query_arg( 'page', $current_url );
             $base_url    = add_query_arg( 'page', '%#%', $base_url );
 
+            // Build pagination links using pretty URL (/page/X/)
+            $big  = 999999999; // несуществующий номер, который будет заменён
             $links = paginate_links( [
-                'base'      => esc_url( $base_url ),
-                'format'    => '',           // format empty because page param is already in base
+                'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                'format'    => 'page/%#%/',
                 'current'   => $paged,
                 'total'     => $q->max_num_pages,
                 'type'      => 'list',

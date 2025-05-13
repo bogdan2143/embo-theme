@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 3.5
+Version: 3.6
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -125,7 +125,7 @@ img{border-radius:7px}
 /* ----- універсальна обгортка для картинок ----- */
 .informer-img{position:relative;overflow:hidden;border-radius:4px}
 .informer-img img{width:100%;height:100%;object-fit:cover;display:block}
-.informer-block .small-item .informer-img{aspect-ratio:4/3}
+.informer-block .small-item .informer-img{aspect-ratio:5/3}
 
 /* ----- small‑item ----- */
 .informer-block .column.is-one-third{padding:0px 0.75rem}
