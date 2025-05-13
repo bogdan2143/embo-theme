@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 3.4
+Version: 3.5
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -131,7 +131,7 @@ img{border-radius:7px}
 .informer-block .column.is-one-third{padding:0px 0.75rem}
 .informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;align-items:start}
 .informer-block .small-item .informer-img{grid-column:1;grid-row:1 / span 2}
-.informer-block .small-item h4{grid-column: 2;grid-row:1;margin:0}
+.informer-block .small-item h4{display:-webkit-box;grid-column:2;grid-row:1;margin: 0;-webkit-box-orient:vertical;-moz-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;text-overflow:ellipsis}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0;font-size:.85rem;color:#666}
 
 /* ----- date ----- */
