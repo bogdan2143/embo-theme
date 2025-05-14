@@ -17,6 +17,7 @@ class MyBlockTheme_LoadToggle {
     public function __construct() {
         // Реєструємо сам блок
         add_action( 'init', [ $this, 'register_block' ] );
+        // Hide inherited core/query in pagination mode
         add_filter( 'render_block', [ $this, 'filter_core_query' ], 10, 2 );
 
     }
@@ -49,7 +50,11 @@ class MyBlockTheme_LoadToggle {
         $mode = $opts['load_type'] ?? 'ajax';
 
         // Якщо посторінкова навігація і є inherit:true — ховаємо core/query
-        if ( $mode === 'pagination' && ! empty( $block['attrs']['inherit'] ) ) {
+        if ( $mode === 'pagination'
+             && isset( $block['blockName'], $block['attrs']['inherit'] )
+             && $block['blockName'] === 'core/query'
+             && ! empty( $block['attrs']['inherit'] )
+        ) {
             return '';
         }
 

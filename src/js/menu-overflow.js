@@ -1,53 +1,89 @@
-(function($){
-  var $navbarEnd  = $('.navbar-end'),
-      $moreToggle = $navbarEnd.find('.more-toggle'),
-      $moreDrop   = $moreToggle.find('.navbar-dropdown');
+;(function(){
+  function throttle(fn, ms) {
+    let last = 0;
+    return function(...args){
+      const now = Date.now();
+      if (now - last >= ms) {
+        last = now;
+        fn.apply(this, args);
+      }
+    };
+  }
 
-  function redistributeMenu(){
-    var winW = $(window).width();
-    if(winW < 1024){
-      $moreDrop.children().insertBefore($moreToggle);
-      $moreToggle.hide().removeClass('active');
-      $moreDrop.hide();
+  // ширина + margin, даже если el.hidden
+  function outerW(el){
+    const cs = getComputedStyle(el);
+    let prev;
+    if (cs.display === 'none') {
+      prev = el.style.display;
+      el.style.display = 'inline-block';
+    }
+    const w = el.getBoundingClientRect().width
+            + (parseFloat(cs.marginLeft)||0)
+            + (parseFloat(cs.marginRight)||0);
+    if (prev !== undefined) el.style.display = prev;
+    return w;
+  }
+
+  function initOverflow(){
+    const wrapper   = document.querySelector('.container.is-flex'),
+          navbarEnd = wrapper?.querySelector('.navbar-end'),
+          moreWrap  = navbarEnd?.querySelector('.more-toggle'),
+          dropdown  = moreWrap?.querySelector('.navbar-dropdown');
+
+    if (!wrapper || !navbarEnd || !moreWrap || !dropdown) {
+      console.warn('DynamicMenu: не найдены элементы');
       return;
     }
 
-    var availableW = $navbarEnd.innerWidth() - $moreToggle.outerWidth(true),
-        usedW      = 0;
+    // прячем кнопку до первого перерасчёта
+    moreWrap.style.display = 'none';
+    moreWrap.setAttribute('aria-expanded','false');
 
-    $moreDrop.children().insertBefore($moreToggle);
-    $navbarEnd.children('a.navbar-item').show();
-    $moreDrop.empty();
+    function redistribute(){
+      const totalW = wrapper.clientWidth,
+            brandW = outerW(wrapper.querySelector('.navbar-brand')),
+            btnW   = outerW(moreWrap),
+            freeW  = totalW - brandW - btnW - 20,
+            endItems = navbarEnd.querySelectorAll('a.navbar-item:not(.more-toggle)');
+      let used = 0;
 
-    $navbarEnd.children('a.navbar-item').not('.more-toggle').each(function(){
-      usedW += $(this).outerWidth(true);
-      if( usedW > availableW ){
-        $(this).appendTo($moreDrop);
-      }
+      // 1) сброс: вернуть всё из dropdown в ряд
+      Array.from(dropdown.children).forEach(el => navbarEnd.insertBefore(el, moreWrap));
+      navbarEnd.querySelectorAll('a.navbar-item').forEach(el => el.style.display = 'inline-block');
+      dropdown.innerHTML = '';
+      // убираем старый active, если был
+      moreWrap.classList.remove('active');
+      moreWrap.setAttribute('aria-expanded','false');
+
+      // 2) «запихать» лишние в dropdown
+      endItems.forEach(item => {
+        used += outerW(item);
+        if (used > freeW) {
+          dropdown.appendChild(item);
+        }
+      });
+
+      // 3) показать / скрыть кнопку
+      moreWrap.style.display = dropdown.children.length ? 'inline-block' : 'none';
+    }
+
+    // клик — toggle класса active
+    moreWrap.addEventListener('click', e => {
+      e.preventDefault();
+      // переключаем Bulma-класс is-active
+      const isOpen = moreWrap.classList.toggle('is-active');
+      moreWrap.setAttribute('aria-expanded', String(isOpen));
     });
 
-    if( $moreDrop.children().length ){
-      $moreToggle.show();
-    } else {
-      $moreToggle.hide();
-    }
+    redistribute();
+    window.addEventListener('resize', throttle(redistribute, 100));
   }
 
-  $moreToggle.on('click', function(e){
-    e.preventDefault();
-    // переключаем класс и видимость списка
-    $(this).toggleClass('active');
-    $moreDrop.toggle();
-  });
-
-  var resizeTimer;
-  $(window).on('load resize', function(){
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){
-      redistributeMenu();
-      // прячем дроп, если он открыт после перерасчёта
-      $moreToggle.removeClass('active');
-      $moreDrop.hide();
-    }, 100);
-  });
-})(jQuery);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOverflow);
+  } else {
+    initOverflow();
+  }
+  window.addEventListener('load', initOverflow);
+})();
