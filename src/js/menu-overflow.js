@@ -71,8 +71,8 @@
     // клик — toggle класса active
     moreWrap.addEventListener('click', e => {
       e.preventDefault();
-      // переключаем Bulma-класс is-active
       const isOpen = moreWrap.classList.toggle('is-active');
+      moreWrap.classList.toggle('active', isOpen);
       moreWrap.setAttribute('aria-expanded', String(isOpen));
     });
 
