@@ -88,7 +88,7 @@ class MyBlockTheme_LoadToggle {
                 'post_type'      => 'post',
                 'orderby'        => 'date',
                 'order'          => 'DESC',
-                'posts_per_page' => 4,
+                'posts_per_page' => absint( get_option( 'posts_per_page' ) ),
                 'paged'          => $paged,
             ];
             if ( $category_slug ) {
