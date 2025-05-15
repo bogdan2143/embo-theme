@@ -1,89 +1,103 @@
 ;(function(){
-  function throttle(fn, ms) {
+  // простая «троттлизация» ресайза
+  function throttle(fn, ms){
     let last = 0;
     return function(...args){
       const now = Date.now();
-      if (now - last >= ms) {
+      if (now - last >= ms){
         last = now;
         fn.apply(this, args);
       }
     };
   }
 
-  // ширина + margin, даже если el.hidden
-  function outerW(el){
-    const cs = getComputedStyle(el);
-    let prev;
-    if (cs.display === 'none') {
-      prev = el.style.display;
-      el.style.display = 'inline-block';
-    }
-    const w = el.getBoundingClientRect().width
-            + (parseFloat(cs.marginLeft)||0)
-            + (parseFloat(cs.marginRight)||0);
-    if (prev !== undefined) el.style.display = prev;
-    return w;
-  }
-
   function initOverflow(){
-    const wrapper   = document.querySelector('.container.is-flex'),
-          navbarEnd = wrapper?.querySelector('.navbar-end'),
-          moreWrap  = navbarEnd?.querySelector('.more-toggle'),
-          dropdown  = moreWrap?.querySelector('.navbar-dropdown');
+    // находим контейнер навбара
+    const wrapper    = document.querySelector('nav > .container'),
+          navbarEnd  = wrapper?.querySelector('.navbar-end'),
+          moreToggle = navbarEnd?.querySelector('.more-toggle'),
+          dropdown   = moreToggle?.querySelector('.navbar-dropdown');
 
-    if (!wrapper || !navbarEnd || !moreWrap || !dropdown) {
+    if (!wrapper || !navbarEnd || !moreToggle || !dropdown) {
       console.warn('DynamicMenu: не найдены элементы');
       return;
     }
 
-    // прячем кнопку до первого перерасчёта
-    moreWrap.style.display = 'none';
-    moreWrap.setAttribute('aria-expanded','false');
+    // сначала прячем кнопку «Еще»
+    moreToggle.style.display = 'none';
+    moreToggle.setAttribute('aria-expanded','false');
 
     function redistribute(){
-      const totalW = wrapper.clientWidth,
-            brandW = outerW(wrapper.querySelector('.navbar-brand')),
-            btnW   = outerW(moreWrap),
-            freeW  = totalW - brandW - btnW - 20,
-            endItems = navbarEnd.querySelectorAll('a.navbar-item:not(.more-toggle)');
-      let used = 0;
-
-      // 1) сброс: вернуть всё из dropdown в ряд
-      Array.from(dropdown.children).forEach(el => navbarEnd.insertBefore(el, moreWrap));
-      navbarEnd.querySelectorAll('a.navbar-item').forEach(el => el.style.display = 'inline-block');
+      // 1) вернуть всё из dropdown обратно в ряд
+      Array.from(dropdown.children).forEach(el => {
+        navbarEnd.insertBefore(el, moreToggle);
+      });
       dropdown.innerHTML = '';
-      // убираем старый active, если был
-      moreWrap.classList.remove('active');
-      moreWrap.setAttribute('aria-expanded','false');
+      navbarEnd.querySelectorAll('a.navbar-item').forEach(el => {
+        el.style.display = 'inline-block';
+      });
+      moreToggle.classList.remove('is-active');
+      moreToggle.setAttribute('aria-expanded','false');
 
-      // 2) «запихать» лишние в dropdown
-      endItems.forEach(item => {
-        used += outerW(item);
+      // 2) считаем, сколько помещается
+      const totalW    = wrapper.clientWidth,
+            brandW    = wrapper.querySelector('.navbar-brand').offsetWidth,
+            toggleW   = moreToggle.offsetWidth || 0,
+            freeW     = totalW - brandW - toggleW - 20; // 20px на отступы
+
+      let used = 0;
+      navbarEnd.querySelectorAll('a.navbar-item:not(.more-toggle)').forEach(item => {
+        const style = getComputedStyle(item),
+              w = item.offsetWidth
+                + parseFloat(style.marginLeft)
+                + parseFloat(style.marginRight);
+        used += w;
         if (used > freeW) {
           dropdown.appendChild(item);
         }
       });
 
-      // 3) показать / скрыть кнопку
-      moreWrap.style.display = dropdown.children.length ? 'inline-block' : 'none';
+      // 3) показываем кнопку «Еще» только если в dropdown что-то есть
+      moreToggle.style.display = dropdown.children.length ? '' : 'none';
     }
 
-    // клик — toggle класса active
-    moreWrap.addEventListener('click', e => {
-      e.preventDefault();
-      const isOpen = moreWrap.classList.toggle('is-active');
-      moreWrap.classList.toggle('active', isOpen);
-      moreWrap.setAttribute('aria-expanded', String(isOpen));
-    });
-
+    // первый расчёт и повесим ресайз
     redistribute();
     window.addEventListener('resize', throttle(redistribute, 100));
+
+    // Дополнительный «тайм-аут» перерасчёта после первого рендера
+    requestAnimationFrame(() => {
+      redistribute();
+      // на всякий случай — ещё раз в следующем кадре
+      requestAnimationFrame(redistribute);
+    });
+
+    // Если есть Font Loading API — подождать загрузки шрифтов и пересчитать
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(redistribute);
+    }
+
+    // 4) клик по «Еще» — toggle is-active
+    moreToggle.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();                // препятствует сразу же document-клику
+      const open = moreToggle.classList.toggle('is-active');
+      moreToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // 5) клик вне — закрываем
+    document.addEventListener('click', () => {
+      if (moreToggle.classList.contains('is-active')) {
+        moreToggle.classList.remove('is-active');
+        moreToggle.setAttribute('aria-expanded','false');
+      }
+    });
   }
 
+  // Запускаем один раз при готовности DOM
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initOverflow);
   } else {
     initOverflow();
   }
-  window.addEventListener('load', initOverflow);
 })();
