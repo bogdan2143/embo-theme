@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 3.8
+Version: 3.9
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -94,8 +94,9 @@ img{border-radius:7px}
 .wp-block-search.wp-block-search__button-outside.wp-block-search__text-button{display:inline-flex;align-items:stretch;margin:0}
 .wp-block-search__inside-wrapper{display:flex;height:40px;margin:10px 0;align-items:stretch}
 /* !important to avoid conflict in inline */
-.wp-block-search__input{flex:1;border:none!important;border-radius:7px 0 0 7px;padding:0.5rem 1rem;font-size:1rem;outline:none;background:rgba(30,45,63,.5);color:#fff}
-.wp-block-search__button{border:none!important;border-radius:0 7px 7px 0;padding:0 1rem;font-size:1rem;background-color:rgba(30,45,63,.5)!important;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.wp-block-search__input{flex:1;border:none!important;border-radius:7px 0 0 7px;padding:0.5rem 1rem;background:rgba(30,45,63,.5);font-size:1rem;font-weight:600;outline:none;color:#fff}
+.wp-block-search__input::placeholder{opacity:1;color:#fff}
+.wp-block-search__button{border:none!important;border-radius:0 7px 7px 0;padding:0 1rem;font-size:1rem;background-color:#293849!important;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
 /* ------------------------------------------------------------
    5. Breadcrumbs & Timeline

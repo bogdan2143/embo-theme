@@ -184,9 +184,10 @@ class MyBlockTheme_DynamicMenus {
      */
     public function replace_search_button_with_svg( $block_content, $block ) {
         // SVG-іконка лупи
-        $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M10 2a8 8 0 105.293 14.707l4.853 4.854 1.414-1.414-4.854-4.853A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
-                </svg>';
+        $svg = '<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="28" fill="none" stroke="#ffffff" stroke-width="12" />
+            <line x1="59.8" y1="59.8" x2="79.6" y2="79.6" stroke="#ffffff" stroke-width="12" stroke-linecap="round" />
+        </svg>';
 
         // Заміна тексту всередині кнопки на SVG
         $block_content = preg_replace('/(<button[^>]*>).*?(<\/button>)/', '$1' . $svg . '$2', $block_content);
