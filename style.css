@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 3.9
+Version: 4.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -41,6 +41,12 @@ img{border-radius:7px}
 .navbar .navbar-item:hover,.navbar .navbar-item:focus{background-color:transparent!important}
 
 .navbar-burger{z-index:99999;cursor:pointer}
+/* custom span (Bulma burger) */
+.navbar-burger span{height: 1.5px}
+.navbar-burger span:first-child{top:calc(50% - 7px)}
+.navbar-burger span:nth-child(2){top: calc(50% - 2px)}
+.navbar-burger span:nth-child(3){top: calc(50% + 3px)}
+
 .navbar-menu{display:none}
 .navbar-menu.is-active{display:block}
 
@@ -94,7 +100,7 @@ img{border-radius:7px}
 .wp-block-search.wp-block-search__button-outside.wp-block-search__text-button{display:inline-flex;align-items:stretch;margin:0}
 .wp-block-search__inside-wrapper{display:flex;height:40px;margin:10px 0;align-items:stretch}
 /* !important to avoid conflict in inline */
-.wp-block-search__input{flex:1;border:none!important;border-radius:7px 0 0 7px;padding:0.5rem 1rem;background:rgba(30,45,63,.5);font-size:1rem;font-weight:600;outline:none;color:#fff}
+.wp-block-search__input{flex:1;border:none!important;border-radius:7px 0 0 7px;padding:0.5rem 1rem;background:rgba(30,45,63,.5);outline:none;font-family:"Fira Sans",sans-serif;font-size:1rem;font-weight:400;color:#fff}
 .wp-block-search__input::placeholder{opacity:1;color:#fff}
 .wp-block-search__button{border:none!important;border-radius:0 7px 7px 0;padding:0 1rem;font-size:1rem;background-color:#293849!important;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
@@ -153,11 +159,12 @@ img{border-radius:7px}
 .informer-block .column.is-one-third{padding:0px 0.75rem}
 .informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;align-items:start}
 .informer-block .small-item .informer-img{grid-column:1;grid-row:1 / span 2}
-.informer-block .small-item h4{display:-webkit-box;grid-column:2;grid-row:1;margin: 0;-webkit-box-orient:vertical;-moz-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;text-overflow:ellipsis}
+.informer-block .small-item h4{display:-webkit-box;grid-column:2;grid-row:1;margin: 0;-webkit-box-orient:vertical;-moz-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;text-overflow:ellipsis}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0;font-size:.85rem;color:#666}
 
 /* ----- date ----- */
 .informer-block .informer-date{display:block;margin:.25rem 0 0;font-size:0.85rem;color:#666}
+.informer-block .featured-item h3{margin-top:.5rem}
 .informer-block .featured-item h3 + .informer-date{margin-bottom:1rem}
 .informer-block .small-item{grid-template-rows: auto auto auto}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0}

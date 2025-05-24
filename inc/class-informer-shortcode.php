@@ -4,7 +4,7 @@
  *
  * Шорткод [informer] виводить один «великий» та кілька «малих» постів,
  * а також заголовок із назвою переданої категорії.
- * Под заголовками выводится дата в формате «07 Травня 2025, 15:34».
+ * Під заголовками виводиться дата у форматі «07 Травня 2025, 15:34».
  *
  * @package myblocktheme
  */
@@ -76,9 +76,10 @@ class MyBlockTheme_InformerShortcode {
                             <a href="<?php the_permalink(); ?>">
                                 <?php
                                 if ( has_post_thumbnail() ) {
-                                    the_post_thumbnail( 'large' );
+                                    // Використовуємо кастомний розмір informer_featured (326×242)
+                                    the_post_thumbnail( 'informer_featured' );
                                 } else {
-                                    echo '<img src="https://via.placeholder.com/600x400" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
+                                    echo '<img src="https://via.placeholder.com/326x242" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
                                 }
                                 ?>
                             </a>
@@ -90,7 +91,7 @@ class MyBlockTheme_InformerShortcode {
                         // Форматуємо дату: 07 Травня 2025, 15:34
                         $day   = get_the_date( 'd' );
                         $month = get_the_date( 'F' );
-                        // Делаем первую букву заглавной
+                        // Перша буква місяця — велика
                         if ( function_exists( 'mb_convert_case' ) ) {
                             $month = mb_convert_case( $month, MB_CASE_TITLE, 'UTF-8' );
                         } else {
@@ -114,9 +115,10 @@ class MyBlockTheme_InformerShortcode {
                                     <a href="<?php the_permalink(); ?>">
                                         <?php
                                         if ( has_post_thumbnail() ) {
-                                            the_post_thumbnail( 'medium' );
+                                            // Використовуємо кастомний розмір informer_small (120×90)
+                                            the_post_thumbnail( 'informer_small' );
                                         } else {
-                                            echo '<img src="https://via.placeholder.com/300x200" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
+                                            echo '<img src="https://via.placeholder.com/120x90" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
                                         }
                                         ?>
                                     </a>
@@ -148,13 +150,13 @@ class MyBlockTheme_InformerShortcode {
             <?php
             // ---------- кнопка «Читати далі» ----------
             if ( $term && ! is_wp_error( $term ) ) {
-                    $cat_link = get_category_link( $term->term_id );
-                    // формируем переводимую строку с плейсхолдером
-                    $read_all = sprintf(
-                        /* translators: %s — название категории */
-                        esc_html__( 'Всі статті %s →', 'myblocktheme' ),
-                        esc_html( $category_name )
-                    );
+                $cat_link = get_category_link( $term->term_id );
+                // Формуємо перекладену рядок з плейсхолдером
+                $read_all = sprintf(
+                    /* translators: %s — назва категорії */
+                    esc_html__( 'Всі статті %s →', 'myblocktheme' ),
+                    esc_html( $category_name )
+                );
 
                 printf(
                     '<p class="informer-read-all"><a href="%s" class="has-text-link">%s</a></p>',

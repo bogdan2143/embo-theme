@@ -26,6 +26,16 @@ class MyBlockTheme_Setup {
     }
 
     /**
+     * Реєструє кастомні розміри з обтинкою для інформера: 326×242 та 120×90.
+     */
+    public function register_image_sizes() {
+        // Велике зображення інформера з жорстким обтинанням по центру
+        add_image_size( 'informer_featured', 326, 242, true );
+        // Маленьке зображення інформера з жорстким обтинанням по центру
+        add_image_size( 'informer_small',    120,  90,  true );
+    }
+
+    /**
      * Налаштовує тему: підтримка блокових шаблонів, кастомного логотипу, мініатюр, меню, стартового контенту.
      */
     public function setup() {
@@ -42,6 +52,9 @@ class MyBlockTheme_Setup {
             'flex-width'  => true,
         ) );
         add_theme_support( 'post-thumbnails' );
+
+        // Реєстрація кастомних розмірів для обтинки інформерів
+        $this->register_image_sizes();
 
         // Реєструємо меню: primary та footer
         register_nav_menus( array(
@@ -107,7 +120,7 @@ class MyBlockTheme_Setup {
      * Порядок підключення:
      * 1. Bulma (через CDN)
      * 2. Основний файл стилів теми (style.css)
-     * 
+     *
      * Inline-стилі, що додаються плагіном через wp_add_inline_style('myblocktheme-style', ...),
      * автоматично додаються після style.css.
      */
@@ -132,7 +145,7 @@ class MyBlockTheme_Setup {
             wp_register_script( 'jquery-migrate', includes_url( '/js/jquery/jquery-migrate.js' ), array( 'jquery' ), null, true );
             wp_enqueue_script( 'jquery-migrate' );
 
-            // подключаем menu-overflow.js
+            // підключаємо menu-overflow.js
             wp_enqueue_script(
               'myblocktheme-menu-overflow',
               get_template_directory_uri() . '/src/js/menu-overflow.js',
