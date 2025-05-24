@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 4.0
+Version: 4.1
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -153,18 +153,18 @@ img{border-radius:7px}
 /* ----- універсальна обгортка для картинок ----- */
 .informer-img{position:relative;overflow:hidden;border-radius:4px}
 .informer-img img{width:100%;height:100%;object-fit:cover;display:block}
-.informer-block .small-item .informer-img{aspect-ratio:5/3}
+.informer-block .small-item .informer-img{aspect-ratio:4.4/3}
 
 /* ----- small‑item ----- */
-.informer-block .column.is-one-third{padding:0px 0.75rem}
+.informer-block .column.is-one-third{padding:0px 0.1rem}
 .informer-block .small-item{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto auto;column-gap:.75rem;row-gap:.25rem;align-items:start}
 .informer-block .small-item .informer-img{grid-column:1;grid-row:1 / span 2}
-.informer-block .small-item h4{display:-webkit-box;grid-column:2;grid-row:1;margin: 0;-webkit-box-orient:vertical;-moz-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;text-overflow:ellipsis}
+.informer-block .small-item h4{display:-webkit-box;grid-column:2;grid-row:1;margin: 0;-webkit-box-orient:vertical;-moz-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;font-size:15px;text-overflow:ellipsis}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0;font-size:.85rem;color:#666}
 
 /* ----- date ----- */
 .informer-block .informer-date{display:block;margin:.25rem 0 0;font-size:0.85rem;color:#666}
-.informer-block .featured-item h3{margin-top:.5rem}
+.informer-block .featured-item h3{margin-top:.5rem;font-size:18px}
 .informer-block .featured-item h3 + .informer-date{margin-bottom:1rem}
 .informer-block .small-item{grid-template-rows: auto auto auto}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0}

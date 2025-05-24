@@ -63,7 +63,7 @@ class MyBlockTheme_AjaxLoadMore {
                     <figure class="news-image">
                         <?php 
                         if ( has_post_thumbnail() ) {
-                            the_post_thumbnail( 'medium' );
+                            the_post_thumbnail( 'informer_featured' );
                         } else {
                             echo '<img src="https://via.placeholder.com/300x200" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
                         }
