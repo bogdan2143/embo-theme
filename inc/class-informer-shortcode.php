@@ -139,8 +139,7 @@ class MyBlockTheme_InformerShortcode {
                                 $time  = get_the_time( 'H:i' );
                                 $date_string = sprintf( '%s %s %s, %s', $day, $month, $year, $time );
                                 ?>
-                                <time class="informer-date small-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>><?php echo esc_html( $date_string ); ?></time>
-
+                                <time class="informer-date small-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( $date_string ); ?></time>
                             </div>
                         <?php endwhile; wp_reset_postdata(); ?>
                     <?php endif; ?>
