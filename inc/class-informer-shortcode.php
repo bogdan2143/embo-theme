@@ -101,7 +101,7 @@ class MyBlockTheme_InformerShortcode {
                         $time  = get_the_time( 'H:i' );
                         $date_string = sprintf( '%s %s %s, %s', $day, $month, $year, $time );
                         ?>
-                        <div class="informer-date"><?php echo esc_html( $date_string ); ?></div>
+                        <time class="informer-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( $date_string ); ?></time>
 
                     <?php endif; wp_reset_postdata(); ?>
                 </div>
@@ -139,7 +139,7 @@ class MyBlockTheme_InformerShortcode {
                                 $time  = get_the_time( 'H:i' );
                                 $date_string = sprintf( '%s %s %s, %s', $day, $month, $year, $time );
                                 ?>
-                                <div class="informer-date small-date"><?php echo esc_html( $date_string ); ?></div>
+                                <time class="informer-date small-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>><?php echo esc_html( $date_string ); ?></time>
 
                             </div>
                         <?php endwhile; wp_reset_postdata(); ?>
