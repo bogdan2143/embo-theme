@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 4.3
+Version: 4.4
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -137,9 +137,9 @@ time,.wp-block-post-author{font-size:13px}
 .article-content{max-width:800px;padding:20px}
 .article-content .breadcrumb{margin-bottom:20px}
 .article-title{font-size:2rem;font-weight:700;margin-bottom:20px}
-.article-meta {display:inline-flex;align-items:center;gap:.25em;margin-bottom:20px;font-size:.95em;font-weight:400;color:#666}
-.article-meta .wp-block-post-author__content,.article-meta .wp-block-post-date {margin:0;line-height:1}
-.meta-sep {margin:0 .3em;user-select:none}
+.article-meta{display:inline-flex;align-items:center;gap:.25em;margin-bottom:20px;font-size:.95em;font-weight:400;color:#666}
+.article-meta .wp-block-post-author__content,.article-meta .wp-block-post-date{margin:0;line-height:1}
+.meta-sep{margin:0 .3em;user-select:none}
 .article-image{margin-bottom:20px}
 .article-image img{width:100%;border-radius:4px}
 .article-body p{margin-bottom:1.5rem;line-height:1.6}
