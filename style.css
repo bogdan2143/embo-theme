@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 5.0
+Version: 5.5
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -14,8 +14,8 @@ Tags: block-theme, full-site-editing, fse, responsive, bulma
 /* ------------------------------------------------------------
    1. Base & Reset
 ------------------------------------------------------------- */
-body{box-sizing:border-box}
-body{display:flex;flex-direction:column;margin:0;overflow-y:auto;overflow-x:hidden}
+html,body{height:100vh} /* Not del! position sticky */
+body{box-sizing:border-box;display:flex;flex-direction:column;margin:0;overflow-y:auto;overflow-x:hidden}
 img{border-radius:7px}
 time,.wp-block-post-author{font-size:13px}
 
@@ -33,10 +33,29 @@ time,.wp-block-post-author{font-size:13px}
 /* Keep aside centred while retaining vertical spacing */
 .global-aside{margin:10px auto}
 
+/* Custom */
+:where(.wp-block-columns.is-layout-flex){gap:1em !important}
+/*------*/
+
 /* ------------------------------------------------------------
    3. Navigation (Navbar & Burger)
 ------------------------------------------------------------- */
 .navbar nav{width:100%}
+
+.wp-block-search__button.wp-element-button{padding:calc(0.667em + 2px) calc(.333em + 2px)!important}
+
+/* Custom */
+.wp-block-search__input{max-width:140px}
+.navbar-item{padding:.5rem .20rem .5rem .75rem}
+.navbar-link,a.navbar-item{padding:.5rem .20rem .5rem .75rem}
+@media screen and (min-width:1024px){
+   .navbar-menu{flex-grow:0!important}
+   .is-layout-constrained > .alignright{margin-inline-start:0em!important}
+}
+@media screen and (max-width:1024px){
+   .wp-block-search__input{max-width:100%}
+}
+/*------*/
 
 .navbar .navbar-item:hover,.navbar .navbar-item:focus{background-color:transparent!important}
 
@@ -66,7 +85,7 @@ time,.wp-block-post-author{font-size:13px}
 
 .navbar-menu a{text-decoration:none}
 
-.wp-block-group.navbar-end{position:relative;overflow:visible;}
+.wp-block-group.navbar-end{position:relative;display:flex;overflow:visible;}
 /* прячет меню, когда неактивно */
 .more-toggle .navbar-dropdown{display:none;position:absolute;top:100%;left:0;z-index:20;min-width:8rem;white-space:nowrap}
 /* показывает меню при клике (когда JS поставил is-active) */
@@ -129,7 +148,7 @@ time,.wp-block-post-author{font-size:13px}
    8. Informer Block
 ------------------------------------------------------------- */
 .informer-block{padding:1rem;margin-bottom:2rem}
-.informer-block .columns{display:flex;gap:1rem;align-items:flex-start}
+.informer-block .columns{display:flex;gap:.5rem;align-items:flex-start}
 
 .informer-block .featured-item{flex:1;padding: .15rem}
 .informer-block .column.is-one-third{flex:1;display:flex;flex-direction:column;gap:1rem}
@@ -145,7 +164,7 @@ time,.wp-block-post-author{font-size:13px}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0;color:#666}
 /* ----- date ----- */
 .informer-block .informer-date{display:block;margin:.25rem 0 0;color:#666}
-.informer-block .featured-item h3{margin-top:.5rem;font-size:18px}
+.informer-block .featured-item h3{margin-top:.5rem;font-family:"Fira Sans", sans-medium;font-size:18px;line-height:23px}
 .informer-block .featured-item h3 + .informer-date{margin-bottom:1rem}
 .informer-block .small-item{grid-template-rows: auto auto auto}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0}
@@ -190,6 +209,8 @@ ul.toc-list{list-style: disc}
   .footer-menu{justify-content:flex-start !important}
 }
 
+.embo-footer-note {padding-bottom:20px}
+
 /* ------------------------------------------------------------
    12. Comments
 ------------------------------------------------------------- */
@@ -220,26 +241,10 @@ ul.toc-list{list-style: disc}
 .tags-area {margin: 2rem 0}
 
 /* 2) Стилізація “пігулок” */
-.tags-area .tags .tag {
-  text-decoration:none;
-  background-color: #f5f5f5;
-  color: #333;
-  border-radius: 4px;
-  padding: 0.25em 0.75em;
-  font-weight: 500;
-  font-size: 0.875rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-}
+.tags-area .tags .tag {text-decoration:none;background-color:#f5f5f5;color:#333;border-radius:4px;padding:0.25em 0.75em;font-weight:500;font-size:0.875rem;margin-right:0.5rem;margin-bottom:0.5rem;}
 
 /* 3) Карточки схожих публікацій */
-.related-posts .card {
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-  transition: transform 0.2s ease-in-out;
-}
+.related-posts .card {border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.2s ease-in-out}
 
 .related-posts .card:hover{transform:translateY(-4px)}
 
@@ -305,7 +310,7 @@ ul.toc-list{list-style: disc}
 @media screen and (max-width: 480px) {
   .wp-block-search.wp-block-search__text-button .wp-block-search__inside-wrapper .wp-block-search__input{width:0;padding:0;opacity:0;transition:width 0.25s ease-in-out,opacity 0.25s ease-in-out,padding 0.25s ease-in-out}
   .wp-block-search.wp-block-search__text-button .wp-block-search__inside-wrapper .wp-block-search__button{display:flex !important}
-  .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper .wp-block-search__input{width:120px;padding:0.5rem 1rem;opacity:1}
+  .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper .wp-block-search__input{width:120px;padding:.8rem 1rem;opacity:1}
   .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper{display:flex;align-items:center}
   .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper .wp-block-search__button{margin-left:0.5rem}
 }
@@ -346,4 +351,25 @@ ul.toc-list{list-style: disc}
 /* показуємо опис на мобайл */
 @media screen and (max-width:1023px){
   .informer-block .small-item p.truncate{display:block}
+}
+
+/* ======================================================
+   18. Search Toggle: без фону коли згорнуто, іконка менша
+   ====================================================== */
+@media screen and (max-width: 480px) {
+   /* 1) За замовчуванням (collapsed): кнопка “лупа” без фону */
+  .wp-block-search.wp-block-search__text-button:not(.expanded)
+   .wp-block-search__inside-wrapper
+   .wp-block-search__button{background:none !important;padding:0.25rem !important;}
+  /* 2) Іконка всередині кнопки — менших розмірів */
+  .wp-block-search__button svg{width:1rem;height:1rem}
+  /* 3) Трохи підсуваємо форму ближче до бургер-меню */
+  .navbar-brand .wp-block-search__text-button{margin-left:-0.5rem !important}
+  /* 4) Коли розгорнено (.expanded) — повертаємо фон */
+  .wp-block-search.wp-block-search__text-button.expanded{margin-left:0 !important;}
+  .wp-block-search.wp-block-search__text-button.expanded
+   .wp-block-search__inside-wrapper
+   .wp-block-search__button{min-height:0;background-color:#293849 !important}
+   /* 5) За бажанням можна зменшити висоту всього wrapper-а */
+  .wp-block-search__inside-wrapper{height:32px !important}
 }

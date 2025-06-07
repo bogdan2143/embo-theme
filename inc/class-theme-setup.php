@@ -145,11 +145,20 @@ class MyBlockTheme_Setup {
             wp_register_script( 'jquery-migrate', includes_url( '/js/jquery/jquery-migrate.js' ), array( 'jquery' ), null, true );
             wp_enqueue_script( 'jquery-migrate' );
 
+            // Підключаємо нашу утиліту для брейкпоінтів
+            wp_enqueue_script(
+                'screen-utils',
+                get_template_directory_uri() . '/src/js/screen-utils.js',
+                [],               // без залежностей
+                '1.0',            // версія вашої утиліти
+                true              // у футері
+            );
+
             // Підключення скрипту для згортання/розгортання поля пошуку
             wp_enqueue_script(
               'myblocktheme-search-toggle',
               get_template_directory_uri() . '/src/js/header-ui.js',
-              [ 'jquery' ],
+              [ 'screen-utils' ],
               '1.0',
               true
             );
