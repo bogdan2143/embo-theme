@@ -119,7 +119,9 @@ class MyBlockTheme_LoadToggle {
                         </figure>
                         <div class="news-content">
                             <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                            <p class="subtitle is-6"><?php echo get_the_date(); ?></p>
+                            <p class="subtitle is-6">
+                                <time datetime="<?php echo get_the_date( 'c' ); ?>"><?php echo get_the_date(); ?></time>
+                            </p>
                         </div>
                     </article>
                     <?php

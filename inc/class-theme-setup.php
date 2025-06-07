@@ -145,10 +145,10 @@ class MyBlockTheme_Setup {
             wp_register_script( 'jquery-migrate', includes_url( '/js/jquery/jquery-migrate.js' ), array( 'jquery' ), null, true );
             wp_enqueue_script( 'jquery-migrate' );
 
-            // підключаємо menu-overflow.js
+            // Підключення скрипту для згортання/розгортання поля пошуку
             wp_enqueue_script(
-              'myblocktheme-menu-overflow',
-              get_template_directory_uri() . '/src/js/menu-overflow.js',
+              'myblocktheme-search-toggle',
+              get_template_directory_uri() . '/src/js/header-ui.js',
               [ 'jquery' ],
               '1.0',
               true
