@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 5.5
+Version: 5.6
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -15,6 +15,7 @@ Tags: block-theme, full-site-editing, fse, responsive, bulma
    1. Base & Reset
 ------------------------------------------------------------- */
 html,body{height:100vh} /* Not del! position sticky */
+html{overflow:hidden}
 body{box-sizing:border-box;display:flex;flex-direction:column;margin:0;overflow-y:auto;overflow-x:hidden}
 img{border-radius:7px}
 time,.wp-block-post-author{font-size:13px}
@@ -63,8 +64,8 @@ time,.wp-block-post-author{font-size:13px}
 /* custom span (Bulma burger) */
 .navbar-burger span{height: 1.5px}
 .navbar-burger span:first-child{top:calc(50% - 7px)}
-.navbar-burger span:nth-child(2){top: calc(50% - 2px)}
-.navbar-burger span:nth-child(3){top: calc(50% + 3px)}
+.navbar-burger span:nth-child(2){top:calc(50% - 2px)}
+.navbar-burger span:nth-child(3){top:calc(50% + 3px)}
 
 .navbar-menu{display:none}
 .navbar-menu.is-active{display:block}
@@ -107,7 +108,7 @@ time,.wp-block-post-author{font-size:13px}
 /* ------------------------------------------------------------
    5. Breadcrumbs & Timeline
 ------------------------------------------------------------- */
-.breadcrumb{padding:0 20px 20px}
+.breadcrumb{padding:0 20px 20px;white-space:normal}
 .breadcrumb a{padding:0 .40em;text-decoration:none}
 .breadcrumb-item{display:inline-block}
 .breadcrumb-item:last-child{margin-right:0}
@@ -140,6 +141,7 @@ time,.wp-block-post-author{font-size:13px}
 .article-meta .wp-block-post-author__content,.article-meta .wp-block-post-date{margin:0;line-height:1}
 .wp-block-post-author__name{font-weight:bold}
 .meta-sep{margin:0 .3em;user-select:none}
+.article-content figure{max-width:100%}
 .article-image{margin-bottom:20px}
 .article-image img{width:100%;border-radius:4px}
 .article-body p{margin-bottom:1.5rem;line-height:1.6}
@@ -174,7 +176,7 @@ time,.wp-block-post-author{font-size:13px}
 .informer-read-all a{font-size:1rem;font-weight:500;text-decoration:none}
 .informer-read-all a:hover{text-decoration:underline}
 /* ----- link інформер ----- */
-.informer-block a{text-decoration: none}
+.informer-block a{text-decoration:none}
 
 /* -------------------------
    9. Single Post
@@ -200,8 +202,8 @@ ul.toc-list{list-style: disc}
 /* ------------------------------------------------------------
    11. Footer
 ------------------------------------------------------------- */
-.footer-menu{display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap}
-.footer-menu a.navbar-item{text-decoration:none;color:inherit;padding:.5rem 1rem}
+.footer-menu{display:inline-flex!important;justify-content:center;align-items:center;flex-wrap:wrap;margin:0 auto;padding:0;gap:0}
+.footer-menu a.navbar-item{flex:0 0 auto;font-family:'Fira Sans', sans-serif;font-size:12px;color:inherit;text-decoration:none;padding:0.5rem 1rem;white-space:nowrap;text-align:center}
 
 .footer-menu{display:flex !important;justify-content:center !important;align-items:center;flex-wrap:wrap;width:100%;margin:0 auto;padding: 0}
 .footer-menu a.navbar-item{font-family:'Fira Sans', sans-serif;font-size:12px;color:inherit;text-decoration:none;padding:0.5rem 1rem;white-space:nowrap;}
@@ -209,7 +211,7 @@ ul.toc-list{list-style: disc}
   .footer-menu{justify-content:flex-start !important}
 }
 
-.embo-footer-note {padding-bottom:20px}
+.embo-footer-note {padding: 0.5rem 1rem 2rem}
 
 /* ------------------------------------------------------------
    12. Comments
@@ -308,20 +310,37 @@ ul.toc-list{list-style: disc}
 ------------------------------------------------------------- */
 /* ≤480px */
 @media screen and (max-width: 480px) {
-  .wp-block-search.wp-block-search__text-button .wp-block-search__inside-wrapper .wp-block-search__input{width:0;padding:0;opacity:0;transition:width 0.25s ease-in-out,opacity 0.25s ease-in-out,padding 0.25s ease-in-out}
-  .wp-block-search.wp-block-search__text-button .wp-block-search__inside-wrapper .wp-block-search__button{display:flex !important}
-  .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper .wp-block-search__input{width:120px;padding:.8rem 1rem;opacity:1}
-  .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper{display:flex;align-items:center}
-  .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper .wp-block-search__button{margin-left:0.5rem}
+   /* 1) За замовчуванням (collapsed): кнопка “лупа” без фону */
+  .wp-block-search.wp-block-search__text-button:not(.expanded)
+   .wp-block-search__inside-wrapper
+   .wp-block-search__button{background:none !important;padding:0.25rem !important;}
+  /* 2) Іконка всередині кнопки — менших розмірів */
+  .wp-block-search__button svg{width:1rem;height:1rem}
+  /* 3) Трохи підсуваємо форму ближче до бургер-меню */
+  .navbar-brand .wp-block-search__text-button{margin-left:-0.5rem !important}
+  /* 4) Коли розгорнено (.expanded) — повертаємо фон */
+  .wp-block-search.wp-block-search__text-button.expanded{margin-left:0 !important;}
+  .wp-block-search.wp-block-search__text-button.expanded
+   .wp-block-search__inside-wrapper
+   .wp-block-search__button{min-height:0;background-color:#293849 !important}
+   /* 5) За бажанням можна зменшити висоту всього wrapper-а */
+  .wp-block-search__inside-wrapper{height:32px !important}
+   /*----*/
+   .wp-block-search.wp-block-search__text-button .wp-block-search__inside-wrapper .wp-block-search__input{width:0;padding:0;opacity:0;transition:width 0.25s ease-in-out,opacity 0.25s ease-in-out,padding 0.25s ease-in-out}
+   .wp-block-search.wp-block-search__text-button .wp-block-search__inside-wrapper .wp-block-search__button{display:flex !important}
+   .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper .wp-block-search__input{width:120px;padding:.8rem 1rem;opacity:1}
+   .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper{display:flex;align-items:center}
+   .wp-block-search.wp-block-search__text-button.expanded .wp-block-search__inside-wrapper .wp-block-search__button{margin-left:0.5rem}
 }
 
 /* ≤768px */
 @media screen and (max-width:768px){
-  .timeline-list,.news-feed{padding:0 15px}
-  .news-feed article.news-item{flex-direction:column}
-  .news-feed .news-image{margin-right:0;margin-bottom:15px}
-  .news-feed article.news-item{padding-right:0;padding-left:0}
-  .article-content,.breadcrumb{padding:15px}
+   .container{padding:0 10px}
+   .timeline-list,.news-feed{padding:0 15px}
+   .news-feed article.news-item{flex-direction:column}
+   .news-feed .news-image{margin-right:0;margin-bottom:15px}
+   .news-feed article.news-item{padding-right:0;padding-left:0}
+   .article-content,.breadcrumb{padding:15px}
 }
 
 /* ≤1024px */
@@ -351,25 +370,4 @@ ul.toc-list{list-style: disc}
 /* показуємо опис на мобайл */
 @media screen and (max-width:1023px){
   .informer-block .small-item p.truncate{display:block}
-}
-
-/* ======================================================
-   18. Search Toggle: без фону коли згорнуто, іконка менша
-   ====================================================== */
-@media screen and (max-width: 480px) {
-   /* 1) За замовчуванням (collapsed): кнопка “лупа” без фону */
-  .wp-block-search.wp-block-search__text-button:not(.expanded)
-   .wp-block-search__inside-wrapper
-   .wp-block-search__button{background:none !important;padding:0.25rem !important;}
-  /* 2) Іконка всередині кнопки — менших розмірів */
-  .wp-block-search__button svg{width:1rem;height:1rem}
-  /* 3) Трохи підсуваємо форму ближче до бургер-меню */
-  .navbar-brand .wp-block-search__text-button{margin-left:-0.5rem !important}
-  /* 4) Коли розгорнено (.expanded) — повертаємо фон */
-  .wp-block-search.wp-block-search__text-button.expanded{margin-left:0 !important;}
-  .wp-block-search.wp-block-search__text-button.expanded
-   .wp-block-search__inside-wrapper
-   .wp-block-search__button{min-height:0;background-color:#293849 !important}
-   /* 5) За бажанням можна зменшити висоту всього wrapper-а */
-  .wp-block-search__inside-wrapper{height:32px !important}
 }

@@ -142,12 +142,14 @@ HTML;
     $footer_content = <<<HTML
 <!-- wp:group {"tagName":"footer","className":"footer","layout":{"type":"constrained"}} -->
 <footer class="footer">
-  <!-- wp:myblocktheme/footer-menu /-->
-  <div class="wp-block-group content has-text-centered">
-    <!-- wp:paragraph -->
-    <p>&copy; 2025 My Block Theme</p>
-    <!-- /wp:paragraph -->
-  </div>
+    <div class="container">
+      <!-- wp:myblocktheme/footer-menu /-->
+      <div class="wp-block-group content">
+        <!-- wp:paragraph -->
+        <p>&copy; 2025 My Block Theme</p>
+        <!-- /wp:paragraph -->
+      </div>
+    </div>
 </footer>
 <!-- /wp:group -->
 HTML;
