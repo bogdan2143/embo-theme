@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 5.6
+Version: 5.7
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -15,10 +15,11 @@ Tags: block-theme, full-site-editing, fse, responsive, bulma
    1. Base & Reset
 ------------------------------------------------------------- */
 html,body{height:100vh} /* Not del! position sticky */
-html{overflow:hidden}
+html{margin-top:0!important;overflow:hidden}
 body{box-sizing:border-box;display:flex;flex-direction:column;margin:0;overflow-y:auto;overflow-x:hidden}
 img{border-radius:7px}
 time,.wp-block-post-author{font-size:13px}
+#wpadminbar{position:sticky!important}
 
 /* ------------------------------------------------------------
    2. Layout Containers
