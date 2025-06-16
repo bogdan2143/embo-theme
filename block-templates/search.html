@@ -1,0 +1,68 @@
+<!-- wp:template-part {"slug":"header"} /-->
+
+<!-- wp:group {"className":"container main-container","layout":{"type":"constrained"}} -->
+<div class="container main-container">
+
+  <!-- Хлебные крошки -->
+  <!-- wp:myblocktheme/breadcrumbs /-->
+
+  <!-- Основная колонка + сайдбар -->
+  <!-- wp:columns -->
+  <div class="wp-block-columns">
+
+    <!-- Левая колонка: результаты поиска -->
+    <!-- wp:column {"width":"66.66%"} -->
+    <div class="wp-block-column" style="flex-basis:66.66%">
+
+      <!-- Заголовок поиска -->
+      <!-- wp:heading {"level":1,"className":"search-title"} -->
+      <h1 class="search-title">
+        Результаты поиска по запросу: «<!-- wp:query-title /-->»
+      </h1>
+      <!-- /wp:heading -->
+
+      <!-- Query Loop, наследующий глобальный контекст (s=…) -->
+      <!-- wp:query {"query":{"inherit":true}} -->
+      <div class="wp-block-query">
+        <!-- wp:post-template -->
+          <article class="post-item">
+            <!-- Заголовок поста -->
+            <!-- wp:post-title {"isLink":true,"level":3} /-->
+            <!-- Дата публикации -->
+            <!-- wp:post-date /-->
+            <!-- Выдержка -->
+            <!-- wp:post-excerpt /-->
+          </article>
+        <!-- /wp:post-template -->
+
+        <!-- Пагинация -->
+        <!-- wp:query-pagination {"paginationType":"numeric"} /-->
+
+        <!-- Блок “ничего не найдено” -->
+        <!-- wp:query-no-results -->
+          <!-- wp:paragraph -->
+            <p>По запросу «<!-- wp:query-title /-->» ничего не найдено.</p>
+          <!-- /wp:paragraph -->
+          <!-- wp:search {"showLabel":false,"placeholder":"Попробовать другой запрос…"} /-->
+        <!-- /wp:query-no-results -->
+
+      </div>
+      <!-- /wp:query -->
+
+    </div>
+    <!-- /wp:column -->
+
+    <!-- Правая колонка: сайдбар -->
+    <!-- wp:column {"width":"33.33%"} -->
+    <div class="wp-block-column" style="flex-basis:33.33%">
+      <!-- wp:template-part {"slug":"aside","className":"global-aside"} /-->
+    </div>
+    <!-- /wp:column -->
+
+  </div>
+  <!-- /wp:columns -->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer"} /-->
