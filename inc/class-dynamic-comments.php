@@ -21,15 +21,24 @@ class MyBlockTheme_DynamicComments {
   }
 
   public function render_comments_block( $attributes ) {
-    // Если комментарии закрыты и нет ни одного — ничего не выводим
-    if ( ! comments_open() && get_comments_number() === 0 ) {
-      return '';
-    }
+      // Якщо коментарі закриті і їх нема — нічого не виводимо
+      if ( ! comments_open() && get_comments_number() === 0 ) {
+          return '';
+      }
 
-    // Иначе — подтягиваем стандартный шаблон WP
-    ob_start();
-    comments_template();
-    return ob_get_clean();
+      // Підтягуємо стандартний шаблон коментарів у буфер
+      ob_start();
+      comments_template();
+      $html = ob_get_clean();
+
+      // Обрізаємо посилання з <time>…</time>, залишаючи тільки дату «ДД.ММ.РРРР»
+      $html = preg_replace(
+          '/<a[^>]*><time[^>]*>((?:\d{1,2}\.){2}\d{4})(?:[^<]*)<\/time><\/a>/u',
+          '$1',
+          $html
+      );
+
+      return $html;
   }
 }
 
