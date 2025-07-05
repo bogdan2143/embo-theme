@@ -63,6 +63,4 @@ add_action( 'wp_ajax_nopriv_myblocktheme_load_more', array( $ajax_load_more, 'lo
 // Реєстрація функцій скидання налаштувань Gutenberg
 add_action( 'admin_notices', array( $gutenberg_reset, 'maybe_show_gutenberg_reset_notice' ), 10 );
 add_action( 'admin_init', array( $gutenberg_reset, 'handle_gutenberg_reset' ), 10 );
-add_action( 'after_switch_theme', array( $gutenberg_reset, 'set_reset_notice_flag' ), 10 );define( 'WP_DEBUG', true ); // KOMET_WP_WP_DEBUG
-define( 'WP_DEBUG_LOG', true ); // KOMET_WP_WP_DEBUG_LOG
-define( 'WP_DEBUG_DISPLAY', true ); // KOMET_WP_WP_DEBUG_DISPLAY
+add_action( 'after_switch_theme', array( $gutenberg_reset, 'set_reset_notice_flag' ), 10 );
