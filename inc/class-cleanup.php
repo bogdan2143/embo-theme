@@ -114,6 +114,3 @@ class MyBlockTheme_Cleanup {
         return $buffer;
     }
 }
-
-// Створюємо екземпляр класу очищення
-new MyBlockTheme_Cleanup();

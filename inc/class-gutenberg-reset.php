@@ -94,5 +94,3 @@ class MyBlockTheme_GutenbergReset {
         update_option( 'myblocktheme_show_reset_notice', true );
     }
 }
-
-new MyBlockTheme_GutenbergReset();

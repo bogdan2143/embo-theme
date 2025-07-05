@@ -195,5 +195,3 @@ class MyBlockTheme_DynamicMenus {
         return $block_content;
     }
 }
-
-new MyBlockTheme_DynamicMenus();

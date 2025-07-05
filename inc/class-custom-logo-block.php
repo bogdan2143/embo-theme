@@ -88,5 +88,3 @@ class MyBlockTheme_CustomLogoBlock {
         }
     }
 }
-
-new MyBlockTheme_CustomLogoBlock();

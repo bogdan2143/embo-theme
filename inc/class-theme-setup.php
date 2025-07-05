@@ -189,5 +189,3 @@ class MyBlockTheme_Setup {
         });
     }
 }
-
-new MyBlockTheme_Setup();

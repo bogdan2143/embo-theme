@@ -1,61 +1,61 @@
-// File: /src/js/screen-utils.js
-
 /**
- * Клас для спостереження за зміною ширини екрану.
- * Викликає колбеки при вході/виході за заданий брейкпоінт.
+ * Utility class for observing screen width changes.
+ *
+ * Executes provided callbacks when the viewport crosses the given breakpoint.
  */
+
 class ScreenObserver {
-  /**
-   * @param {number} breakpointPx — ширина в px, починаючи з якої вважаємо «desktop».
-   */
-  constructor(breakpointPx) {
-    this.mediaQuery = window.matchMedia(`(min-width:${breakpointPx}px)`);
-    this.onEnterCbs = [];
-    this.onLeaveCbs = [];
-    // Прив’язуємо обробку події
-    this._handler = this._handler.bind(this);
-    this.mediaQuery.addEventListener('change', this._handler);
-  }
-
-  /**
-   * Додає колбек, який виконається щоразу, коли ширина стане ≥ breakpoint.
-   * @param {Function} cb
-   */
-  onEnter(cb) {
-    if (this.mediaQuery.matches) cb();
-    this.onEnterCbs.push(cb);
-  }
-
-  /**
-   * Додає колбек, який виконається щоразу, коли ширина стане < breakpoint.
-   * @param {Function} cb
-   */
-  onLeave(cb) {
-    if (!this.mediaQuery.matches) cb();
-    this.onLeaveCbs.push(cb);
-  }
-
-  /**
-   * Внутрішній обробник зміни mediaQuery.
-   * @param {MediaQueryListEvent} e
-   */
-  _handler(e) {
-    if (e.matches) {
-      this.onEnterCbs.forEach(cb => cb());
-    } else {
-      this.onLeaveCbs.forEach(cb => cb());
+    /**
+     * @param {number} breakpointPx Width in pixels from which the screen is
+     *   considered "desktop".
+     */
+    constructor(breakpointPx) {
+        this.mediaQuery = window.matchMedia(`(min-width:${breakpointPx}px)`);
+        this.onEnterCbs = [];
+        this.onLeaveCbs = [];
+        this._handler = this._handler.bind(this);
+        this.mediaQuery.addEventListener('change', this._handler);
     }
-  }
 
-  /**
-   * Відв’язує всі обробники і чистить список колбеків.
-   */
-  destroy() {
-    this.mediaQuery.removeEventListener('change', this._handler);
-    this.onEnterCbs = [];
-    this.onLeaveCbs = [];
-  }
+    /**
+     * Adds a callback that fires whenever the width becomes ≥ breakpoint.
+     * @param {Function} cb
+     */
+    onEnter(cb) {
+        if (this.mediaQuery.matches) cb();
+        this.onEnterCbs.push(cb);
+    }
+
+    /**
+     * Adds a callback that fires whenever the width becomes < breakpoint.
+     * @param {Function} cb
+     */
+    onLeave(cb) {
+        if (!this.mediaQuery.matches) cb();
+        this.onLeaveCbs.push(cb);
+    }
+
+    /**
+     * Internal handler for the mediaQuery change event.
+     * @param {MediaQueryListEvent} e
+     */
+    _handler(e) {
+        if (e.matches) {
+            this.onEnterCbs.forEach(cb => cb());
+        } else {
+            this.onLeaveCbs.forEach(cb => cb());
+        }
+    }
+
+    /**
+     * Removes event listeners and clears callbacks.
+     */
+    destroy() {
+        this.mediaQuery.removeEventListener('change', this._handler);
+        this.onEnterCbs = [];
+        this.onLeaveCbs = [];
+    }
 }
 
-// Робимо глобально доступним (завантажується першим)
+// Make globally accessible
 window.ScreenObserver = ScreenObserver;

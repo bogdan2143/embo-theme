@@ -41,6 +41,3 @@ class MyBlockTheme_DynamicComments {
       return $html;
   }
 }
-
-// Инициализируем
-new MyBlockTheme_DynamicComments();
