@@ -2,7 +2,7 @@
 <summary>Українською</summary>
 
 # EmboTheme
-EmboTheme — експериментальна тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
+EmboTheme — тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
 
 ## Про Full Site Editing
 FSE дозволяє темам WordPress замінювати класичні PHP‑шаблони багаторазовими блоковими шаблонами. У EmboTheme ці шаблони розміщено в каталогах `block-templates/` та `block-template-parts/` і вони відповідають за всю розмітку сторінок. PHP‑класи з каталогу `inc/` забезпечують динамічні дані — наприклад, меню, хлібні крихти та списки коментарів — що дозволяє налаштовувати макет лише через редактор.
@@ -24,7 +24,7 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 <summary>English</summary>
 
 # EmboTheme
-EmboTheme is an experimental WordPress Full Site Editing (FSE) theme built on the Bulma framework. It demonstrates an object‑oriented approach to building a site fully managed through the block editor. The theme includes a set of dynamic blocks and shortcodes implemented as PHP classes and complemented by small JavaScript modules.
+EmboTheme is an WordPress Full Site Editing (FSE) theme built on the Bulma framework. It demonstrates an object‑oriented approach to building a site fully managed through the block editor. The theme includes a set of dynamic blocks and shortcodes implemented as PHP classes and complemented by small JavaScript modules.
 
 ## About Full Site Editing
 FSE allows WordPress themes to replace traditional PHP templates with reusable block templates. In EmboTheme these templates live under `block-templates/` and `block-template-parts/` and are responsible for all page markup. PHP classes from the `inc/` folder inject dynamic data into these templates – for example menus, breadcrumbs and comment lists – making it easy to adjust the layout solely through the editor.
@@ -41,4 +41,3 @@ The file structure is described in detail in the [wiki](wiki/en/README.md) folde
 - Theme configuration is stored in `theme.json`.
 
 </details>
-
