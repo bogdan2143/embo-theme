@@ -44,7 +44,7 @@ class LoadMore {
                     this.container.insertAdjacentHTML('beforeend', json.data);
                     this.paged++;
                 } else {
-                    this.button.textContent = 'Немає більше постів';
+                    this.button.textContent = myblockthemeLoadMore.no_more_posts;
                     this.button.disabled = true;
                 }
                 this.loading = false;

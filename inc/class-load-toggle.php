@@ -1,9 +1,9 @@
 <?php
 /**
- * Динамічний блок для переключення між AJAX "Завантажити більше" та посторінковою пагінацією.
+ * Dynamic block that toggles between AJAX "Load More" and page-based pagination.
  *
- * У режимі пагінації цей блок приховує стандартний блок Query Loop (inherit:true)
- * та рендерить власний WP_Query із контрольованою навігацією сторінок.
+ * In pagination mode this block hides the inherited Query Loop (inherit:true)
+ * and renders its own WP_Query with controlled navigation.
  *
  * @package MyBlockTheme
  */
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MyBlockTheme_LoadToggle {
 
     public function __construct() {
-        // Реєструємо сам блок
+        // Register the block
         add_action( 'init', [ $this, 'register_block' ] );
         // Hide inherited core/query in pagination mode
         add_filter( 'render_block', [ $this, 'filter_core_query' ], 10, 2 );
@@ -30,26 +30,25 @@ class MyBlockTheme_LoadToggle {
     }
 
     /**
-     * Приховати успадкований core/query Loop у режимі pagination.
+     * Hide the inherited core/query Loop when pagination is active.
      *
-     * Через проблему серверного рендерингу в Query Loop (Gutenberg до PR #69698)
-     * блок не враховує параметр paged із pretty URL (/page/X/).
-     * У режимі посторінкової навігації ми приховуємо цей блок
-     * і рендеримо власний WP_Query.
+     * Due to a server-side rendering issue in Query Loop (Gutenberg before PR #69698)
+     * the block does not respect the paged parameter from pretty URLs (/page/X/).
+     * In pagination mode we hide this block and render our own WP_Query.
      *
      * @see https://github.com/WordPress/gutenberg/pull/69698
      */
     public function filter_core_query( $output, $block ) {
-        // Не чіпаємо адмінку
+        // Skip admin area
         if ( is_admin() ) {
             return $output;
         }
 
-        // Дізнаємося режим (ajax або pagination)
+        // Determine mode (ajax or pagination)
         $opts = get_option( 'embo_custom_css_options', [] );
         $mode = $opts['load_type'] ?? 'ajax';
 
-        // Якщо посторінкова навігація і є inherit:true — ховаємо core/query
+        // Hide core/query if pagination mode with inherit:true
         if ( $mode === 'pagination'
              && isset( $block['blockName'], $block['attrs']['inherit'] )
              && $block['blockName'] === 'core/query'
@@ -65,7 +64,7 @@ class MyBlockTheme_LoadToggle {
         $opts = get_option( 'embo_custom_css_options', [] );
         $type = $opts['load_type'] ?? 'ajax';
 
-        // Режим пагінації
+        // Pagination mode
         if ( $type === 'pagination' ) {
             // Determine current pagination page (supports both 'paged' and 'page' query vars)
             $paged_query = absint( get_query_var( 'paged' ) );
@@ -135,7 +134,7 @@ class MyBlockTheme_LoadToggle {
             $base_url    = add_query_arg( 'page', '%#%', $base_url );
 
             // Build pagination links using pretty URL (/page/X/)
-            $big  = 999999999; // несуществующий номер, который будет заменён
+            $big  = 999999999; // placeholder number to be replaced
             $links = paginate_links( [
                 'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
                 'format'    => 'page/%#%/',
@@ -151,7 +150,7 @@ class MyBlockTheme_LoadToggle {
             return ob_get_clean();
         }
 
-        // Режим AJAX
+        // AJAX mode
         $label = __( 'Завантажити старі пости', 'myblocktheme' );
         return sprintf(
             '<div class="load-more"><button id="loadMoreButton" class="button is-primary">%s</button></div>',

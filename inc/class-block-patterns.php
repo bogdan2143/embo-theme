@@ -1,28 +1,29 @@
 <?php
 /**
- * Клас MyBlockTheme_BlockPatterns
+ * Class MyBlockTheme_BlockPatterns
  *
- * Реєструє блокові патерни для теми.
+ * Registers block patterns for the theme.
  */
 
 class MyBlockTheme_BlockPatterns {
 
     /**
-     * Реєструє блокові патерни.
+     * Registers the block patterns.
      */
     public function register_block_patterns() {
         if ( function_exists( 'register_block_pattern' ) ) {
-            // Головний інформер: вивід 4 останніх постів з виділенням першого поста
+            // Main informer: outputs 4 latest posts highlighting the first one
             register_block_pattern(
                 'myblocktheme/main-informer',
                 array(
                     'title'       => __( 'Головний інформер', 'myblocktheme' ),
                     'description' => __( 'Інформер для головної сторінки: вивід 4 останніх постів з виділенням першого поста.', 'myblocktheme' ),
-                    'content'     => '
+                    'content'     => sprintf(
+                        '
 <!-- wp:group {"className":"informer-block"} -->
 <div class="informer-block">
   <!-- wp:heading {"level":2,"className":"title is-4"} -->
-  <h2 class="title is-4">Новини</h2>
+  <h2 class="title is-4">%1$s</h2>
   <!-- /wp:heading -->
   <!-- wp:columns -->
   <div class="wp-block-columns">
@@ -58,7 +59,7 @@ class MyBlockTheme_BlockPatterns {
   <div class="has-text-left">
     <!-- wp:button {"className":"is-link"} -->
     <div class="wp-block-button is-link">
-      <a class="wp-block-button__link">Читати далі</a>
+      <a class="wp-block-button__link">%2$s</a>
     </div>
     <!-- /wp:button -->
   </div>
@@ -66,10 +67,13 @@ class MyBlockTheme_BlockPatterns {
 </div>
 <!-- /wp:group -->
 ',
+                        esc_html__( 'Новини', 'myblocktheme' ),
+                        esc_html__( 'Читати далі', 'myblocktheme' )
+                    ),
                 )
             );
 
-            // Боковий інформер (таймлайн)
+            // Sidebar informer (timeline)
             register_block_pattern(
                 'myblocktheme/aside-informer',
                 array(
@@ -89,23 +93,28 @@ class MyBlockTheme_BlockPatterns {
                 )
             );
 
-            // Інформер списку тегів
+            // Tag list informer
             register_block_pattern(
                 'myblocktheme/tag-list-informer',
                 array(
                     'title'       => __( 'Інформер списку тегів', 'myblocktheme' ),
                     'description' => __( 'Інформер для виводу списку тегів, який можна редагувати вручну.', 'myblocktheme' ),
-                    'content'     => '
+                    'content'     => sprintf(
+                        '
 <!-- wp:group {"className":"tags-area"} -->
 <div class="wp-block-group tags-area">
     <div class="tags">
-        <span class="tag is-info">Тег 1</span>
-        <span class="tag is-info">Тег 2</span>
-        <span class="tag is-info">Тег 3</span>
+        <span class="tag is-info">%1$s</span>
+        <span class="tag is-info">%2$s</span>
+        <span class="tag is-info">%3$s</span>
     </div>
 </div>
 <!-- /wp:group -->
 ',
+                        esc_html__( 'Тег 1', 'myblocktheme' ),
+                        esc_html__( 'Тег 2', 'myblocktheme' ),
+                        esc_html__( 'Тег 3', 'myblocktheme' )
+                    ),
                 )
             );
         }

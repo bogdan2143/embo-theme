@@ -1,10 +1,10 @@
 <?php
 /**
- * Клас MyBlockTheme_InformerShortcode
+ * Class MyBlockTheme_InformerShortcode
  *
- * Шорткод [informer] виводить один «великий» та кілька «малих» постів,
- * а також заголовок із назвою переданої категорії.
- * Під заголовками виводиться дата у форматі «07 Травня 2025, 15:34».
+ * The [informer] shortcode outputs one "featured" post and several "small" posts
+ * along with a heading showing the provided category name.
+ * Dates are displayed in the form "07 May 2025, 15:34".
  *
  * @package myblocktheme
  */
@@ -12,27 +12,27 @@
 class MyBlockTheme_InformerShortcode {
 
     /**
-     * Обробка шорткода.
+     * Shortcode handler.
      *
-     * @param array $atts Атрибути шорткода.
-     * @return string HTML-розмітка інформера.
+     * @param array $atts Shortcode attributes.
+     * @return string HTML markup for the informer.
      */
     public function informer_shortcode( $atts ) {
 
-        // Витягуємо атрибути шорткоду з дефолтами
+        // Extract shortcode attributes with defaults
         $atts = shortcode_atts( array(
             'category'    => 'news',
             'per_page'    => 4,
             'button_text' => __( 'Читати далі', 'myblocktheme' ),
         ), $atts, 'informer' );
 
-        // Отримуємо об’єкт терміну категорії за slug
+        // Get the term object by slug
         $term = get_term_by( 'slug', $atts['category'], 'category' );
         $category_name = $term && ! is_wp_error( $term )
             ? $term->name
             : __( 'Новини', 'myblocktheme' );
 
-        /* ---------- 1. «Великий» пост ---------- */
+        /* ---------- 1. Featured post ---------- */
         $query_featured = new WP_Query( array(
             'posts_per_page' => 1,
             'post_type'      => 'post',
@@ -47,7 +47,7 @@ class MyBlockTheme_InformerShortcode {
             ),
         ) );
 
-        /* ---------- 2. Маленькі пости ---------- */
+        /* ---------- 2. Small posts ---------- */
         $query_small = new WP_Query( array(
             'posts_per_page' => max( intval( $atts['per_page'] ) - 1, 1 ),
             'offset'         => 1,
@@ -65,7 +65,7 @@ class MyBlockTheme_InformerShortcode {
 
         ob_start(); ?>
         <div class="informer-block">
-            <!-- Динамічний заголовок із назвою категорії -->
+            <!-- Dynamic heading with the category name -->
             <h2 class="title is-4"><?php echo esc_html( $category_name ); ?></h2>
 
             <div class="columns">
@@ -76,7 +76,7 @@ class MyBlockTheme_InformerShortcode {
                             <a href="<?php the_permalink(); ?>">
                                 <?php
                                 if ( has_post_thumbnail() ) {
-                                    // Використовуємо кастомний розмір informer_featured (326×242)
+                                    // Use the informer_featured size (326×242)
                                     the_post_thumbnail( 'informer_featured' );
                                 } else {
                                     echo '<img src="https://via.placeholder.com/326x242" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
@@ -88,10 +88,10 @@ class MyBlockTheme_InformerShortcode {
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
                         <?php
-                        // Форматуємо дату: 07 Травня 2025, 15:34
+                        // Format date: 07 May 2025, 15:34
                         $day   = get_the_date( 'd' );
                         $month = get_the_date( 'F' );
-                        // Перша буква місяця — велика
+                        // Capitalize the first letter of the month
                         if ( function_exists( 'mb_convert_case' ) ) {
                             $month = mb_convert_case( $month, MB_CASE_TITLE, 'UTF-8' );
                         } else {
@@ -115,7 +115,7 @@ class MyBlockTheme_InformerShortcode {
                                     <a href="<?php the_permalink(); ?>">
                                         <?php
                                         if ( has_post_thumbnail() ) {
-                                            // Використовуємо кастомний розмір informer_small (120×90)
+                                            // Use the informer_small size (120×90)
                                             the_post_thumbnail( 'informer_small' );
                                         } else {
                                             echo '<img src="https://via.placeholder.com/120x90" alt="' . esc_attr__( 'Новина', 'myblocktheme' ) . '">';
@@ -127,7 +127,7 @@ class MyBlockTheme_InformerShortcode {
                                 <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
 
                                 <?php
-                                // Дата для маленьких постів
+                                // Date for small posts
                                 $day   = get_the_date( 'd' );
                                 $month = get_the_date( 'F' );
                                 if ( function_exists( 'mb_convert_case' ) ) {
@@ -147,12 +147,12 @@ class MyBlockTheme_InformerShortcode {
             </div>
 
             <?php
-            // ---------- кнопка «Читати далі» ----------
+            // ---------- "Read more" button ----------
             if ( $term && ! is_wp_error( $term ) ) {
                 $cat_link = get_category_link( $term->term_id );
-                // Формуємо перекладену рядок з плейсхолдером
+                // Create translated string with placeholder
                 $read_all = sprintf(
-                    /* translators: %s — назва категорії */
+                    /* translators: %s — category name */
                     esc_html__( 'Всі статті %s →', 'myblocktheme' ),
                     esc_html( $category_name )
                 );

@@ -1,16 +1,16 @@
 <?php
 /**
- * Клас MyBlockTheme_DynamicMenus
+ * Class MyBlockTheme_DynamicMenus
  *
- * Реєструє динамічні блоки для меню шапки (header) та меню футера (footer).
- * Меню керуються через стандартний редактор меню WordPress.
- * Волкер для адаптації меню під Bulma інкапсульовано всередині цього класу.
+ * Registers dynamic blocks for header and footer menus. The menus are managed
+ * through the standard WordPress menu editor. The Bulma walker is encapsulated
+ * inside this class.
  */
 
 class MyBlockTheme_DynamicMenus {
 
     /**
-     * Ініціалізація: реєстрація динамічних блоків.
+     * Initialization: register dynamic blocks.
      */
     public function __construct() {
         add_action( 'init', array( $this, 'register_dynamic_menus' ) );
@@ -18,16 +18,16 @@ class MyBlockTheme_DynamicMenus {
     }
 
     /**
-     * Реєструє динамічні блоки для меню шапки та футера.
+     * Registers dynamic blocks for header and footer menus.
      */
     public function register_dynamic_menus() {
-        // Динамічний блок для меню шапки
+        // Dynamic block for header menu
         register_block_type( 'myblocktheme/header-menu', array(
             'render_callback' => array( $this, 'render_header_menu' ),
             'attributes'      => array(),
         ) );
 
-        // Динамічний блок для меню футера
+        // Dynamic block for footer menu
         register_block_type( 'myblocktheme/footer-menu', array(
             'render_callback' => array( $this, 'render_footer_menu' ),
             'attributes'      => array(),
@@ -35,11 +35,11 @@ class MyBlockTheme_DynamicMenus {
     }
 
     /**
-     * Вивід меню шапки (theme_location = 'primary') з використанням кастомного Walker.
+     * Output header menu (theme_location = 'primary') using a custom Walker.
      *
-     * @param array  $attributes Атрибути блоку.
-     * @param string $content    Зміст блоку.
-     * @return string HTML розмітка меню.
+     * @param array  $attributes Block attributes.
+     * @param string $content    Block content.
+     * @return string Menu HTML.
      */
     public function render_header_menu( $attributes, $content ) {
         if ( ! has_nav_menu( 'primary' ) ) {
@@ -49,8 +49,8 @@ class MyBlockTheme_DynamicMenus {
             'theme_location' => 'primary',
             'container'      => false,
             'menu_class'     => 'header-menu',
-            'items_wrap'     => '%3$s',  // Не обгортаємо у <ul>
-            'depth'          => 2,       // Підтримка вкладених пунктів
+            'items_wrap'     => '%3$s',  // Do not wrap in <ul>
+            'depth'          => 2,       // Support submenu items
             'echo'           => false,
             'walker'         => self::get_bulma_walker(),
         ) );
@@ -58,11 +58,11 @@ class MyBlockTheme_DynamicMenus {
     }
 
     /**
-     * Вивід меню футера (theme_location = 'footer') як простого flex‑рядка.
+     * Output footer menu (theme_location = 'footer') as a simple flex row.
      *
-     * @param array  $attributes Атрибути блоку.
-     * @param string $content    Зміст блоку.
-     * @return string HTML розмітка меню.
+     * @param array  $attributes Block attributes.
+     * @param string $content    Block content.
+     * @return string Menu HTML.
      */
     public function render_footer_menu( $attributes, $content ) {
         if ( ! has_nav_menu( 'footer' ) ) {
@@ -82,9 +82,9 @@ class MyBlockTheme_DynamicMenus {
     }
 
     /**
-     * Повертає екземпляр кастомного Walker для меню в стилі Bulma.
+     * Returns an instance of a custom Bulma-style Walker.
      *
-     * Використовуємо анонімний клас, щоб не потребувати окремого файлу.
+     * Uses an anonymous class to avoid a separate file.
      *
      * @return Walker_Nav_Menu
      */
@@ -92,11 +92,11 @@ class MyBlockTheme_DynamicMenus {
         return new class extends Walker_Nav_Menu {
 
             /**
-             * Початок рівня підменю.
+             * Start of submenu level.
              *
-             * @param string $output HTML-розмітка.
-             * @param int    $depth  Рівень вкладеності.
-             * @param array  $args   Аргументи меню.
+             * @param string $output Menu HTML output.
+             * @param int    $depth  Depth level.
+             * @param array  $args   Menu args.
              */
             public function start_lvl( &$output, $depth = 0, $args = array() ) {
                 $indent = str_repeat("\t", $depth);
@@ -104,11 +104,11 @@ class MyBlockTheme_DynamicMenus {
             }
 
             /**
-             * Кінець рівня підменю.
+             * End of submenu level.
              *
-             * @param string $output HTML-розмітка.
-             * @param int    $depth  Рівень вкладеності.
-             * @param array  $args   Аргументи меню.
+             * @param string $output Menu HTML output.
+             * @param int    $depth  Depth level.
+             * @param array  $args   Menu args.
              */
             public function end_lvl( &$output, $depth = 0, $args = array() ) {
                 $indent = str_repeat("\t", $depth);
@@ -116,13 +116,13 @@ class MyBlockTheme_DynamicMenus {
             }
 
             /**
-             * Початок елемента меню.
+             * Start of menu item.
              *
-             * @param string $output HTML-розмітка.
-             * @param object $item   Об'єкт пункту меню.
-             * @param int    $depth  Рівень вкладеності.
-             * @param array  $args   Аргументи меню.
-             * @param int    $id     Ідентифікатор пункту.
+             * @param string $output Menu HTML output.
+             * @param object $item   Menu item object.
+             * @param int    $depth  Depth level.
+             * @param array  $args   Menu args.
+             * @param int    $id     Item ID.
              */
             public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
                 $indent = ($depth) ? str_repeat("\t", $depth) : '';
@@ -138,18 +138,18 @@ class MyBlockTheme_DynamicMenus {
                 $title = apply_filters( 'the_title', $item->title, $item->ID );
 
                 if ( $depth === 0 && $has_child ) {
-                    // Верхній рівень з підменю
+                    // Top level with submenu
                     $output .= $indent . '<div class="navbar-item has-dropdown is-hoverable">';
                     $output .= '<a class="navbar-link"' . $attributes . '>';
                     $output .= $title;
                     $output .= '</a>';
                 } elseif ( $depth === 0 ) {
-                    // Верхній рівень без підменю
+                    // Top level without submenu
                     $output .= $indent . '<a class="navbar-item"' . $attributes . '>';
                     $output .= $title;
                     $output .= '</a>';
                 } else {
-                    // Пункти підменю
+                    // Submenu items
                     $output .= $indent . '<a class="navbar-item"' . $attributes . '>';
                     $output .= $title;
                     $output .= '</a>';
@@ -157,12 +157,12 @@ class MyBlockTheme_DynamicMenus {
             }
 
             /**
-             * Кінець елемента меню.
+             * End of menu item.
              *
-             * @param string $output HTML-розмітка.
-             * @param object $item   Об'єкт пункту меню.
-             * @param int    $depth  Рівень вкладеності.
-             * @param array  $args   Аргументи меню.
+             * @param string $output Menu HTML output.
+             * @param object $item   Menu item object.
+             * @param int    $depth  Depth level.
+             * @param array  $args   Menu args.
              */
             public function end_el( &$output, $item, $depth = 0, $args = array() ) {
                 $has_child = in_array( 'menu-item-has-children', (array)$item->classes, true );
@@ -176,20 +176,20 @@ class MyBlockTheme_DynamicMenus {
     }
 
     /**
-     * Замінює текст кнопки пошуку на SVG-іконку.
+     * Replaces the search button text with an SVG icon.
      *
-     * @param string $block_content Згенерований HTML вміст блоку.
-     * @param array  $block         Дані блоку.
-     * @return string Модифікований HTML.
+     * @param string $block_content Generated block HTML.
+     * @param array  $block         Block data.
+     * @return string Modified HTML.
      */
     public function replace_search_button_with_svg( $block_content, $block ) {
-        // SVG-іконка лупи
+        // SVG icon for the search button
         $svg = '<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
             <circle cx="40" cy="40" r="28" fill="none" stroke="#ffffff" stroke-width="9" />
             <line x1="59.8" y1="59.8" x2="79.6" y2="79.6" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
         </svg>';
 
-        // Заміна тексту всередині кнопки на SVG
+        // Replace button text with SVG
         $block_content = preg_replace('/(<button[^>]*>).*?(<\/button>)/', '$1' . $svg . '$2', $block_content);
 
         return $block_content;

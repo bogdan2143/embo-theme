@@ -88,11 +88,11 @@ time,.wp-block-post-author{font-size:13px}
 .navbar-menu a{text-decoration:none}
 
 .wp-block-group.navbar-end{position:relative;display:flex;overflow:visible;}
-/* прячет меню, когда неактивно */
+/* hides the dropdown when inactive */
 .more-toggle .navbar-dropdown{display:none;position:absolute;top:100%;left:0;z-index:20;min-width:8rem;white-space:nowrap}
-/* показывает меню при клике (когда JS поставил is-active) */
+/* shows the dropdown when JS adds is-active */
 .more-toggle.is-active .navbar-dropdown{display:block !important}
-/* стили самих пунктов */
+/* dropdown item styles */
 .more-toggle .navbar-dropdown .navbar-item{display:block;padding:.5em 1em;color:#333}
 .more-toggle .navbar-dropdown .navbar-item:hover{background:#f5f5f5}
 
@@ -155,7 +155,7 @@ time,.wp-block-post-author{font-size:13px}
 
 .informer-block .featured-item{flex:1;padding: .15rem}
 .informer-block .column.is-one-third{flex:1;display:flex;flex-direction:column;gap:1rem}
-/* ----- універсальна обгортка для картинок ----- */
+/* ----- generic wrapper for images ----- */
 .informer-img{position:relative;overflow:hidden;border-radius:4px}
 .informer-img img{width:100%;height:100%;object-fit:cover;display:block}
 .informer-block .small-item .informer-img{aspect-ratio:4.4/3}
@@ -172,11 +172,11 @@ time,.wp-block-post-author{font-size:13px}
 .informer-block .small-item{grid-template-rows: auto auto auto}
 .informer-block .small-item .informer-date.small-date{grid-column:2;grid-row:2;margin:0}
 .informer-block .small-item p.truncate{grid-column: 2;grid-row: 3}
-/* ----- link під інформером ----- */
+/* ----- link under the informer ----- */
 .informer-read-all{margin:1rem 0}
 .informer-read-all a{font-size:1rem;font-weight:500;text-decoration:none}
 .informer-read-all a:hover{text-decoration:underline}
-/* ----- link інформер ----- */
+/* ----- informer link ----- */
 .informer-block a{text-decoration:none}
 
 /* -------------------------
@@ -240,29 +240,29 @@ ul.toc-list{list-style: disc}
 .comment-form #submit{display:inline-flex;align-items:center;padding:.75rem 1.5rem;background:#3273dc;color:#fff;font-size:1rem;border:none;border-radius:4px;cursor:pointer}
 .comment-form #submit:hover{background:#276cda}
 
-/* 1) Відступ зверху/знизу для блоку тегів */
+/* 1) top/bottom margin for the tag block */
 .tags-area {margin: 2rem 0}
 
-/* 2) Стилізація “пігулок” */
+/* 2) pill styles */
 .tags-area .tags .tag {text-decoration:none;background-color:#f5f5f5;color:#333;border-radius:4px;padding:0.25em 0.75em;font-weight:500;font-size:0.875rem;margin-right:0.5rem;margin-bottom:0.5rem;}
 
-/* 3) Карточки схожих публікацій */
+/* 3) related posts cards */
 .related-posts .card {border:none;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.2s ease-in-out}
 
 .related-posts .card:hover{transform:translateY(-4px)}
 
-/* 4) Скруглення зображення */
+/* 4) rounded image corners */
 .related-posts .card-image .image{border-top-left-radius:8px;border-top-right-radius:8px;overflow:hidden}
 
-/* 5) Відступи в контенті картки */
+/* 5) card content padding */
 .related-posts .card-content{padding:1rem}
 
-/* 6) Заголовок і дата в картці */
+/* 6) title and date inside card */
 .related-posts .card-content .title.is-6{margin-bottom:0.5rem;font-size:1rem}
 
 .related-posts .card-content .subtitle.is-7{font-size:0.875rem;color:#666}
 
-/* 7) Простір між колонками (на всякий випадок) */
+/* 7) spacing between columns */
 .columns.is-variable{--columnGap: 1.5rem}
 
 /* ------------------------------------------------------------
@@ -293,16 +293,16 @@ ul.toc-list{list-style: disc}
 
 .fallback-pagination ul.page-numbers li{margin: 0}
 
-/* Ссылка и span (текущая и обычные страницы) */
+/* link and span for current/regular pages */
 .fallback-pagination ul.page-numbers li a,.fallback-pagination ul.page-numbers li span{display:inline-block;min-width:2.25rem;padding:0.5rem 0.75rem;text-align: center;border:1px solid #ddd;border-radius:0.375rem;font-weight:500;text-decoration:none;color:#1e73be;background-color:#fff;transition:background-color 0.2s, color 0.2s}
 
-/* Hover-состояние для ссылок */
+/* hover state for links */
 .fallback-pagination ul.page-numbers li a:hover{background-color:#f5f5f5}
 
-/* Текущая страница */
+/* current page */
 .fallback-pagination ul.page-numbers li span.current{background-color:#1e73be;border-color:#1e73be;color:#fff}
 
-/* Стили для стрелок Prev/Next */
+/* styles for Prev/Next arrows */
 .fallback-pagination ul.page-numbers li a.prev,.fallback-pagination ul.page-numbers li a.next{font-weight:700;color:#333;border-color:#aaa}
 .fallback-pagination ul.page-numbers li a.prev:hover,.fallback-pagination ul.page-numbers li a.next:hover{background-color:#f0f0f0}
 
@@ -311,20 +311,20 @@ ul.toc-list{list-style: disc}
 ------------------------------------------------------------- */
 /* ≤480px */
 @media screen and (max-width: 480px) {
-   /* 1) За замовчуванням (collapsed): кнопка “лупа” без фону */
+/* 1) collapsed by default: search icon without background */
   .wp-block-search.wp-block-search__text-button:not(.expanded)
    .wp-block-search__inside-wrapper
    .wp-block-search__button{background:none !important;padding:0.25rem !important;}
-  /* 2) Іконка всередині кнопки — менших розмірів */
+/* 2) smaller icon size inside the button */
   .wp-block-search__button svg{width:1rem;height:1rem}
-  /* 3) Трохи підсуваємо форму ближче до бургер-меню */
+/* 3) move the form closer to the burger menu */
   .navbar-brand .wp-block-search__text-button{margin-left:-0.5rem !important}
-  /* 4) Коли розгорнено (.expanded) — повертаємо фон */
+/* 4) bring back background when expanded */
   .wp-block-search.wp-block-search__text-button.expanded{margin-left:0 !important;}
   .wp-block-search.wp-block-search__text-button.expanded
    .wp-block-search__inside-wrapper
    .wp-block-search__button{min-height:0;background-color:#293849 !important}
-   /* 5) За бажанням можна зменшити висоту всього wrapper-а */
+/* 5) optionally reduce wrapper height */
   .wp-block-search__inside-wrapper{height:32px !important}
    /*----*/
    .wp-block-search.wp-block-search__text-button .wp-block-search__inside-wrapper .wp-block-search__input{width:0;padding:0;opacity:0;transition:width 0.25s ease-in-out,opacity 0.25s ease-in-out,padding 0.25s ease-in-out}
@@ -363,12 +363,12 @@ ul.toc-list{list-style: disc}
   .container.main-container>.wp-block-columns>.wp-block-column:last-child{order:2!important;flex:0 0 100%!important;max-width:calc(100% - 40px)!important;margin-right:auto;margin-left:auto}
 }
 
-/* ----- ховаємо опис на десктопі ----- */
+/* ----- hide excerpt on desktop ----- */
 @media screen and (min-width:1024px){
   .informer-block .small-item p.truncate{display:none}
 }
 
-/* показуємо опис на мобайл */
+/* show excerpt on mobile */
 @media screen and (max-width:1023px){
   .informer-block .small-item p.truncate{display:block}
 }

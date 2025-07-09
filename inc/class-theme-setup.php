@@ -1,42 +1,42 @@
 <?php
 /**
- * Клас MyBlockTheme_Setup
+ * Class MyBlockTheme_Setup
  *
- * Реєструє базову ініціалізацію теми:
- * - перемикання редактора на класичний,
- * - налаштування підтримки теми (custom logo, мініатюри, меню, стартовий контент),
- * - створення та призначення домашньої сторінки,
- * - підключення стилів та скриптів.
+ * Registers the basic theme initialization:
+ * - switches to the classic editor
+ * - sets up theme supports (custom logo, thumbnails, menus, starter content)
+ * - creates and assigns the front page
+ * - enqueues styles and scripts
  */
 
 class MyBlockTheme_Setup {
 
     /**
-     * Перемикає на класичний редактор з збереженням налаштувань теми.
+     * Switches to the classic editor while preserving theme settings.
      */
     public function switch_to_standard_editor() {
-        // Вимикаємо підтримку блокових шаблонів
+        // Disable block templates support
         remove_theme_support( 'block-templates' );
-        // Вимикаємо блоковий редактор для окремих постів
+        // Disable block editor for individual posts
         add_filter( 'use_block_editor_for_post', '__return_false' );
-        // Вимикаємо блоковий редактор для типів записів
+        // Disable block editor for post types
         add_filter( 'use_block_editor_for_post_type', '__return_false' );
-        // Підключаємо стилі для класичного редактора (файл editor-style.css має бути у кореневій папці теми)
+        // Enqueue styles for the classic editor (editor-style.css in theme root)
         add_editor_style( 'editor-style.css' );
     }
 
     /**
-     * Реєструє кастомні розміри з обтинкою для інформера: 326×242 та 120×90.
+     * Registers custom informer image sizes: 326×242 and 120×90.
      */
     public function register_image_sizes() {
-        // Велике зображення інформера з жорстким обтинанням по центру
+        // Large informer image with hard crop centered
         add_image_size( 'informer_featured', 326, 242, true );
-        // Маленьке зображення інформера з жорстким обтинанням по центру
+        // Small informer image with hard crop centered
         add_image_size( 'informer_small',    120,  90,  true );
     }
 
     /**
-     * Налаштовує тему: підтримка блокових шаблонів, кастомного логотипу, мініатюр, меню, стартового контенту.
+     * Sets up theme supports: block templates, custom logo, thumbnails, menus and starter content.
      */
     public function setup() {
         add_theme_support( 'block-templates' );
@@ -53,10 +53,10 @@ class MyBlockTheme_Setup {
         ) );
         add_theme_support( 'post-thumbnails' );
 
-        // Реєстрація кастомних розмірів для обтинки інформерів
+        // Register custom sizes for informer thumbnails
         $this->register_image_sizes();
 
-        // Реєструємо меню: primary та footer
+        // Register menus: primary and footer
         register_nav_menus( array(
             'primary' => __( 'Primary Menu', 'myblocktheme' ),
             'footer'  => __( 'Footer Menu', 'myblocktheme' ),
@@ -67,7 +67,10 @@ class MyBlockTheme_Setup {
                 'home' => array(
                     'post_type'    => 'page',
                     'post_title'   => __( 'Home', 'myblocktheme' ),
-                    'post_content' => '<!-- wp:paragraph --><p>Ласкаво просимо на наш сайт!</p><!-- /wp:paragraph -->',
+                    'post_content' => sprintf(
+                        '<!-- wp:paragraph --><p>%s</p><!-- /wp:paragraph -->',
+                        __( 'Ласкаво просимо на наш сайт!', 'myblocktheme' )
+                    ),
                 ),
             ),
             'nav_menus' => array(
@@ -89,8 +92,8 @@ class MyBlockTheme_Setup {
     }
 
     /**
-     * Створює сторінку зі slug "home" та призначає її як головну (show_on_front = page).
-     * Виконується один раз при активації теми.
+     * Creates a page with the slug "home" and assigns it as the front page.
+     * Runs once on theme activation.
      */
     public function create_and_assign_home_page() {
         $existing_front_page_id = get_option( 'page_on_front' );
@@ -115,14 +118,12 @@ class MyBlockTheme_Setup {
     }
 
     /**
-     * Підключає стилі теми.
+     * Enqueues theme styles.
      *
-     * Порядок підключення:
-     * 1. Bulma (через CDN)
-     * 2. Основний файл стилів теми (style.css)
-     *
-     * Inline-стилі, що додаються плагіном через wp_add_inline_style('myblocktheme-style', ...),
-     * автоматично додаються після style.css.
+     * Loading order:
+     * 1. Bulma (via CDN)
+     * 2. Main theme stylesheet (style.css)
+     * Inline styles added via wp_add_inline_style('myblocktheme-style', ...) are appended after style.css.
      */
     public function enqueue_styles() {
         wp_enqueue_style( 'bulma', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css', array(), '0.9.4' );
@@ -130,31 +131,31 @@ class MyBlockTheme_Setup {
     }
 
     /**
-     * Підключає скрипти теми з правильним розташуванням jQuery та jquery-migrate у футері.
-     * Додає JS-код для роботи бургер-меню (перемикання класів is-active).
+     * Enqueues theme scripts placing jQuery and jquery-migrate in the footer.
+     * Adds JS code for burger menu toggling (is-active classes).
      */
     public function enqueue_scripts() {
         if ( ! is_admin() ) {
-            // Перепідключаємо jQuery з параметром завантаження у футері.
+            // Re-register jQuery to load in the footer
             wp_deregister_script( 'jquery' );
             wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), array(), null, true );
             wp_enqueue_script( 'jquery' );
 
-            // Перепідключаємо jquery-migrate з параметром завантаження у футері.
+            // Re-register jquery-migrate to load in the footer
             wp_deregister_script( 'jquery-migrate' );
             wp_register_script( 'jquery-migrate', includes_url( '/js/jquery/jquery-migrate.js' ), array( 'jquery' ), null, true );
             wp_enqueue_script( 'jquery-migrate' );
 
-            // Підключаємо нашу утиліту для брейкпоінтів
+            // Enqueue our breakpoint utility
             wp_enqueue_script(
                 'screen-utils',
                 get_template_directory_uri() . '/src/js/screen-utils.js',
-                [],               // без залежностей
-                '1.0',            // версія вашої утиліти
-                true              // у футері
+                [],               // no dependencies
+                '1.0',            // utility version
+                true              // in the footer
             );
 
-            // Підключення скрипту для згортання/розгортання поля пошуку
+            // Enqueue script to toggle the search field
             wp_enqueue_script(
               'myblocktheme-search-toggle',
               get_template_directory_uri() . '/src/js/header-ui.js',
@@ -164,19 +165,19 @@ class MyBlockTheme_Setup {
             );
         }
 
-        // Додаємо inline-скрипт для роботи бургер-меню
+        // Add inline script for burger menu
         add_action( 'wp_footer', function() {
             ?>
             <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Знаходимо елемент бургер-меню
+                // Locate the burger element
                 var burger = document.querySelector('.navbar-burger');
                 if (burger) {
                     burger.addEventListener('click', function() {
-                        // Отримуємо значення data-target (наприклад, "navbarMain")
+                        // Get the data-target value (e.g., "navbarMain")
                         var targetId = burger.getAttribute('data-target');
                         var menu = document.getElementById(targetId);
-                        // Тогл класу is-active для бургер-меню та цільового меню
+                        // Toggle is-active class on burger and target menu
                         burger.classList.toggle('is-active');
                         if (menu) {
                             menu.classList.toggle('is-active');

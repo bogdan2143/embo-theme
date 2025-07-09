@@ -1,54 +1,54 @@
 <?php
 /**
- * Клас MyBlockTheme_Cleanup
+ * Class MyBlockTheme_Cleanup
  *
- * Обробляє очищення head, видалення зайвого виводу та коригування inline стилів.
+ * Handles head cleanup, removes unnecessary output and adjusts inline styles.
  */
 class MyBlockTheme_Cleanup {
 
     public function __construct() {
-        // Видаляємо непотрібні дії в head
+        // Remove unnecessary actions in the head
         add_action( 'init', array( $this, 'remove_head_extras' ) );
-        // Видаляємо параметри версії з посилань на стилі
+        // Remove version parameters from style links
         add_filter( 'style_loader_tag', array( $this, 'remove_style_version' ), 10, 2 );
-        // Видаляємо клас .hentry для незалогінених користувачів
+        // Remove .hentry class for logged-out users
         add_filter( 'post_class', array( $this, 'remove_hentry_class' ), 10, 3 );
-        // Запускаємо буферизацію виводу для незалогінених користувачів
+        // Start output buffering for logged-out users
         add_action( 'template_redirect', array( $this, 'start_buffer' ) );
     }
 
     /**
-     * Видаляє зайві теги з head.
+     * Removes extra tags from the head.
      */
     public function remove_head_extras() {
-        remove_action( 'wp_head', 'rsd_link' );                   // Видаляємо RSD link
-        remove_action( 'wp_head', 'wlwmanifest_link' );             // Видаляємо Windows Live Writer manifest
-        remove_action( 'wp_head', 'wp_generator' );                 // Видаляємо версію WordPress
-        remove_action( 'wp_head', 'feed_links', 2 );                // Видаляємо загальні посилання RSS
-        remove_action( 'wp_head', 'feed_links_extra', 3 );          // Видаляємо додаткові RSS (коментарі тощо)
-        // Можна додати й інші видалення (наприклад, короткі посилання, adjacent posts links тощо)
+        remove_action( 'wp_head', 'rsd_link' );                   // Remove RSD link
+        remove_action( 'wp_head', 'wlwmanifest_link' );             // Remove Windows Live Writer manifest
+        remove_action( 'wp_head', 'wp_generator' );                 // Remove WordPress version
+        remove_action( 'wp_head', 'feed_links', 2 );                // Remove general RSS links
+        remove_action( 'wp_head', 'feed_links_extra', 3 );          // Remove additional RSS links (comments etc.)
+        // You can add other removals such as shortlinks or adjacent posts links
     }
 
     /**
-     * Видаляє параметр версії з тегів стилів.
+     * Removes the version parameter from style tags.
      *
-     * @param string $tag    HTML тег для підключеного стилю.
-     * @param string $handle Ідентифікатор стилю.
-     * @return string Модифікований HTML тег.
+     * @param string $tag    HTML tag for the enqueued style.
+     * @param string $handle Style handle.
+     * @return string Modified HTML tag.
      */
     public function remove_style_version( $tag, $handle ) {
-        // Видаляємо параметр версії (наприклад, ?ver=6.7.2) за допомогою регулярного виразу
+        // Strip version parameter (e.g., ?ver=6.7.2) using a regex
         $tag = preg_replace( "/ver=\d+(\.\d+){1,2}/", '', $tag );
         return $tag;
     }
 
     /**
-     * Видаляє клас .hentry для незалогінених користувачів.
+     * Removes the .hentry class for logged-out users.
      *
-     * @param array  $classes Масив класів поста.
-     * @param string $class   Додаткові класи.
-     * @param int    $post_id Ідентифікатор поста.
-     * @return array Модифікований масив класів.
+     * @param array  $classes Post classes.
+     * @param string $class   Additional classes.
+     * @param int    $post_id Post ID.
+     * @return array Modified class list.
      */
     public function remove_hentry_class( $classes, $class, $post_id ) {
             $classes = array_diff( $classes, array( 'hentry' ) );
@@ -56,20 +56,19 @@ class MyBlockTheme_Cleanup {
     }
 
     /**
-     * Запускає буферизацію виводу для незалогінених користувачів.
+     * Starts output buffering for logged-out users.
      */
     public function start_buffer() {
-        // Використовуємо callback, що спочатку об’єднує inline стилі, а потім видаляє HTML-коментарі
+        // Use callback that combines inline styles and removes HTML comments
             ob_start( array( $this, 'combine_and_strip' ) );
     }
 
     /**
-     * Callback для буферизації виводу.
+     * Callback for output buffering.
+     * Combines inline styles and removes HTML comments (except conditional ones).
      *
-     * Спочатку об’єднує inline стилі, а потім видаляє HTML-коментарі (окрім умовних).
-     *
-     * @param string $buffer Повний вивід сторінки.
-     * @return string Модифікований вивід.
+     * @param string $buffer Full page output.
+     * @return string Modified output.
      */
     public function combine_and_strip( $buffer ) {
         $buffer = $this->combine_inline_styles( $buffer );
@@ -79,35 +78,35 @@ class MyBlockTheme_Cleanup {
     }
 
     /**
-     * Об’єднує всі inline <style> блоки і вставляє єдиний <style> без зайвих переносів.
+     * Combines all inline <style> blocks into a single <style> without extra breaks.
      *
-     * @param string $buffer Повний HTML вивід.
-     * @return string Модифікований HTML вивід.
+     * @param string $buffer Full HTML output.
+     * @return string Modified HTML output.
      */
     public function combine_inline_styles( $buffer ) {
-        // Регулярний вираз шукає <style> блоки з id, що закінчуються на "-inline-css"
+        // Regex searches for <style> blocks with ids ending in "-inline-css"
         $pattern = '/<style\b[^>]*\bid=[\'"](?P<id>[^\'"]+-inline-css)[\'"][^>]*>(?P<css>.*?)<\/style>/is';
         $combined_css = '';
 
-        // Знаходимо всі відповідні <style> блоки
+        // Find all matching <style> blocks
         if ( preg_match_all( $pattern, $buffer, $matches, PREG_SET_ORDER ) ) {
             foreach ( $matches as $match ) {
-                // Витягуємо CSS, обрізаючи пробіли та переносы
+                // Extract CSS trimming whitespace and line breaks
                 $css_piece = trim( $match['css'] );
-                // Додаємо коментар із ідентифікатором (без переносів)
+                // Append a comment with the identifier (no line breaks)
                 $combined_css .= "/* {$match['id']} */ {$css_piece} ";
             }
-            // Видаляємо всі знайдені <style> блоки
+            // Remove all found <style> blocks
             $buffer = preg_replace( $pattern, '', $buffer );
         }
 
-        // Якщо щось зібралося — вставляємо єдиний <style> прямо перед </head>
+        // If any CSS collected insert single <style> before </head>
         if ( $combined_css !== '' ) {
-            // Убираємо зайві пробіли
+            // Remove excess whitespace
             $clean_css = preg_replace( '/\s+/', ' ', trim( $combined_css ) );
-            // Формуємо блок без \n та зайвих пробілів
+            // Build block without newlines or extra spaces
             $combined_block = "<style>{$clean_css}</style>";
-            // Вставляємо прямо перед </head>, без нового рядка
+            // Insert right before </head> without a new line
             $buffer = preg_replace( '/<\/head>/i', $combined_block . '</head>', $buffer, 1 );
         }
 

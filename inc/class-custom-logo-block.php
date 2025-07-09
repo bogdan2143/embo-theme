@@ -1,23 +1,23 @@
 <?php
 /**
- * Клас MyBlockTheme_CustomLogoBlock
+ * Class MyBlockTheme_CustomLogoBlock
  *
- * Реєструє динамічний блок для логотипу, який в першу чергу перевіряє налаштування плагіну (embo_branding_options),
- * а потім, якщо там порожньо, fallback на JSON-конфіг (theme.json). Якщо і там немає — виводить назву сайту.
+ * Registers a dynamic logo block. It first checks plugin settings (embo_branding_options),
+ * then falls back to the theme.json configuration. If nothing is found it outputs the site title.
  */
 
 class MyBlockTheme_CustomLogoBlock {
 
     /**
-     * Конструктор класу.
+     * Class constructor.
      */
     public function __construct() {
-        // Реєструємо блок при ініціалізації
+        // Register block on init
         add_action('init', array($this, 'register_custom_logo_block'));
     }
 
     /**
-     * Функція реєстрації динамічного блоку.
+     * Registers the dynamic block.
      */
     public function register_custom_logo_block() {
         if ( function_exists('register_block_type') ) {
@@ -28,27 +28,27 @@ class MyBlockTheme_CustomLogoBlock {
     }
     
     /**
-     * Функція рендерингу блоку логотипу.
+     * Renders the logo block.
      *
-     * Послідовність:
-     * 1) Якщо в опціях плагіна embo_branding_options['logo'] є URL - використовуємо його.
-     * 2) Інакше перевіряємо theme.json -> logo
-     * 3) Якщо обидва порожні, виводимо назву сайту.
+     * Steps:
+     * 1) Use embo_branding_options['logo'] if present.
+     * 2) Otherwise check theme.json -> logo.
+     * 3) If both are empty output the site title.
      *
-     * @param array  $attributes Атрибути блоку.
-     * @param string $content    Вміст блоку.
-     * @return string HTML розмітка для логотипу.
-     */
+     * @param array  $attributes Block attributes.
+     * @param string $content    Block content.
+     * @return string HTML markup for the logo.
+    */
     public function render_custom_logo( $attributes, $content ) {
-        // Отримуємо URL головної сторінки
+        // Get home page URL
         $home_url = esc_url( home_url( '/' ) );
 
-        // Спершу перевіряємо налаштування плагіна
+        // Check plugin settings first
         $branding_options = get_option( 'embo_branding_options', array( 'logo' => '' ) );
         $plugin_logo      = ! empty( $branding_options['logo'] ) ? esc_url( $branding_options['logo'] ) : '';
 
         if ( $plugin_logo ) {
-            // Якщо є свій логотип у плагіні, виводимо його в посиланні на головну сторінку
+            // If plugin logo exists output it linked to the home page
             return sprintf(
                 '<a class="custom-logo navbar-item" href="%s"><img src="%s" alt="%s"></a>',
                 $home_url,
@@ -57,21 +57,21 @@ class MyBlockTheme_CustomLogoBlock {
             );
         }
 
-        // Якщо у плагіні логотип порожній, fallback на theme.json
+        // Fallback to theme.json when the plugin logo is empty
         $config_path = get_template_directory() . '/theme.json';
         $logo_url    = '';
 
         if ( file_exists( $config_path ) ) {
-            // Зчитуємо дані конфігурації
+            // Read configuration data
             $config_data = json_decode( file_get_contents( $config_path ), true );
-            // Перевіряємо, чи заданий ключ 'logo'
+            // Check if 'logo' key is set
             if ( isset( $config_data['logo'] ) && ! empty( $config_data['logo'] ) ) {
                 $logo_url = esc_url( $config_data['logo'] );
             }
         }
         
         if ( $logo_url ) {
-            // Виводимо логотип із theme.json в посиланні на головну сторінку
+            // Output the theme.json logo linked to the home page
             return sprintf(
                 '<a class="custom-logo navbar-item" href="%s"><img src="%s" alt="%s"></a>',
                 $home_url,
@@ -79,7 +79,7 @@ class MyBlockTheme_CustomLogoBlock {
                 esc_attr( get_bloginfo( 'name' ) )
             );
         } else {
-            // Якщо нічого немає, виводимо назву сайту в посиланні на головну
+            // If nothing found output the site title linked to the home page
             return sprintf(
                 '<a class="site-title navbar-item" href="%s">%s</a>',
                 $home_url,

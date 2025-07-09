@@ -1,0 +1,95 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: EmboTheme 1.0\n"
+"POT-Creation-Date: 2023-01-01 00:00+0000\n"
+"PO-Revision-Date: 2023-01-01 00:00+0000\n"
+"Language-Team: \n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: block-template-parts/header.html
+msgid "Головна навігація"
+msgstr "Головна навігація"
+
+#: block-template-parts/header.html
+msgid "Пошук..."
+msgstr "Пошук..."
+
+#: block-template-parts/header.html
+msgid "меню"
+msgstr "меню"
+
+#: block-template-parts/header.html
+msgid "Ще…"
+msgstr "Ще…"
+
+#: block-template-parts/aside.html
+msgid "Хронологія"
+msgstr "Хронологія"
+
+#: block-templates/search.html
+msgid "Результати пошуку за запитом:"
+msgstr "Результати пошуку за запитом:"
+
+#: block-templates/search.html
+msgid "За запитом"
+msgstr "За запитом"
+
+#: block-templates/search.html
+msgid "нічого не знайдено."
+msgstr "нічого не знайдено."
+
+#: block-templates/search.html
+msgid "Спробуйте інший запит…"
+msgstr "Спробуйте інший запит…"
+
+#: inc/class-dynamic-breadcrumbs.php
+msgid "Головна"
+msgstr "Головна"
+
+#: inc/class-dynamic-breadcrumbs.php
+msgid "хлібні крихти"
+msgstr "хлібні крихти"
+
+#: inc/class-category-list-shortcode.php
+msgid "Популярні теми"
+msgstr "Популярні теми"
+
+#: inc/class-theme-setup.php
+msgid "Ласкаво просимо на наш сайт!"
+msgstr "Ласкаво просимо на наш сайт!"
+
+#: inc/class-ajax-load-more.php
+msgid "Немає більше постів"
+msgstr "Немає більше постів"
+
+#: inc/class-block-patterns.php
+msgid "Новини"
+msgstr "Новини"
+
+#: inc/class-block-patterns.php
+msgid "Читати далі"
+msgstr "Читати далі"
+
+#: inc/class-block-patterns.php
+msgid "Тег 1"
+msgstr "Тег 1"
+
+#: inc/class-block-patterns.php
+msgid "Тег 2"
+msgstr "Тег 2"
+
+#: inc/class-block-patterns.php
+msgid "Тег 3"
+msgstr "Тег 3"
+
+#: inc/class-dynamic-breadcrumbs.php
+msgid "Результати пошуку"
+msgstr "Результати пошуку"
+
+#: inc/class-load-toggle.php
+msgid "Завантажити старі пости"
+msgstr "Завантажити старі пости"

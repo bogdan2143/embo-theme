@@ -1,13 +1,13 @@
 <?php
 /**
- * Клас MyBlockTheme_DynamicBreadcrumbs
+ * Class MyBlockTheme_DynamicBreadcrumbs
  *
- * Реєструє динамічний блок "Хлібні крихти" для виводу хлібних крихт із SEO-розміткою.
+ * Registers a dynamic "Breadcrumbs" block with Schema.org markup.
  */
 class MyBlockTheme_DynamicBreadcrumbs {
 
     /**
-     * Реєструє блок "Хлібні крихти".
+     * Registers the breadcrumbs block.
      */
     public function register_dynamic_breadcrumbs() {
         register_block_type( 'myblocktheme/breadcrumbs', array(
@@ -24,30 +24,22 @@ class MyBlockTheme_DynamicBreadcrumbs {
     }
 
     /**
-     * Функція-колбек для виводу хлібних крихт із SEO-розміткою.
+     * Callback for rendering breadcrumbs with SEO markup.
      */
     public function render_breadcrumbs_block( $attributes ) {
-        // Якщо це головна сторінка, виводимо лише один елемент "Головна"
+        // If this is the front page, output a single "Home" item
         if ( is_front_page() ) {
             return '';
-            /*return '<nav class="breadcrumb" aria-label="хлібні крихти" itemscope itemtype="https://schema.org/BreadcrumbList">
-                        <ol>
-                            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="breadcrumb-item">
-                                <span itemprop="name" class="is-active">Головна</span>
-                                <meta itemprop="position" content="1" />
-                            </li>
-                        </ol>
-                    </nav>';*/
         }
 
         $breadcrumbs = array();
-        // Перший елемент: посилання на головну
+        // First item: link to the home page
         $breadcrumbs[] = array(
-            'title' => 'Головна',
+            'title' => __( 'Головна', 'myblocktheme' ),
             'url'   => home_url( '/' )
         );
 
-        // Додаємо пункти в залежності від типу сторінки
+        // Add items depending on the current page type
         if ( is_category() ) {
             $breadcrumbs[] = array(
                 'title' => single_cat_title( '', false )
@@ -74,18 +66,18 @@ class MyBlockTheme_DynamicBreadcrumbs {
         }
 
         // Формуємо HTML з SEO-розміткою Schema.org BreadcrumbList
-        $output = '<nav class="breadcrumb" aria-label="хлібні крихти" itemscope itemtype="https://schema.org/BreadcrumbList"><ol>';
+        $output = '<nav class="breadcrumb" aria-label="' . esc_attr__( 'хлібні крихти', 'myblocktheme' ) . '" itemscope itemtype="https://schema.org/BreadcrumbList"><ol>';
         $position = 1;
         foreach ( $breadcrumbs as $crumb ) {
             $output .= '<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
             if ( isset( $crumb['url'] ) ) {
-                // Якщо в масиві є 'url', робимо посилання
+                // If an URL is present, output a link
                 $output .= '<a href="' . esc_url( $crumb['url'] ) . '" itemprop="item"><span itemprop="name">' . esc_html( $crumb['title'] ) . '</span></a>';
             } else {
-                // Якщо 'url' немає, виводимо активний пункт
+                // Otherwise output the active item
                 $output .= '<span itemprop="name" class="is-active">' . esc_html( $crumb['title'] ) . '</span>';
             }
-            // Meta-позиція для SEO
+            // Meta position for SEO
             $output .= '<meta itemprop="position" content="' . $position . '" />';
             $output .= '</li>';
             $position++;

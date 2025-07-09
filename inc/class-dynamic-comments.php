@@ -1,8 +1,7 @@
 <?php
 /**
- * Динамічний блок «Коментарі»:
- * виводить стандартний шаблон comments.php тільки якщо
- * в налаштуваннях посту ввімкнені коментарі.
+ * Dynamic "Comments" block: outputs the default comments template only when
+ * comments are enabled for the current post.
  */
 class MyBlockTheme_DynamicComments {
 
@@ -21,17 +20,17 @@ class MyBlockTheme_DynamicComments {
   }
 
   public function render_comments_block( $attributes ) {
-      // Якщо коментарі закриті і їх нема — нічого не виводимо
+      // If comments are closed and there are none, output nothing
       if ( ! comments_open() && get_comments_number() === 0 ) {
           return '';
       }
 
-      // Підтягуємо стандартний шаблон коментарів у буфер
+      // Capture the default comments template into a buffer
       ob_start();
       comments_template();
       $html = ob_get_clean();
 
-      // Обрізаємо посилання з <time>…</time>, залишаючи тільки дату «ДД.ММ.РРРР»
+      // Strip links from <time>…</time>, leaving only the date "DD.MM.YYYY"
       $html = preg_replace(
           '/<a[^>]*><time[^>]*>((?:\d{1,2}\.){2}\d{4})(?:[^<]*)<\/time><\/a>/u',
           '$1',

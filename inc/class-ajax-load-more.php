@@ -1,14 +1,14 @@
 <?php
 /**
- * Клас MyBlockTheme_AjaxLoadMore
+ * Class MyBlockTheme_AjaxLoadMore
  *
- * Реєструє AJAX-обробку для завантаження постів.
+ * Registers AJAX handling for loading posts.
  */
 
 class MyBlockTheme_AjaxLoadMore {
 
     /**
-     * Підключає скрипт для AJAX-завантаження постів.
+     * Enqueues the script for AJAX post loading.
      */
     public function enqueue_load_more_script() {
         $opts = get_option( 'embo_custom_css_options', [] );
@@ -16,7 +16,7 @@ class MyBlockTheme_AjaxLoadMore {
             return;
         }
         wp_enqueue_script( 'myblocktheme-load-more', get_template_directory_uri() . '/src/js/load-more.js', array( 'jquery' ), '1.0', true );
-        // Визначаємо поточну категорію, якщо ми на архівній сторінці
+        // Determine current category when on an archive page
         $current_category = 'news';
         if ( is_category() ) {
             $cat_obj = get_queried_object();
@@ -28,11 +28,12 @@ class MyBlockTheme_AjaxLoadMore {
             'ajax_url'       => admin_url( 'admin-ajax.php' ),
             'category'       => $current_category,
             'posts_per_page' => 4,
+            'no_more_posts'  => __( 'Немає більше постів', 'myblocktheme' ),
         ));
     }
 
     /**
-     * Обробляє AJAX-запит для завантаження постів.
+     * Handles the AJAX request that fetches posts.
      */
     public function load_more_posts() {
         $paged = isset( $_POST['paged'] ) ? intval( $_POST['paged'] ) : 2;

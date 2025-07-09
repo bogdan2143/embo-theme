@@ -1,7 +1,7 @@
 <!-- wp:group {"className":"navbar is-primary","layout":{"type":"constrained"}} -->
 <div class="wp-block-group navbar is-primary">
   <!-- wp:html -->
-  <nav role="navigation" aria-label="Головна навігація">
+  <nav role="navigation" aria-label="{{__( 'Головна навігація', 'myblocktheme' )}}">
   <!-- /wp:html -->
 
     <!-- wp:group {"className":"container is-flex is-align-items-center is-justify-content-space-between","layout":{"type":"constrained"}} -->
@@ -12,12 +12,12 @@
 
         <!-- wp:myblocktheme/custom-logo {"className":"navbar-item"} /-->
 
-        <!-- wp:search {"className":"navbar-item wp-block-search","label":"","placeholder":"Пошук...","buttonText":"Q"} /-->
+        <!-- wp:search {"className":"navbar-item wp-block-search","label":"","placeholder":"{{__( 'Пошук...', 'myblocktheme' )}}","buttonText":"Q"} /-->
 
         <!-- wp:group {"layout":{"type":"constrained"}} -->
         <div class="wp-block-group">
           <!-- wp:html -->
-          <a class="navbar-burger" role="button" aria-label="меню" aria-expanded="false" data-target="navbarMain">
+          <a class="navbar-burger" role="button" aria-label="{{__( 'меню', 'myblocktheme' )}}" aria-expanded="false" data-target="navbarMain">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -38,9 +38,9 @@
 
           <!-- wp:html -->
           <div class="navbar-item has-dropdown more-toggle" aria-haspopup="true" aria-expanded="false">
-            <a class="navbar-link" href="#">Ще…</a>
+            <a class="navbar-link" href="#">{{__( 'Ще…', 'myblocktheme' )}}</a>
             <div class="navbar-dropdown">
-              <!-- JS сюда будет класть лишние пункты -->
+              <!-- JS will insert overflow items here -->
             </div>
           </div>
           <!-- /wp:html -->
