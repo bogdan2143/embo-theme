@@ -27,8 +27,8 @@ class MyBlockTheme_BlockPatterns {
   <!-- /wp:heading -->
   <!-- wp:columns -->
   <div class="wp-block-columns">
-    <!-- wp:column {"width":"66.66%","className":"featured-item"} -->
-    <div class="wp-block-column featured-item" style="flex-basis:66.66%">
+    <!-- wp:column {"width":"66.66%%","className":"featured-item"} -->
+    <div class="wp-block-column featured-item" style="flex-basis:66.66%%">
       <!-- wp:query {"query":{"perPage":1,"postType":"post","order":"desc","orderBy":"date","taxQuery":[{"taxonomy":"category","field":"slug","terms":["news"]}]},"displayLayout":{"type":"list"}} -->
       <div class="wp-block-query">
         <!-- wp:post-template -->
@@ -40,8 +40,8 @@ class MyBlockTheme_BlockPatterns {
       <!-- /wp:query -->
     </div>
     <!-- /wp:column -->
-    <!-- wp:column {"width":"33.33%"} -->
-    <div class="wp-block-column" style="flex-basis:33.33%">
+    <!-- wp:column {"width":"33.33%%"} -->
+    <div class="wp-block-column" style="flex-basis:33.33%%">
       <!-- wp:query {"query":{"offset":1,"perPage":3,"postType":"post","order":"desc","orderBy":"date","taxQuery":[{"taxonomy":"category","field":"slug","terms":["news"]}]},"displayLayout":{"type":"list"}} -->
       <div class="wp-block-query">
         <!-- wp:post-template -->

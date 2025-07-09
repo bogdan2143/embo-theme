@@ -20,6 +20,7 @@ require_once get_template_directory() . '/inc/class-dynamic-comments.php';
 require_once get_template_directory() . '/inc/class-category-list-shortcode.php';
 require_once get_template_directory() . '/inc/class-post-tags-block.php';
 require_once get_template_directory() . '/inc/class-related-posts-block.php';
+require_once get_template_directory() . '/inc/class-template-translations.php';
 
 // Instantiate modules
 $theme_setup          = new MyBlockTheme_Setup();
@@ -33,11 +34,14 @@ $cleanup              = new MyBlockTheme_Cleanup();
 $dynamic_menus        = new MyBlockTheme_DynamicMenus();
 $custom_logo_block    = new MyBlockTheme_CustomLogoBlock();
 $dynamic_comments     = new MyBlockTheme_DynamicComments();
+$template_translations = new MyBlockTheme_TemplateTranslations();
 
 // Centralized hook registration for theme setup
 add_action( 'after_setup_theme', array( $theme_setup, 'switch_to_standard_editor' ), 1 );
+add_action( 'after_setup_theme', array( $theme_setup, 'load_textdomain' ), 5 );
 add_action( 'after_setup_theme', array( $theme_setup, 'setup' ), 10 );
 add_action( 'after_switch_theme', array( $theme_setup, 'create_and_assign_home_page' ), 10 );
+add_action( 'after_switch_theme', array( $theme_setup, 'update_template_part_areas' ), 10 );
 
 // Enqueue styles and scripts in the proper order
 // Bulma first, then style.css (enqueue_styles() in MyBlockTheme_Setup)
@@ -61,5 +65,4 @@ add_action( 'wp_ajax_nopriv_myblocktheme_load_more', array( $ajax_load_more, 'lo
 
 // Register Gutenberg reset functionality
 add_action( 'admin_notices', array( $gutenberg_reset, 'maybe_show_gutenberg_reset_notice' ), 10 );
-add_action( 'admin_init', array( $gutenberg_reset, 'handle_gutenberg_reset' ), 10 );
-add_action( 'after_switch_theme', array( $gutenberg_reset, 'set_reset_notice_flag' ), 10 );
+add_action( 'admin_init', array( $gutenberg_reset, 'handle_gutenberg_reset' ), 10 );add_action( 'after_switch_theme', array( $gutenberg_reset, 'set_reset_notice_flag' ), 10 );

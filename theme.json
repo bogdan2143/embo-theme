@@ -57,7 +57,6 @@
   },
   "templateParts": [
     { "name": "header", "title": "Header", "area": "header" },
-    { "name": "aside",  "title": "Aside",  "area": "secondary" },
+    { "name": "aside",  "title": "Aside",  "area": "uncategorized" },
     { "name": "footer", "title": "Footer", "area": "footer" }
-  ]
-}
+  ]}

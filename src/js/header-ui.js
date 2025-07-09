@@ -90,7 +90,7 @@
          * Initializes behaviour of the mobile search button.
          */
         _initSearchToggle() {
-            const forms = document.querySelectorAll('.wp-block-search.wp-block-search_text-button');
+            const forms = document.querySelectorAll('.wp-block-search.wp-block-search__text-button');
             if (!forms.length) return;
 
             forms.forEach(form => {

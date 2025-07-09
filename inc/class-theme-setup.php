@@ -36,6 +36,13 @@ class MyBlockTheme_Setup {
     }
 
     /**
+     * Loads theme translation files located in the languages directory.
+     */
+    public function load_textdomain() {
+        load_theme_textdomain( 'myblocktheme', get_template_directory() . '/languages' );
+    }
+
+    /**
      * Sets up theme supports: block templates, custom logo, thumbnails, menus and starter content.
      */
     public function setup() {
@@ -115,6 +122,32 @@ class MyBlockTheme_Setup {
         }
         update_option( 'show_on_front', 'page' );
         update_option( 'page_on_front', $page_id );
+    }
+
+    /**
+     * Updates legacy template parts using the unsupported "secondary" area.
+     * When the theme previously declared this area WordPress stored posts with
+     * the taxonomy term "secondary". To avoid notices we convert those terms
+     * to "uncategorized" once on theme activation.
+     */
+    public function update_template_part_areas() {
+        $parts = get_posts(
+            array(
+                'post_type'      => 'wp_template_part',
+                'posts_per_page' => -1,
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'wp_template_part_area',
+                        'field'    => 'slug',
+                        'terms'    => 'secondary',
+                    ),
+                ),
+            )
+        );
+
+        foreach ( $parts as $part ) {
+            wp_set_post_terms( $part->ID, 'uncategorized', 'wp_template_part_area' );
+        }
     }
 
     /**

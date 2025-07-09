@@ -15,7 +15,7 @@ msgid "Головна навігація"
 msgstr "Головна навігація"
 
 #: block-template-parts/header.html
-msgid "Пошук..."
+msgid "Search..."
 msgstr "Пошук..."
 
 #: block-template-parts/header.html
