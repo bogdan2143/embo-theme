@@ -3,7 +3,13 @@
 
 # EmboTheme
 
-EmboTheme — експериментальна тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
+EmboTheme — тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
+
+## Themes Guidelines
+
+- Приступаючи до розробки, дотримуйтеся [об'єктно-орієнтованого підходу](wiki/uk/files.md).
+- Нові можливості додавайте окремими файлами класів, як описано в [папці `inc`](wiki/uk/inc.md).
+- Для перекладу текстів користуйтеся схемою з [каталогу `languages`](wiki/uk/languages.md).
 
 ## Про Full Site Editing
 
@@ -36,6 +42,12 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 # EmboTheme
 
 EmboTheme is an experimental WordPress Full Site Editing (FSE) theme built on the Bulma framework. It demonstrates an object‑oriented approach to building a site fully managed through the block editor. The theme includes a set of dynamic blocks and shortcodes implemented as PHP classes and complemented by small JavaScript modules.
+
+## Theme Guidelines
+
+- When starting development, follow the [object-oriented approach](wiki/en/files.md).
+- Add new features as separate class files using the pattern in [the `inc` directory documentation](wiki/en/inc.md).
+- To provide translations, see the workflow in [the `languages` folder](wiki/en/languages.md).
 
 ## About Full Site Editing
 
