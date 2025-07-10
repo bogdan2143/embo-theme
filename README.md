@@ -22,8 +22,10 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 Структура файлів докладно описана у [вікі](wiki/uk/README.md). Коротко:
 
 - `functions.php` підключає всі класи з `inc` та реєструє хуки.
-- PHP‑класи у `inc/` забезпечують динамічні блоки й сервіси.
-- Блокові шаблони та частини шаблонів у `block-templates/` та `block-template-parts/` визначають розмітку для FSE.
+- PHP‑класи у [`inc/`](wiki/uk/inc.md) забезпечують динамічні блоки й сервіси.
+- Блокові шаблони та частини шаблонів у [`block-templates/`](wiki/uk/block-templates.md) та [`block-template-parts/`](wiki/uk/block-template-parts.md) визначають розмітку для FSE.
+- Файли перекладів розміщено в [`languages/`](wiki/uk/languages.md).
+- Документація міститься у каталозі [`wiki/`](wiki/uk/wiki.md).
 - Джерела JavaScript знаходяться у `src/js` і відповідають за поведінку інтерфейсу, наприклад, за меню та AJAX‑завантаження.
 - Налаштування теми зберігаються у `theme.json`.
 </details>
@@ -52,8 +54,10 @@ The theme relies on WordPress hooks, filters and the Gutenberg APIs. Additional 
 The file structure is described in detail in the [wiki](wiki/en/README.md) folder. In short:
 
 - `functions.php` loads all classes from `inc` and registers hooks.
-- PHP classes in `inc/` provide dynamic blocks and services.
-- Block templates and template parts under `block-templates/` and `block-template-parts/` define the markup for FSE.
+- PHP classes in [`inc/`](wiki/en/inc.md) provide dynamic blocks and services.
+- Block templates and template parts under [`block-templates/`](wiki/en/block-templates.md) and [`block-template-parts/`](wiki/en/block-template-parts.md) define the markup for FSE.
+- Translation files live in [`languages/`](wiki/en/languages.md).
+- Documentation is stored in the [`wiki/`](wiki/en/wiki.md) directory.
 - JavaScript sources are located in `src/js` and handle front‑end behaviour such as header UI and AJAX loading.
 - Theme configuration is stored in `theme.json`.
 </details>
