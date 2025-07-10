@@ -41,7 +41,7 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 
 # EmboTheme
 
-EmboTheme is an experimental WordPress Full Site Editing (FSE) theme built on the Bulma framework. It demonstrates an object‑oriented approach to building a site fully managed through the block editor. The theme includes a set of dynamic blocks and shortcodes implemented as PHP classes and complemented by small JavaScript modules.
+EmboTheme is an WordPress Full Site Editing (FSE) theme built on the Bulma framework. It demonstrates an object‑oriented approach to building a site fully managed through the block editor. The theme includes a set of dynamic blocks and shortcodes implemented as PHP classes and complemented by small JavaScript modules.
 
 ## Theme Guidelines
 
