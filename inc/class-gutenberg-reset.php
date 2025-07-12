@@ -1,13 +1,15 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_GutenbergReset
- *
  * Handles resetting Gutenberg settings and cleaning template data.
  * When the theme is activated a notice is shown asking to perform the reset.
  * Clicking the link removes block editor options, templates and template parts
  * and resets theme mods.
  */
-
 class MyBlockTheme_GutenbergReset {
 
     /**

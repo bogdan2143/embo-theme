@@ -1,14 +1,16 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_InformerShortcode
- *
  * The [informer] shortcode outputs one "featured" post and several "small" posts
  * along with a heading showing the provided category name.
  * Dates are displayed in the form "07 May 2025, 15:34".
  *
  * @package myblocktheme
  */
-
 class MyBlockTheme_InformerShortcode {
 
     /**

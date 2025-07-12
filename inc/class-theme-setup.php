@@ -1,14 +1,16 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_Setup
- *
  * Registers the basic theme initialization:
  * - switches to the classic editor
  * - sets up theme supports (custom logo, thumbnails, menus, starter content)
  * - creates and assigns the front page
  * - enqueues styles and scripts
  */
-
 class MyBlockTheme_Setup {
 
     /**

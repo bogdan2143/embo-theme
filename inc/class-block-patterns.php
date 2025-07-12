@@ -1,10 +1,12 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_BlockPatterns
- *
  * Registers block patterns for the theme.
  */
-
 class MyBlockTheme_BlockPatterns {
 
     /**

@@ -1,10 +1,12 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_AjaxLoadMore
- *
  * Registers AJAX handling for loading posts.
  */
-
 class MyBlockTheme_AjaxLoadMore {
 
     /**

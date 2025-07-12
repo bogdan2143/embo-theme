@@ -1,12 +1,14 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_DynamicMenus
- *
  * Registers dynamic blocks for header and footer menus. The menus are managed
  * through the standard WordPress menu editor. The Bulma walker is encapsulated
  * inside this class.
  */
-
 class MyBlockTheme_DynamicMenus {
 
     /**

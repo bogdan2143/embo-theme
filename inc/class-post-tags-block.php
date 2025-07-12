@@ -1,7 +1,10 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_PostTagsBlock
- *
  * Dynamic block that outputs post tags styled according to the Figma design.
  */
 class MyBlockTheme_PostTagsBlock {

@@ -1,11 +1,13 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_CustomLogoBlock
- *
  * Registers a dynamic logo block. It first checks plugin settings (embo_branding_options),
  * then falls back to the theme.json configuration. If nothing is found it outputs the site title.
  */
-
 class MyBlockTheme_CustomLogoBlock {
 
     /**

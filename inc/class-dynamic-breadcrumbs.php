@@ -1,7 +1,10 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_DynamicBreadcrumbs
- *
  * Registers a dynamic "Breadcrumbs" block with Schema.org markup.
  */
 class MyBlockTheme_DynamicBreadcrumbs {

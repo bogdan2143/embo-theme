@@ -1,7 +1,10 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_CategoryListShortcode
- *
  * Implements the [category_list] shortcode which outputs all or specified
  * categories as pills styled the same way as tags.
  */

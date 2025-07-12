@@ -1,7 +1,10 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_TemplateTranslations
- *
  * Replaces i18n placeholders like {{__( 'Text', 'domain' )}} in block templates
  * with their translated values. WordPress normally handles this automatically,
  * but some environments may skip parsing, leaving placeholders visible. This

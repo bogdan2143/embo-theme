@@ -1,7 +1,10 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Class MyBlockTheme_Cleanup
- *
  * Handles head cleanup, removes unnecessary output and adjusts inline styles.
  */
 class MyBlockTheme_Cleanup {

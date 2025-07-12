@@ -1,10 +1,13 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
- * Клас MyBlockTheme_RelatedPostsBlock
- *
- * Динамічний блок для виводу схожих публікацій за тегами
- * у картках за макетом із Figma з підтримкою placeholder
- * без зайвих overlay на зображення.
+ * Dynamic block for displaying similar posts by tags
+ * in cards based on Figma layout with placeholder support
+ * without unnecessary overlay on the image.
  */
 class MyBlockTheme_RelatedPostsBlock {
 
@@ -13,7 +16,7 @@ class MyBlockTheme_RelatedPostsBlock {
     }
 
     /**
-     * Реєстрація блоку.
+     * Block registration
      */
     public function register_block() {
         register_block_type( 'myblocktheme/related-posts', [
@@ -33,7 +36,7 @@ class MyBlockTheme_RelatedPostsBlock {
     }
 
     /**
-     * Рендеринг схожих публікацій з placeholder
+     * Rendering similar posts with placeholder
      *
      * @param array $attributes
      * @return string
@@ -56,7 +59,7 @@ class MyBlockTheme_RelatedPostsBlock {
             return '';
         }
 
-        // URL до вашої картинки-заглушки
+        // URL to your filler image
         $placeholder = get_template_directory_uri() . '/assets/images/placeholder.jpg';
 
         ob_start();

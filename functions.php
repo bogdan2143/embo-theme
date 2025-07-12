@@ -5,6 +5,10 @@
  * This is the main file that loads and initializes all modules.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 // Load modules from the inc directory
 require_once get_template_directory() . '/inc/class-theme-setup.php';
 require_once get_template_directory() . '/inc/class-block-patterns.php';

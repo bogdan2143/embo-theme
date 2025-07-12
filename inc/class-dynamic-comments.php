@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Dynamic "Comments" block: outputs the default comments template only when
  * comments are enabled for the current post.

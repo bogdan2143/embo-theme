@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Dynamic block that toggles between AJAX "Load More" and page-based pagination.
  *
@@ -7,7 +12,6 @@
  *
  * @package MyBlockTheme
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
