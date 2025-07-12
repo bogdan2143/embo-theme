@@ -1,42 +1,4 @@
 <details open>
-<summary>Українською</summary>
-
-# EmboTheme
-
-EmboTheme — тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
-
-## Themes Guidelines
-
-- Приступаючи до розробки, дотримуйтеся [об'єктно-орієнтованого підходу](wiki/uk/files.md).
-- Нові можливості додавайте окремими файлами класів, як описано в [папці `inc`](wiki/uk/inc.md).
-- Для перекладу текстів користуйтеся схемою з [каталогу `languages`](wiki/uk/languages.md).
-
-## Про Full Site Editing
-
-FSE дозволяє темам WordPress замінювати класичні PHP‑шаблони багаторазовими блоковими шаблонами. У EmboTheme ці шаблони розміщено в каталогах `block-templates/` та `block-template-parts/` і вони відповідають за всю розмітку сторінок. PHP‑класи з каталогу `inc/` забезпечують динамічні дані — наприклад, меню, хлібні крихти та списки коментарів — що дозволяє налаштовувати макет лише через редактор.
-
-JavaScript у `src/js` доповнює роботу фронтенду. Скрипти взаємодіють із PHP‑класами: `header-ui.js` розширює навігацію, створену `class-dynamic-menus.php`, а `load-more.js` звертається до `class-ajax-load-more.php` для підвантаження додаткових записів.
-
-Під час рендерингу Gutenberg перетворює кожен `wp:group` на `<div style="...">`, а властивості з `theme.json` додає інлайном. Це формує великий `<style>` у `<head>` і стилі важко перекривати.
-
-У темі використано власні `className` де можливо, а всі інлайни збираються в єдиний блок після CSS. Блоки часто реєструються у PHP із `render_callback`, а файли `aside.html`, `header.html` і `footer.html` повністю кастомні, як і burger‑меню.
-
-Ми спираємося на хуки, фільтри та API WordPress і Gutenberg. Для додаткових налаштувань існує плагін [EmboSettings](https://github.com/bogdan2143/EmboSettings). Ідея рендерити фронтенд на JavaScript відкладена через обмеження API, але в майбутньому це може змінитись.
-
-## Огляд файлів
-
-Структура файлів докладно описана у [вікі](wiki/uk/README.md). Коротко:
-
-- `functions.php` підключає всі класи з `inc` та реєструє хуки.
-- PHP‑класи у [`inc/`](wiki/uk/inc.md) забезпечують динамічні блоки й сервіси.
-- Блокові шаблони та частини шаблонів у [`block-templates/`](wiki/uk/block-templates.md) та [`block-template-parts/`](wiki/uk/block-template-parts.md) визначають розмітку для FSE.
-- Файли перекладів розміщено в [`languages/`](wiki/uk/languages.md).
-- Документація міститься у каталозі [`wiki/`](wiki/uk/wiki.md).
-- Джерела JavaScript знаходяться у `src/js` і відповідають за поведінку інтерфейсу, наприклад, за меню та AJAX‑завантаження.
-- Налаштування теми зберігаються у `theme.json`.
-</details>
-
-<details>
 <summary>English</summary>
 
 # EmboTheme
@@ -72,4 +34,42 @@ The file structure is described in detail in the [wiki](wiki/en/README.md) folde
 - Documentation is stored in the [`wiki/`](wiki/en/wiki.md) directory.
 - JavaScript sources are located in `src/js` and handle front‑end behaviour such as header UI and AJAX loading.
 - Theme configuration is stored in `theme.json`.
+</details>
+
+<details>
+<summary>Українською</summary>
+
+# EmboTheme
+
+EmboTheme — тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
+
+## Themes Guidelines
+
+- Приступаючи до розробки, дотримуйтеся [об'єктно-орієнтованого підходу](wiki/uk/files.md).
+- Нові можливості додавайте окремими файлами класів, як описано в [папці `inc`](wiki/uk/inc.md).
+- Для перекладу текстів користуйтеся схемою з [каталогу `languages`](wiki/uk/languages.md).
+
+## Про Full Site Editing
+
+FSE дозволяє темам WordPress замінювати класичні PHP‑шаблони багаторазовими блоковими шаблонами. У EmboTheme ці шаблони розміщено в каталогах `block-templates/` та `block-template-parts/` і вони відповідають за всю розмітку сторінок. PHP‑класи з каталогу `inc/` забезпечують динамічні дані — наприклад, меню, хлібні крихти та списки коментарів — що дозволяє налаштовувати макет лише через редактор.
+
+JavaScript у `src/js` доповнює роботу фронтенду. Скрипти взаємодіють із PHP‑класами: `header-ui.js` розширює навігацію, створену `class-dynamic-menus.php`, а `load-more.js` звертається до `class-ajax-load-more.php` для підвантаження додаткових записів.
+
+Під час рендерингу Gutenberg перетворює кожен `wp:group` на `<div style="...">`, а властивості з `theme.json` додає інлайном. Це формує великий `<style>` у `<head>` і стилі важко перекривати.
+
+У темі використано власні `className` де можливо, а всі інлайни збираються в єдиний блок після CSS. Блоки часто реєструються у PHP із `render_callback`, а файли `aside.html`, `header.html` і `footer.html` повністю кастомні, як і burger‑меню.
+
+Ми спираємося на хуки, фільтри та API WordPress і Gutenberg. Для додаткових налаштувань існує плагін [EmboSettings](https://github.com/bogdan2143/EmboSettings). Ідея рендерити фронтенд на JavaScript відкладена через обмеження API, але в майбутньому це може змінитись.
+
+## Огляд файлів
+
+Структура файлів докладно описана у [вікі](wiki/uk/README.md). Коротко:
+
+- `functions.php` підключає всі класи з `inc` та реєструє хуки.
+- PHP‑класи у [`inc/`](wiki/uk/inc.md) забезпечують динамічні блоки й сервіси.
+- Блокові шаблони та частини шаблонів у [`block-templates/`](wiki/uk/block-templates.md) та [`block-template-parts/`](wiki/uk/block-template-parts.md) визначають розмітку для FSE.
+- Файли перекладів розміщено в [`languages/`](wiki/uk/languages.md).
+- Документація міститься у каталозі [`wiki/`](wiki/uk/wiki.md).
+- Джерела JavaScript знаходяться у `src/js` і відповідають за поведінку інтерфейсу, наприклад, за меню та AJAX‑завантаження.
+- Налаштування теми зберігаються у `theme.json`.
 </details>
