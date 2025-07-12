@@ -1,0 +1,19 @@
+{
+  "name": "bogdan2143/embo-theme",
+  "type": "wordpress-theme",
+  "require": {
+    "php": ">=8.0",
+    "composer/installers": "^2.0",
+    "bogdan2143/embosettings": "dev-main",
+    "afragen/git-updater": "dev-master"
+  },
+  "repositories": [
+    { "type": "vcs", "url": "https://github.com/bogdan2143/EmboSettings" },
+    { "type": "vcs", "url": "https://github.com/afragen/git-updater" }
+  ],
+  "extra": {
+    "installer-paths": {
+      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"]
+    }
+  }
+}

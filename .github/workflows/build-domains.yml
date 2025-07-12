@@ -1,0 +1,41 @@
+name: Build & Deploy Domain Branches
+
+on:
+  push:
+    branches:
+      - sity.top
+  workflow_dispatch:
+    inputs:
+      branches:
+        description: 'Branches (comma-separated) to build/deploy'
+        required: false
+        default: 'sity.top'
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Determine branches to process
+        id: pick
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "BRANCHES=${{ github.ref_name }}" >> $GITHUB_ENV
+          else
+            echo "BRANCHES=${{ github.event.inputs.branches }}" >> $GITHUB_ENV
+          fi
+
+      - name: Build & Deploy per branch
+        run: |
+          IFS=',' read -ra LIST <<< "$BRANCHES"
+          for br in "${LIST[@]}"; do
+            echo "→ Processing $br"
+            git checkout $br
+            npm ci
+            npm run build
+            # Deployment commands could go here
+          done

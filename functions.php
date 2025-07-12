@@ -25,6 +25,7 @@ require_once get_template_directory() . '/inc/class-category-list-shortcode.php'
 require_once get_template_directory() . '/inc/class-post-tags-block.php';
 require_once get_template_directory() . '/inc/class-related-posts-block.php';
 require_once get_template_directory() . '/inc/class-template-translations.php';
+require_once get_template_directory() . '/inc/class-plugin-installer.php';
 
 // Instantiate modules
 $theme_setup          = new MyBlockTheme_Setup();
@@ -39,6 +40,7 @@ $dynamic_menus        = new MyBlockTheme_DynamicMenus();
 $custom_logo_block    = new MyBlockTheme_CustomLogoBlock();
 $dynamic_comments     = new MyBlockTheme_DynamicComments();
 $template_translations = new MyBlockTheme_TemplateTranslations();
+$plugin_installer     = new MyBlockTheme_PluginInstaller();
 
 // Centralized hook registration for theme setup
 add_action( 'after_setup_theme', array( $theme_setup, 'switch_to_standard_editor' ), 1 );
