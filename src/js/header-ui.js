@@ -5,7 +5,6 @@
  * the mobile search field toggle. All logic is wrapped in the HeaderUI class
  * and executed once the DOM is ready.
  */
-
 ;(function() {
     class HeaderUI {
         constructor() {

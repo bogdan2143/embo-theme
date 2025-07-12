@@ -3,7 +3,6 @@
  *
  * Executes provided callbacks when the viewport crosses the given breakpoint.
  */
-
 class ScreenObserver {
     /**
      * @param {number} breakpointPx Width in pixels from which the screen is

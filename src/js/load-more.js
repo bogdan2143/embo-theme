@@ -4,7 +4,6 @@
  * Handles the AJAX request for loading additional posts. Designed to work with
  * the MyBlockTheme WordPress theme.
  */
-
 class LoadMore {
     constructor(options) {
         this.button = document.getElementById(options.buttonId);
