@@ -3,6 +3,8 @@
 
 # EmboTheme
 
+[![CI](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml) [![Domain Build](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml/badge.svg?branch=sity.top)](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml)
+
 EmboTheme is an WordPress Full Site Editing (FSE) theme built on the Bulma framework. It demonstrates an object‑oriented approach to building a site fully managed through the block editor. The theme includes a set of dynamic blocks and shortcodes implemented as PHP classes and complemented by small JavaScript modules.
 
 ## Theme Guidelines
@@ -37,16 +39,29 @@ The file structure is described in detail in the [wiki](wiki/en/README.md) folde
 - JavaScript sources are located in `src/js` and handle front‑end behaviour such as header UI and AJAX loading.
 - Theme configuration is stored in `theme.json`.
 
+## Plugin Dependencies
+
+When the theme is activated a small installer automatically downloads and activates two plugins:
+
+- **EmboSettings**
+- **Git Updater**
+
+Composer also installs these plugins during the build step so the domain workflow already has them available.
+
 ## Deployment
 
 Branches match domain names (e.g. `sity.top`). Pushing to such a branch runs the [`build-domains.yml`](.github/workflows/build-domains.yml) workflow which:
 
 - Installs Node packages from `package.json`.
-- Installs PHP dependencies from `composer.json` and preloads plugins.
+- Installs PHP dependencies from `composer.json` and preloads plugins (`EmboSettings` and `Git Updater`).
 - Runs `vendor/bin/phpcs` with `phpcs.xml` to check WordPress standards.
 - Builds assets using Webpack defined in `webpack.config.js`.
 - Injects `GitHub Theme URI` and the branch name into `style.css`.
 - Pushes the change back to the branch. Accept the auto-generated commit through a pull request so maintainers can review the overwritten lines.
+
+## Theme Updates
+
+The build script sets the repository URL and branch in `style.css`. Increase the `Version` value and push changes whenever a release is ready. Afterwards open **Git Updater** in the WordPress admin and press **Check Again** to install the new version.
 
 ## IDE Setup
 
@@ -61,6 +76,7 @@ Branches match domain names (e.g. `sity.top`). Pushing to such a branch runs the
 
 # EmboTheme
 
+[![CI](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml) [![Domain Build](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml/badge.svg?branch=sity.top)](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml)
 EmboTheme — тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
 
 ## Themes Guidelines
@@ -95,16 +111,29 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 - Джерела JavaScript знаходяться у `src/js` і відповідають за поведінку інтерфейсу, наприклад, за меню та AJAX‑завантаження.
 - Налаштування теми зберігаються у `theme.json`.
 
+## Залежні плагіни
+
+Під час активації тема автоматично завантажує та активує два плагіни:
+
+- **EmboSettings**
+- **Git Updater**
+
+Composer також встановлює ці плагіни під час збірки, тож доменний workflow одразу має їх напоготові.
+
 ## Деплой
 
 Гілки називаються за доменами (наприклад, `sity.top`). Пуш у таку гілку запускає workflow [`build-domains.yml`](.github/workflows/build-domains.yml), який:
 
 - встановлює Node‑пакети з `package.json`;
-- встановлює залежності Composer з `composer.json` та попередньо ставить плагіни;
+- встановлює залежності Composer з `composer.json` та попередньо ставить плагіни (`EmboSettings` і `Git Updater`);
 - перевіряє код на стандарти WordPress за допомогою `phpcs.xml`;
 - збирає assets через Webpack із `webpack.config.js`;
 - додає рядки `GitHub Theme URI` та назву гілки в `style.css`.
 - пушить оновлену гілку назад. Автоматичний коміт слід прийняти через pull request, щоб преємники підтвердили перезапис цих рядків.
+
+## Оновлення теми
+
+Під час збірки в `style.css` підставляються `GitHub Theme URI` та `GitHub Branch`. При випуску нової версії збільшуйте рядок `Version` і пуште зміни. Потім у адмінці WordPress відкрийте розділ **Git Updater** і натисніть **Check Again**, щоб встановити оновлення.
 
 ## Налаштування IDE
 
