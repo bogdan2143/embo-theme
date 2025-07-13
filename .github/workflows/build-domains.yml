@@ -2,8 +2,8 @@ name: Build & Deploy Domain Branches
 
 on:
   push:
-    branches:
-      - sity.top
+    branches-ignore:
+      - main
   workflow_dispatch:
     inputs:
       branches:
@@ -41,6 +41,6 @@ jobs:
             # Inject GitHub update headers into style.css
             sed -i '/^GitHub Theme URI:/d' style.css
             sed -i '/^GitHub Branch:/d' style.css
-            sed -i "/^Tags:/a GitHub Theme URI: $GITHUB_REPOSITORY\nGitHub Branch: ${br}" style.css
+            sed -i "/^Tags:/a GitHub Theme URI: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY\nGitHub Branch: ${br}" style.css
             # Deployment commands could go here
           done
