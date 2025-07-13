@@ -10,6 +10,8 @@ EmboTheme is an WordPress Full Site Editing (FSE) theme built on the Bulma frame
 - When starting development, follow the [object-oriented approach](wiki/en/files.md).
 - Add new features as separate class files using the pattern in [the `inc` directory documentation](wiki/en/inc.md).
 - To provide translations, see the workflow in [the `languages` folder](wiki/en/languages.md).
+- Deployment instructions are described in [Deployment](#deployment).
+- IDE recommendations are listed in [IDE Setup](#ide-setup).
 
 ## About Full Site Editing
 
@@ -34,6 +36,27 @@ The file structure is described in detail in the [wiki](wiki/en/README.md) folde
 - Documentation is stored in the [`wiki/`](wiki/en/wiki.md) directory.
 - JavaScript sources are located in `src/js` and handle front‑end behaviour such as header UI and AJAX loading.
 - Theme configuration is stored in `theme.json`.
+
+## Deployment
+
+Branches match domain names (e.g. `sity.top`). Pushing to such a branch runs
+the [`build-domains.yml`](.github/workflows/build-domains.yml) workflow which:
+
+- Installs Node packages from `package.json`.
+- Installs PHP dependencies from `composer.json` and preloads plugins.
+- Runs `vendor/bin/phpcs` with `phpcs.xml` to check WordPress standards.
+- Builds assets using Webpack defined in `webpack.config.js`.
+- Injects `GitHub Theme URI` and the branch name into `style.css`.
+
+## IDE Setup
+
+- On Windows use **GitHub Desktop** to switch branches.
+- In Sublime Text use [Sublime Merge](https://www.sublimemerge.com) or the
+  GitSavvy package.
+- Always configure the IDE to display the current branch so you know which
+  domain you are editing.
+- Merge from `main` only if necessary and with care; large differences can
+  make this approach obsolete.
 </details>
 
 <details>
@@ -48,6 +71,8 @@ EmboTheme — тема WordPress з підтримкою Full Site Editing (FSE)
 - Приступаючи до розробки, дотримуйтеся [об'єктно-орієнтованого підходу](wiki/uk/files.md).
 - Нові можливості додавайте окремими файлами класів, як описано в [папці `inc`](wiki/uk/inc.md).
 - Для перекладу текстів користуйтеся схемою з [каталогу `languages`](wiki/uk/languages.md).
+- Інструкції щодо деплою знаходяться в розділі [Деплой](#деплой).
+- Рекомендації по IDE описані в розділі [Налаштування IDE](#налаштування-ide).
 
 ## Про Full Site Editing
 
@@ -72,4 +97,24 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 - Документація міститься у каталозі [`wiki/`](wiki/uk/wiki.md).
 - Джерела JavaScript знаходяться у `src/js` і відповідають за поведінку інтерфейсу, наприклад, за меню та AJAX‑завантаження.
 - Налаштування теми зберігаються у `theme.json`.
+
+## Деплой
+
+Гілки називаються за доменами (наприклад, `sity.top`). Пуш у таку гілку
+запускає workflow [`build-domains.yml`](.github/workflows/build-domains.yml), який:
+
+- встановлює Node‑пакети з `package.json`;
+- встановлює залежності Composer з `composer.json` та попередньо ставить плагіни;
+- перевіряє код на стандарти WordPress за допомогою `phpcs.xml`;
+- збирає assets через Webpack із `webpack.config.js`;
+- додає рядки `GitHub Theme URI` та назву гілки в `style.css`.
+
+## Налаштування IDE
+
+- Під Windows зручно перемикати гілки у **GitHub Desktop**.
+- У Sublime Text можна скористатись [Sublime Merge](https://www.sublimemerge.com)
+  або плагіном GitSavvy.
+- Завжди вмикайте відображення поточної гілки, щоб знати який домен ви редагуєте.
+- Злиття з `main` робіть обережно; при значних розбіжностях такий підхід може
+  втратити актуальність.
 </details>

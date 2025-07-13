@@ -38,5 +38,9 @@ jobs:
             # Use npm install since no lock file is committed
             npm install --no-audit --no-progress
             npm run build
+            # Inject GitHub update headers into style.css
+            sed -i '/^GitHub Theme URI:/d' style.css
+            sed -i '/^GitHub Branch:/d' style.css
+            sed -i "/^Tags:/a GitHub Theme URI: $GITHUB_REPOSITORY\nGitHub Branch: ${br}" style.css
             # Deployment commands could go here
           done
