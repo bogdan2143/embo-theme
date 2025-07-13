@@ -34,7 +34,7 @@ class MyBlockTheme_CategoryListShortcode {
             'exclude'    => '',
             'orderby'    => 'name',
             'order'      => 'ASC',
-            'hide_empty' => 'true',
+            'hide_empty' => 'false',
             'prefix'     => '#',
             'class'      => 'tags-area informer-block',
         ], $atts, 'category_list' );
@@ -47,8 +47,9 @@ class MyBlockTheme_CategoryListShortcode {
         ];
 
         if ( $atts['include'] ) {
-            // Include only specified categories
-            $args['include'] = array_map( 'intval', explode( ',', $atts['include'] ) );
+            // Include only specified categories and show them even if empty
+            $args['include']   = array_map( 'intval', explode( ',', $atts['include'] ) );
+            $args['hide_empty'] = false;
         }
         if ( $atts['exclude'] ) {
             // Exclude specified categories

@@ -4,13 +4,11 @@ Theme URI: https://embo-studio.ua/
 Author: Pan Canon
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 5.8
+Version: 5.9
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
 Tags: block-theme, full-site-editing, fse, responsive, bulma
-GitHub Theme URI: https://github.com/bogdan2143/embo-theme
-GitHub Branch: sity.top
 */
 
 /* ------------------------------------------------------------
@@ -135,7 +133,7 @@ time,.wp-block-post-author{font-size:13px}
 .load-more{margin-top:20px;text-align:center}
 
 /* ------------------------------------------------------------
-   7. Articles / Single Post
+   7. Articles / Single Post / Search
 ------------------------------------------------------------- */
 .article-content{max-width:800px;padding:20px}
 .article-content .breadcrumb{margin-bottom:20px}
@@ -148,6 +146,8 @@ time,.wp-block-post-author{font-size:13px}
 .article-image{margin-bottom:20px}
 .article-image img{width:100%;border-radius:4px}
 .article-body p{margin-bottom:1.5rem;line-height:1.6}
+
+.search.search-results .post-item{margin-bottom:10px}
 
 /* ------------------------------------------------------------
    8. Informer Block

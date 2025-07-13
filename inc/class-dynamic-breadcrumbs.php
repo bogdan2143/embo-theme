@@ -10,6 +10,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MyBlockTheme_DynamicBreadcrumbs {
 
     /**
+     * Returns the primary category for the given post if available.
+     * Falls back to the first assigned category.
+     *
+     * @param int $post_id Post ID.
+     * @return WP_Term|null Category term object or null when not found.
+     */
+    private function get_primary_category( $post_id ) {
+        // Use Yoast SEO primary term when the plugin is active.
+        if ( class_exists( 'WPSEO_Primary_Term' ) ) {
+            $primary = new WPSEO_Primary_Term( 'category', $post_id );
+            $term_id = $primary->get_primary_term();
+            if ( $term_id && ! is_wp_error( $term_id ) ) {
+                $term = get_term( $term_id, 'category' );
+                if ( $term && ! is_wp_error( $term ) ) {
+                    return $term;
+                }
+            }
+        }
+
+        // Fallback to the first category.
+        $categories = get_the_category( $post_id );
+        return ! empty( $categories ) ? $categories[0] : null;
+    }
+
+    /**
      * Registers the breadcrumbs block.
      */
     public function register_dynamic_breadcrumbs() {
@@ -48,15 +73,15 @@ class MyBlockTheme_DynamicBreadcrumbs {
                 'title' => single_cat_title( '', false )
             );
         } elseif ( is_single() ) {
-            $categories = get_the_category();
-            if ( ! empty( $categories ) ) {
+            $category = $this->get_primary_category( get_the_ID() );
+            if ( $category ) {
                 $breadcrumbs[] = array(
-                    'title' => esc_html( $categories[0]->name ),
-                    'url'   => get_category_link( $categories[0]->term_id )
+                    'title' => esc_html( $category->name ),
+                    'url'   => get_category_link( $category->term_id ),
                 );
             }
             $breadcrumbs[] = array(
-                'title' => get_the_title()
+                'title' => get_the_title(),
             );
         } elseif ( is_page() ) {
             $breadcrumbs[] = array(
