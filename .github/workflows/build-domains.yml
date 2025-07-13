@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Determine branches to process
         id: pick
@@ -42,5 +43,11 @@ jobs:
             sed -i '/^GitHub Theme URI:/d' style.css
             sed -i '/^GitHub Branch:/d' style.css
             sed -i "/^Tags:/a GitHub Theme URI: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY\nGitHub Branch: ${br}" style.css
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            if ! git diff --quiet style.css; then
+              git commit -am "Add GitHub update headers"
+              git push origin HEAD:$br
+            fi
             # Deployment commands could go here
           done
