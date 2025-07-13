@@ -1,9 +1,11 @@
+[![CI](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml) [![Domain Build](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml/badge.svg?branch=sity.top)](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml)
+
+---
+
 <details open>
 <summary>English</summary>
 
 # EmboTheme
-
-[![CI](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml) [![Domain Build](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml/badge.svg?branch=sity.top)](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml)
 
 EmboTheme is an WordPress Full Site Editing (FSE) theme built on the Bulma framework. It demonstrates an object‑oriented approach to building a site fully managed through the block editor. The theme includes a set of dynamic blocks and shortcodes implemented as PHP classes and complemented by small JavaScript modules.
 
@@ -76,7 +78,6 @@ The build script sets the repository URL and branch in `style.css`. Increase the
 
 # EmboTheme
 
-[![CI](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/bogdan2143/embo-theme/actions/workflows/ci.yml) [![Domain Build](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml/badge.svg?branch=sity.top)](https://github.com/bogdan2143/embo-theme/actions/workflows/build-domains.yml)
 EmboTheme — тема WordPress з підтримкою Full Site Editing (FSE) на базі фреймворка Bulma. Вона демонструє об'єктно-орієнтований підхід до побудови сайту, який повністю керується через блоковий редактор. Тема містить набір динамічних блоків і шорткодів, реалізованих у вигляді PHP‑класів та доповнених невеликими JavaScript‑модулями.
 
 ## Themes Guidelines
