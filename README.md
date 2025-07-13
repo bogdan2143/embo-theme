@@ -39,24 +39,21 @@ The file structure is described in detail in the [wiki](wiki/en/README.md) folde
 
 ## Deployment
 
-Branches match domain names (e.g. `sity.top`). Pushing to such a branch runs
-the [`build-domains.yml`](.github/workflows/build-domains.yml) workflow which:
+Branches match domain names (e.g. `sity.top`). Pushing to such a branch runs the [`build-domains.yml`](.github/workflows/build-domains.yml) workflow which:
 
 - Installs Node packages from `package.json`.
 - Installs PHP dependencies from `composer.json` and preloads plugins.
 - Runs `vendor/bin/phpcs` with `phpcs.xml` to check WordPress standards.
 - Builds assets using Webpack defined in `webpack.config.js`.
 - Injects `GitHub Theme URI` and the branch name into `style.css`.
+- Pushes the change back to the branch. Accept the auto-generated commit through a pull request so maintainers can review the overwritten lines.
 
 ## IDE Setup
 
 - On Windows use **GitHub Desktop** to switch branches.
-- In Sublime Text use [Sublime Merge](https://www.sublimemerge.com) or the
-  GitSavvy package.
-- Always configure the IDE to display the current branch so you know which
-  domain you are editing.
-- Merge from `main` only if necessary and with care; large differences can
-  make this approach obsolete.
+- In Sublime Text use [Sublime Merge](https://www.sublimemerge.com) or the GitSavvy package.
+- Always configure the IDE to display the current branch so you know which domain you are editing.
+- Merge from `main` only if necessary and with care; large differences can make this approach obsolete.
 </details>
 
 <details>
@@ -100,14 +97,14 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 
 ## Деплой
 
-Гілки називаються за доменами (наприклад, `sity.top`). Пуш у таку гілку
-запускає workflow [`build-domains.yml`](.github/workflows/build-domains.yml), який:
+Гілки називаються за доменами (наприклад, `sity.top`). Пуш у таку гілку запускає workflow [`build-domains.yml`](.github/workflows/build-domains.yml), який:
 
 - встановлює Node‑пакети з `package.json`;
 - встановлює залежності Composer з `composer.json` та попередньо ставить плагіни;
 - перевіряє код на стандарти WordPress за допомогою `phpcs.xml`;
 - збирає assets через Webpack із `webpack.config.js`;
 - додає рядки `GitHub Theme URI` та назву гілки в `style.css`.
+- пушить оновлену гілку назад. Автоматичний коміт слід прийняти через pull request, щоб преємники підтвердили перезапис цих рядків.
 
 ## Налаштування IDE
 
@@ -115,6 +112,5 @@ JavaScript у `src/js` доповнює роботу фронтенду. Скр�
 - У Sublime Text можна скористатись [Sublime Merge](https://www.sublimemerge.com)
   або плагіном GitSavvy.
 - Завжди вмикайте відображення поточної гілки, щоб знати який домен ви редагуєте.
-- Злиття з `main` робіть обережно; при значних розбіжностях такий підхід може
-  втратити актуальність.
+- Злиття з `main` робіть обережно; при значних розбіжностях такий підхід може втратити актуальність.
 </details>
