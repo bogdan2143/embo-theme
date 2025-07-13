@@ -35,7 +35,8 @@ jobs:
           for br in "${LIST[@]}"; do
             echo "→ Processing $br"
             git checkout $br
-            npm ci
+            # Use npm install since no lock file is committed
+            npm install --no-audit --no-progress
             npm run build
             # Deployment commands could go here
           done
