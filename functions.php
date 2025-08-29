@@ -27,6 +27,7 @@ require_once get_template_directory() . '/inc/class-related-posts-block.php';
 require_once get_template_directory() . '/inc/class-template-translations.php';
 require_once get_template_directory() . '/inc/class-plugin-installer.php';
 require_once get_template_directory() . '/inc/class-search-enhancements.php';
+require_once get_template_directory() . '/inc/class-search-heading-block.php';
 
 // Instantiate modules
 $theme_setup          = new MyBlockTheme_Setup();
@@ -43,6 +44,7 @@ $dynamic_comments     = new MyBlockTheme_DynamicComments();
 $template_translations = new MyBlockTheme_TemplateTranslations();
 $plugin_installer     = new MyBlockTheme_PluginInstaller();
 $search_enhancements  = new MyBlockTheme_SearchEnhancements();
+$search_heading_block = new MyBlockTheme_SearchHeadingBlock();
 
 // Centralized hook registration for theme setup
 add_action( 'after_setup_theme', array( $theme_setup, 'switch_to_standard_editor' ), 1 );
@@ -67,7 +69,7 @@ add_shortcode( 'informer', array( $informer_shortcode, 'informer_shortcode' ) );
 add_action( 'init', array( $dynamic_breadcrumbs, 'register_dynamic_breadcrumbs' ), 10 );
 
 // Register the dynamic "Search Heading" block
-add_action( 'init', array( $search_enhancements, 'register_search_heading_block' ), 10 );
+add_action( 'init', array( $search_heading_block, 'register_block' ), 10 );
 
 // Register AJAX loading of posts
 add_action( 'wp_enqueue_scripts', array( $ajax_load_more, 'enqueue_load_more_script' ), 10 );

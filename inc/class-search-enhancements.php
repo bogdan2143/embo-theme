@@ -38,26 +38,4 @@ class MyBlockTheme_SearchEnhancements {
         return $length;
     }
 
-    /**
-     * Registers the dynamic "Search Heading" block.
-     */
-    public function register_search_heading_block() {
-        register_block_type(
-            get_template_directory() . '/src/blocks/search-heading'
-        );
-    }
-
-    /**
-     * Builds a localized heading for search results.
-     *
-     * @return string HTML markup for the heading element.
-     */
-    public static function get_search_heading() {
-        $query = get_search_query();
-        return sprintf(
-            '<h1 class="search-title">%1$s «%2$s»</h1>',
-            esc_html__( 'Результати пошуку за запитом:', 'myblocktheme' ),
-            esc_html( $query )
-        );
-    }
 }
