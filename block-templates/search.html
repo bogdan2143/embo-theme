@@ -15,19 +15,17 @@
     <div class="wp-block-column" style="flex-basis:66.66%">
 
       <!-- Search title -->
-      <!-- wp:heading {"level":1,"className":"search-title"} -->
-      <h1 class="search-title">
-        {{__( 'Результати пошуку за запитом:', 'myblocktheme' )}} «<!-- wp:query-title /-->»
-      </h1>
-      <!-- /wp:heading -->
+      <!-- wp:myblocktheme/search-heading /-->
 
       <!-- Query Loop inheriting global context (s=…) -->
       <!-- wp:query {"query":{"inherit":true}} -->
       <div class="wp-block-query">
         <!-- wp:post-template -->
           <article class="post-item">
+            <!-- Post featured image -->
+            <!-- wp:post-featured-image {"isLink":true} /-->
             <!-- Post title -->
-            <!-- wp:post-title {"isLink":true,"level":3} /-->
+            <!-- wp:post-title {"isLink":true,"level":2} /-->
             <!-- Post date -->
             <!-- wp:post-date /-->
             <!-- Excerpt -->

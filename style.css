@@ -9,6 +9,8 @@ License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
 Tags: block-theme, full-site-editing, fse, responsive, bulma
+GitHub Theme URI: https://github.com/pan-canon/embo-theme
+GitHub Branch: codex/update-slug-length-indicator-and-translations/2025-07-30/15-57-25
 */
 
 /* ------------------------------------------------------------
@@ -374,3 +376,6 @@ ul.toc-list{list-style: disc}
 @media screen and (max-width:1023px){
   .informer-block .small-item p.truncate{display:block}
 }
+
+/* Search results */
+.search-results .post-item .wp-block-post-title{font-size:1.5rem}

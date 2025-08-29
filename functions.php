@@ -26,6 +26,7 @@ require_once get_template_directory() . '/inc/class-post-tags-block.php';
 require_once get_template_directory() . '/inc/class-related-posts-block.php';
 require_once get_template_directory() . '/inc/class-template-translations.php';
 require_once get_template_directory() . '/inc/class-plugin-installer.php';
+require_once get_template_directory() . '/inc/class-search-enhancements.php';
 
 // Instantiate modules
 $theme_setup          = new MyBlockTheme_Setup();
@@ -41,6 +42,7 @@ $custom_logo_block    = new MyBlockTheme_CustomLogoBlock();
 $dynamic_comments     = new MyBlockTheme_DynamicComments();
 $template_translations = new MyBlockTheme_TemplateTranslations();
 $plugin_installer     = new MyBlockTheme_PluginInstaller();
+$search_enhancements  = new MyBlockTheme_SearchEnhancements();
 
 // Centralized hook registration for theme setup
 add_action( 'after_setup_theme', array( $theme_setup, 'switch_to_standard_editor' ), 1 );
@@ -64,6 +66,9 @@ add_shortcode( 'informer', array( $informer_shortcode, 'informer_shortcode' ) );
 // Register the dynamic "Breadcrumbs" block
 add_action( 'init', array( $dynamic_breadcrumbs, 'register_dynamic_breadcrumbs' ), 10 );
 
+// Register the dynamic "Search Heading" block
+add_action( 'init', array( $search_enhancements, 'register_search_heading_block' ), 10 );
+
 // Register AJAX loading of posts
 add_action( 'wp_enqueue_scripts', array( $ajax_load_more, 'enqueue_load_more_script' ), 10 );
 add_action( 'wp_ajax_myblocktheme_load_more', array( $ajax_load_more, 'load_more_posts' ), 10 );
@@ -71,4 +76,5 @@ add_action( 'wp_ajax_nopriv_myblocktheme_load_more', array( $ajax_load_more, 'lo
 
 // Register Gutenberg reset functionality
 add_action( 'admin_notices', array( $gutenberg_reset, 'maybe_show_gutenberg_reset_notice' ), 10 );
-add_action( 'admin_init', array( $gutenberg_reset, 'handle_gutenberg_reset' ), 10 );add_action( 'after_switch_theme', array( $gutenberg_reset, 'set_reset_notice_flag' ), 10 );
+add_action( 'admin_init', array( $gutenberg_reset, 'handle_gutenberg_reset' ), 10 );
+add_action( 'after_switch_theme', array( $gutenberg_reset, 'set_reset_notice_flag' ), 10 );

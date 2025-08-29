@@ -1,0 +1,12 @@
+{
+  "apiVersion": 2,
+  "name": "myblocktheme/search-heading",
+  "title": "Search Heading",
+  "category": "widgets",
+  "description": "Displays the search results heading.",
+  "textdomain": "myblocktheme",
+  "supports": {
+    "html": false
+  },
+  "render": "file:./render.php"
+}
