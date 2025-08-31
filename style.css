@@ -149,7 +149,10 @@ time,.wp-block-post-author{font-size:13px}
 .article-image img{width:100%;border-radius:4px}
 .article-body p{margin-bottom:1.5rem;line-height:1.6}
 
-.search.search-results .post-item{margin-bottom:10px}
+/* Search result item layout */
+.search.search-results .search-item{display:flex;gap:1rem;margin-bottom:10px;align-items:flex-start}
+.search.search-results .search-item .post-item__thumbnail{flex:0 0 auto;margin:0}
+.search.search-results .search-item .post-item__content{flex:1}
 
 /* ------------------------------------------------------------
    8. Informer Block
