@@ -62,6 +62,8 @@
 
             redistribute();
 
+            this._attachResizeObserver(wrapper, redistribute);
+
             this._overflowObserver = new ScreenObserver(1025);
             this._overflowObserver.onEnter(() => redistribute());
             this._overflowObserver.onLeave(() => redistribute());
@@ -83,6 +85,22 @@
             if (document.fonts && document.fonts.ready) {
                 document.fonts.ready.then(redistribute);
             }
+        }
+
+        _attachResizeObserver(element, callback) {
+            if (!element || typeof ResizeObserver === 'undefined') return;
+
+            let resizeHandle = null;
+            const debouncedCallback = () => {
+                if (resizeHandle) cancelAnimationFrame(resizeHandle);
+                resizeHandle = requestAnimationFrame(() => {
+                    resizeHandle = null;
+                    callback();
+                });
+            };
+
+            this._resizeObserver = new ResizeObserver(debouncedCallback);
+            this._resizeObserver.observe(element);
         }
 
         /**

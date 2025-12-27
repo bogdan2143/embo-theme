@@ -38,7 +38,7 @@ time,.wp-block-post-author{font-size:13px}
 .global-aside{margin:10px auto}
 
 /* Custom */
-:where(.wp-block-columns.is-layout-flex){gap:1em !important}
+:where(.wp-block-columns.is-layout-flex){gap:.5em !important}
 /*------*/
 
 /* ------------------------------------------------------------
@@ -197,7 +197,7 @@ time,.wp-block-post-author{font-size:13px}
 /* ------------------------------------------------------------
    10. Sidebar / Global Aside
 ------------------------------------------------------------- */
-.global-aside{border-radius:7px;padding:20px;margin:10px 0;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow-y:auto}
+.global-aside{border-radius:7px;padding:20px;margin:10px 0;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow-y:auto;font-size:14px;line-height:1.5}
 
 .toc-inline{margin-bottom:15px}
 
