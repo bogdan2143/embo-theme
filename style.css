@@ -1,16 +1,15 @@
 /*
 Theme Name: EmboTheme
 Theme URI: https://embo-studio.ua/
-Author: Pan Canon
+Author: Ruslan Dubinetsky
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 5.9
+Version: 6.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
 Tags: block-theme, full-site-editing, fse, responsive, bulma
-GitHub Theme URI: https://github.com/pan-canon/embo-theme
-GitHub Branch: codex/refactor-search-heading-block-implementation/2025-08-29/01-15-40
+GitHub Theme URI: https://github.com/bogdan2143/embo-theme
 */
 
 /* ------------------------------------------------------------
@@ -157,7 +156,7 @@ time,.wp-block-post-author{font-size:13px}
 /* ------------------------------------------------------------
    8. Informer Block
 ------------------------------------------------------------- */
-.informer-block{padding:1rem;margin-bottom:2rem}
+.informer-block{padding:1rem 0;margin-bottom:2rem}
 .informer-block .columns{display:flex;gap:.5rem;align-items:flex-start}
 
 .informer-block .featured-item{flex:1;padding: .15rem}
@@ -192,7 +191,10 @@ time,.wp-block-post-author{font-size:13px}
 .article-content .wp-block-post-content p{margin:0 0 1.75rem;line-height:1.8}
 .article-content .wp-block-post-content h2,.article-content .wp-block-post-content h3,.article-content .wp-block-post-content h4{margin:2.5rem 0 1rem;line-height:1.3}
 .article-content .wp-block-post-content ul,.article-content .wp-block-post-content ol{margin:0 0 1.75rem 1.5rem;line-height:1.8}
+.article-content .wp-block-post-content ul{list-style:disc;list-style-position:outside}
+.article-content .wp-block-post-content ol{list-style:decimal;list-style-position:outside}
 .article-content .wp-block-post-content blockquote{margin:0 0 1.75rem;padding-left:1rem;border-left:4px solid #ccc;line-height:1.8}
+body.single .wp-block-columns.is-layout-flex{gap:.25em !important}
 
 /* ------------------------------------------------------------
    10. Sidebar / Global Aside
