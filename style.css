@@ -4,7 +4,7 @@ Theme URI: https://embo-studio.ua/
 Author: Ruslan Dubinetsky
 Author URI: https://github.com/bogdan2143/embo-theme
 Description: Optimised block theme CSS
-Version: 6.0
+Version: 6.1
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: myblocktheme
@@ -136,7 +136,7 @@ time,.wp-block-post-author{font-size:13px}
 /* ------------------------------------------------------------
    7. Articles / Single Post / Search
 ------------------------------------------------------------- */
-.article-content{max-width:800px;padding:20px}
+.article-content{max-width:800px;padding:12px}
 .article-content .breadcrumb{margin-bottom:20px}
 .article-title{font-size:2rem;font-weight:700;margin-bottom:20px}
 .article-meta{display:inline-flex;align-items:center;gap:.25em;margin-bottom:20px;font-size:.95em;font-weight:400;color:#666}
