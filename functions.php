@@ -28,6 +28,7 @@ require_once get_template_directory() . '/inc/class-template-translations.php';
 require_once get_template_directory() . '/inc/class-plugin-installer.php';
 require_once get_template_directory() . '/inc/class-search-enhancements.php';
 require_once get_template_directory() . '/inc/class-search-heading-block.php';
+require_once get_template_directory() . '/inc/class-comment-form-customization.php';
 
 // Instantiate modules
 $theme_setup          = new MyBlockTheme_Setup();
@@ -45,6 +46,7 @@ $template_translations = new MyBlockTheme_TemplateTranslations();
 $plugin_installer     = new MyBlockTheme_PluginInstaller();
 $search_enhancements  = new MyBlockTheme_SearchEnhancements();
 $search_heading_block = new MyBlockTheme_SearchHeadingBlock();
+$comment_form_customization = new MyBlockTheme_CommentFormCustomization();
 
 // Centralized hook registration for theme setup
 add_action( 'after_setup_theme', array( $theme_setup, 'switch_to_standard_editor' ), 1 );
@@ -80,3 +82,6 @@ add_action( 'wp_ajax_nopriv_myblocktheme_load_more', array( $ajax_load_more, 'lo
 add_action( 'admin_notices', array( $gutenberg_reset, 'maybe_show_gutenberg_reset_notice' ), 10 );
 add_action( 'admin_init', array( $gutenberg_reset, 'handle_gutenberg_reset' ), 10 );
 add_action( 'after_switch_theme', array( $gutenberg_reset, 'set_reset_notice_flag' ), 10 );
+
+// Customize comment form title wrappers on the front-end.
+add_filter( 'comment_form_defaults', array( $comment_form_customization, 'customize_reply_title_wrapper' ), 10, 1 );

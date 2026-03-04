@@ -68,7 +68,7 @@ class MyBlockTheme_InformerShortcode {
         ob_start(); ?>
         <div class="informer-block">
             <!-- Dynamic heading with the category name -->
-            <h2 class="title is-4"><?php echo esc_html( $category_name ); ?></h2>
+            <p class="title is-4 informer-category-title"><?php echo esc_html( $category_name ); ?></p>
 
             <div class="columns">
                 <!-- ---------- Featured ---------- -->
@@ -87,7 +87,7 @@ class MyBlockTheme_InformerShortcode {
                             </a>
                         </figure>
 
-                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                        <p class="informer-featured-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
 
                         <?php
                         // Format date: 07 May 2025, 15:34
@@ -126,7 +126,7 @@ class MyBlockTheme_InformerShortcode {
                                     </a>
                                 </figure>
 
-                                <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                <p class="informer-small-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
 
                                 <?php
                                 // Date for small posts

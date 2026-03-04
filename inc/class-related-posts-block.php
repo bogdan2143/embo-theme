@@ -65,7 +65,7 @@ class MyBlockTheme_RelatedPostsBlock {
         ob_start();
         ?>
         <div class="related-posts section">
-            <h3 class="title is-4"><?php echo esc_html( $attributes['title'] ); ?></h3>
+            <p class="title is-4"><?php echo esc_html( $attributes['title'] ); ?></p>
             <div class="columns is-multiline is-variable is-6">
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
                     <div class="column is-12-mobile is-6-tablet is-6-desktop">
